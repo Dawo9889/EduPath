@@ -1,7 +1,64 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\studia\\semestr 6\\Wsp\u00F3\u0142czesne Aplikacje Webowe\\projekt\\backend\\EduPath_backend\\",
-  "Documents": [],
+  "WorkspaceRootPath": "D:\\studia\\semestr 6\\Wsp\u00F3\u0142czesne Aplikacje Webowe\\projekt\\EduPath_backend\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{21872431-D82C-410B-A8C9-8EB9291502E5}|EduPath_backend.Domain\\EduPath_backend.Domain.csproj|d:\\studia\\semestr 6\\wsp\u00F3\u0142czesne aplikacje webowe\\projekt\\edupath_backend\\edupath_backend.domain\\entities\\course.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21872431-D82C-410B-A8C9-8EB9291502E5}|EduPath_backend.Domain\\EduPath_backend.Domain.csproj|solutionrelative:edupath_backend.domain\\entities\\course.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{21872431-D82C-410B-A8C9-8EB9291502E5}|EduPath_backend.Domain\\EduPath_backend.Domain.csproj|d:\\studia\\semestr 6\\wsp\u00F3\u0142czesne aplikacje webowe\\projekt\\edupath_backend\\edupath_backend.domain\\entities\\assignmentuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21872431-D82C-410B-A8C9-8EB9291502E5}|EduPath_backend.Domain\\EduPath_backend.Domain.csproj|solutionrelative:edupath_backend.domain\\entities\\assignmentuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{21872431-D82C-410B-A8C9-8EB9291502E5}|EduPath_backend.Domain\\EduPath_backend.Domain.csproj|d:\\studia\\semestr 6\\wsp\u00F3\u0142czesne aplikacje webowe\\projekt\\edupath_backend\\edupath_backend.domain\\entities\\courseuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21872431-D82C-410B-A8C9-8EB9291502E5}|EduPath_backend.Domain\\EduPath_backend.Domain.csproj|solutionrelative:edupath_backend.domain\\entities\\courseuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{21872431-D82C-410B-A8C9-8EB9291502E5}|EduPath_backend.Domain\\EduPath_backend.Domain.csproj|d:\\studia\\semestr 6\\wsp\u00F3\u0142czesne aplikacje webowe\\projekt\\edupath_backend\\edupath_backend.domain\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21872431-D82C-410B-A8C9-8EB9291502E5}|EduPath_backend.Domain\\EduPath_backend.Domain.csproj|solutionrelative:edupath_backend.domain\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1CAE063C-AEAC-4D7B-B1A2-6955AC194B1F}|EduPath_backend.Infrastructure\\EduPath_backend.Infrastructure.csproj|d:\\studia\\semestr 6\\wsp\u00F3\u0142czesne aplikacje webowe\\projekt\\edupath_backend\\edupath_backend.infrastructure\\persistence\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1CAE063C-AEAC-4D7B-B1A2-6955AC194B1F}|EduPath_backend.Infrastructure\\EduPath_backend.Infrastructure.csproj|solutionrelative:edupath_backend.infrastructure\\persistence\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{21872431-D82C-410B-A8C9-8EB9291502E5}|EduPath_backend.Domain\\EduPath_backend.Domain.csproj|d:\\studia\\semestr 6\\wsp\u00F3\u0142czesne aplikacje webowe\\projekt\\edupath_backend\\edupath_backend.domain\\entities\\assignment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21872431-D82C-410B-A8C9-8EB9291502E5}|EduPath_backend.Domain\\EduPath_backend.Domain.csproj|solutionrelative:edupath_backend.domain\\entities\\assignment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{21872431-D82C-410B-A8C9-8EB9291502E5}|EduPath_backend.Domain\\EduPath_backend.Domain.csproj|d:\\studia\\semestr 6\\wsp\u00F3\u0142czesne aplikacje webowe\\projekt\\edupath_backend\\edupath_backend.domain\\edupath_backend.domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{21872431-D82C-410B-A8C9-8EB9291502E5}|EduPath_backend.Domain\\EduPath_backend.Domain.csproj|solutionrelative:edupath_backend.domain\\edupath_backend.domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{09EF5406-2723-4408-B099-D0861BAEBAC3}|EduPath_backend\\EduPath_backend.API.csproj|d:\\studia\\semestr 6\\wsp\u00F3\u0142czesne aplikacje webowe\\projekt\\edupath_backend\\edupath_backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{09EF5406-2723-4408-B099-D0861BAEBAC3}|EduPath_backend\\EduPath_backend.API.csproj|solutionrelative:edupath_backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{09EF5406-2723-4408-B099-D0861BAEBAC3}|EduPath_backend\\EduPath_backend.API.csproj|d:\\studia\\semestr 6\\wsp\u00F3\u0142czesne aplikacje webowe\\projekt\\edupath_backend\\edupath_backend\\edupath_backend.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{09EF5406-2723-4408-B099-D0861BAEBAC3}|EduPath_backend\\EduPath_backend.API.csproj|solutionrelative:edupath_backend\\edupath_backend.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{09EF5406-2723-4408-B099-D0861BAEBAC3}|EduPath_backend\\EduPath_backend.csproj|d:\\studia\\semestr 6\\wsp\u00F3\u0142czesne aplikacje webowe\\projekt\\edupath_backend\\edupath_backend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{09EF5406-2723-4408-B099-D0861BAEBAC3}|EduPath_backend\\EduPath_backend.csproj|solutionrelative:edupath_backend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{09EF5406-2723-4408-B099-D0861BAEBAC3}|EduPath_backend\\EduPath_backend.API.csproj|d:\\studia\\semestr 6\\wsp\u00F3\u0142czesne aplikacje webowe\\projekt\\edupath_backend\\edupath_backend\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{09EF5406-2723-4408-B099-D0861BAEBAC3}|EduPath_backend\\EduPath_backend.API.csproj|solutionrelative:edupath_backend\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{09EF5406-2723-4408-B099-D0861BAEBAC3}|EduPath_backend\\EduPath_backend.csproj|d:\\studia\\semestr 6\\wsp\u00F3\u0142czesne aplikacje webowe\\projekt\\edupath_backend\\edupath_backend\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{09EF5406-2723-4408-B099-D0861BAEBAC3}|EduPath_backend\\EduPath_backend.csproj|solutionrelative:edupath_backend\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{09EF5406-2723-4408-B099-D0861BAEBAC3}|EduPath_backend\\EduPath_backend.API.csproj|d:\\studia\\semestr 6\\wsp\u00F3\u0142czesne aplikacje webowe\\projekt\\edupath_backend\\edupath_backend\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{09EF5406-2723-4408-B099-D0861BAEBAC3}|EduPath_backend\\EduPath_backend.API.csproj|solutionrelative:edupath_backend\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{09EF5406-2723-4408-B099-D0861BAEBAC3}|EduPath_backend\\EduPath_backend.API.csproj|d:\\studia\\semestr 6\\wsp\u00F3\u0142czesne aplikacje webowe\\projekt\\edupath_backend\\edupath_backend\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{09EF5406-2723-4408-B099-D0861BAEBAC3}|EduPath_backend\\EduPath_backend.API.csproj|solutionrelative:edupath_backend\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,8 +66,164 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 5,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "D:\\studia\\semestr 6\\Wsp\u00F3\u0142czesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend.Infrastructure\\Persistence\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "EduPath_backend.Infrastructure\\Persistence\\ApplicationDbContext.cs",
+              "ToolTip": "D:\\studia\\semestr 6\\Wsp\u00F3\u0142czesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend.Infrastructure\\Persistence\\ApplicationDbContext.cs",
+              "RelativeToolTip": "EduPath_backend.Infrastructure\\Persistence\\ApplicationDbContext.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAIwDAAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-17T17:30:40.258Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AssignmentUser.cs",
+              "DocumentMoniker": "D:\\studia\\semestr 6\\Wsp\u00F3\u0142czesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend.Domain\\Entities\\AssignmentUser.cs",
+              "RelativeDocumentMoniker": "EduPath_backend.Domain\\Entities\\AssignmentUser.cs",
+              "ToolTip": "D:\\studia\\semestr 6\\Wsp\u00F3\u0142czesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend.Domain\\Entities\\AssignmentUser.cs",
+              "RelativeToolTip": "EduPath_backend.Domain\\Entities\\AssignmentUser.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-17T17:28:44.019Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Assignment.cs",
+              "DocumentMoniker": "D:\\studia\\semestr 6\\Wsp\u00F3\u0142czesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend.Domain\\Entities\\Assignment.cs",
+              "RelativeDocumentMoniker": "EduPath_backend.Domain\\Entities\\Assignment.cs",
+              "ToolTip": "D:\\studia\\semestr 6\\Wsp\u00F3\u0142czesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend.Domain\\Entities\\Assignment.cs",
+              "RelativeToolTip": "EduPath_backend.Domain\\Entities\\Assignment.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-17T17:28:19.844Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CourseUser.cs",
+              "DocumentMoniker": "D:\\studia\\semestr 6\\Wsp\u00F3\u0142czesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend.Domain\\Entities\\CourseUser.cs",
+              "RelativeDocumentMoniker": "EduPath_backend.Domain\\Entities\\CourseUser.cs",
+              "ToolTip": "D:\\studia\\semestr 6\\Wsp\u00F3\u0142czesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend.Domain\\Entities\\CourseUser.cs",
+              "RelativeToolTip": "EduPath_backend.Domain\\Entities\\CourseUser.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-17T17:25:57.856Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "User.cs",
+              "DocumentMoniker": "D:\\studia\\semestr 6\\Wsp\u00F3\u0142czesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend.Domain\\Entities\\User.cs",
+              "RelativeDocumentMoniker": "EduPath_backend.Domain\\Entities\\User.cs",
+              "ToolTip": "D:\\studia\\semestr 6\\Wsp\u00F3\u0142czesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend.Domain\\Entities\\User.cs",
+              "RelativeToolTip": "EduPath_backend.Domain\\Entities\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-17T17:25:39.274Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Course.cs",
+              "DocumentMoniker": "D:\\studia\\semestr 6\\Wsp\u00F3\u0142czesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend.Domain\\Entities\\Course.cs",
+              "RelativeDocumentMoniker": "EduPath_backend.Domain\\Entities\\Course.cs",
+              "ToolTip": "D:\\studia\\semestr 6\\Wsp\u00F3\u0142czesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend.Domain\\Entities\\Course.cs",
+              "RelativeToolTip": "EduPath_backend.Domain\\Entities\\Course.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-17T17:25:05.684Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "EduPath_backend.Domain",
+              "DocumentMoniker": "D:\\studia\\semestr 6\\Wsp\u00F3\u0142czesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend.Domain\\EduPath_backend.Domain.csproj",
+              "RelativeDocumentMoniker": "EduPath_backend.Domain\\EduPath_backend.Domain.csproj",
+              "ToolTip": "D:\\studia\\semestr 6\\Wsp\u00F3\u0142czesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend.Domain\\EduPath_backend.Domain.csproj",
+              "RelativeToolTip": "EduPath_backend.Domain\\EduPath_backend.Domain.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-04-17T17:20:18.187Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "EduPath_backend.http",
+              "DocumentMoniker": "D:\\studia\\semestr 6\\Wsp\u00F3\u0142czesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend\\EduPath_backend.http",
+              "RelativeDocumentMoniker": "EduPath_backend\\EduPath_backend.http",
+              "ToolTip": "D:\\studia\\semestr 6\\Wsp\u00F3\u0142czesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend\\EduPath_backend.http",
+              "RelativeToolTip": "EduPath_backend\\EduPath_backend.http",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2025-04-17T17:07:37.546Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "D:\\studia\\semestr 6\\Wsp\u00F3\u0142czesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "EduPath_backend\\appsettings.Development.json",
+              "ToolTip": "D:\\studia\\semestr 6\\Wsp\u00F3\u0142czesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend\\appsettings.Development.json",
+              "RelativeToolTip": "EduPath_backend\\appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-04-17T17:07:04.758Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "WeatherForecastController.cs",
+              "DocumentMoniker": "D:\\studia\\semestr 6\\Wsp\u00F3\u0142czesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend\\Controllers\\WeatherForecastController.cs",
+              "RelativeDocumentMoniker": "EduPath_backend\\Controllers\\WeatherForecastController.cs",
+              "ToolTip": "D:\\studia\\semestr 6\\Wsp\u00F3\u0142czesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend\\Controllers\\WeatherForecastController.cs",
+              "RelativeToolTip": "EduPath_backend\\Controllers\\WeatherForecastController.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-17T17:06:01.982Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\studia\\semestr 6\\Wsp\u00F3\u0142czesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend\\Program.cs",
+              "RelativeDocumentMoniker": "EduPath_backend\\Program.cs",
+              "ToolTip": "D:\\studia\\semestr 6\\Wsp\u00F3\u0142czesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend\\Program.cs",
+              "RelativeToolTip": "EduPath_backend\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-17T17:02:09.307Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "D:\\studia\\semestr 6\\Wsp\u00F3\u0142czesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "EduPath_backend\\Properties\\launchSettings.json",
+              "ToolTip": "D:\\studia\\semestr 6\\Wsp\u00F3\u0142czesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend\\Properties\\launchSettings.json",
+              "RelativeToolTip": "EduPath_backend\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-04-17T17:02:02.666Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
@@ -46,6 +259,32 @@
             {
               "$type": "Bookmark",
               "Name": "ST:131:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\studia\\semestr 6\\Wsp\u00F3\u0142czesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend\\appsettings.json",
+              "RelativeDocumentMoniker": "EduPath_backend\\appsettings.json",
+              "ToolTip": "D:\\studia\\semestr 6\\Wsp\u00F3\u0142czesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend\\appsettings.json",
+              "RelativeToolTip": "EduPath_backend\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-04-17T16:40:20.444Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "WeatherForecast.cs",
+              "DocumentMoniker": "D:\\studia\\semestr 6\\Wsp\u00F3\u0142czesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend\\WeatherForecast.cs",
+              "RelativeDocumentMoniker": "EduPath_backend\\WeatherForecast.cs",
+              "ToolTip": "D:\\studia\\semestr 6\\Wsp\u00F3\u0142czesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend\\WeatherForecast.cs",
+              "RelativeToolTip": "EduPath_backend\\WeatherForecast.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-17T16:08:09.597Z",
+              "EditorCaption": ""
             }
           ]
         }
