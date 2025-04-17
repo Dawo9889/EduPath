@@ -1,0 +1,6 @@
+@EduPath_backend_HostAddress = http://localhost:5281
+
+GET {{EduPath_backend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
