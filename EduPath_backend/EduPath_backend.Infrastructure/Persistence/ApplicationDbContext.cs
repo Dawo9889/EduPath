@@ -11,6 +11,11 @@ namespace EduPath_backend.Infrastructure.Persistance
     public class ApplicationDbContext : DbContext
     {
 
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options)
+        {
+            
+        }
+
         public DbSet<Course> Courses { get; set; }
         public DbSet<Assignment> Assignments { get; set; }
         public DbSet<AssignmentUser> AssignmentUsers { get; set; }
@@ -18,10 +23,7 @@ namespace EduPath_backend.Infrastructure.Persistance
         public DbSet<User> Users { get; set; }
 
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=EduPathDb;Trusted_Connection=True");
-        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

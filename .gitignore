@@ -403,3 +403,4 @@ FodyWeavers.xsd
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio
+/EduPath_backend/.vs/EduPath_backend/CopilotIndices/0.2.1657.32929/SemanticSymbols.db-shm
