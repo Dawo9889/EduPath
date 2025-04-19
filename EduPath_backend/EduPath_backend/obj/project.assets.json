@@ -1700,7 +1700,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
-          "EduPath_backend.Domain": "1.0.0"
+          "EduPath_backend.Domain": "1.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.4"
         },
         "compile": {
           "bin/placeholder/EduPath_backend.Application.dll": {}

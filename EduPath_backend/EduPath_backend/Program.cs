@@ -1,3 +1,4 @@
+using EduPath_backend.Application.Extensions;
 using EduPath_backend.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +12,7 @@ builder.Services.AddSwaggerGen();
 
 
 builder.Services.AddInfrastructure(builder.Configuration);
-
+builder.Services.AddApplication();
 
 var app = builder.Build();
 
