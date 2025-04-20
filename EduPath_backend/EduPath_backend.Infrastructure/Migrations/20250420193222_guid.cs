@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace EduPath_backend.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class guid : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,8 +17,7 @@ namespace EduPath_backend.Infrastructure.Migrations
                 name: "Courses",
                 columns: table => new
                 {
-                    Id_Course = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id_Course = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -29,8 +30,7 @@ namespace EduPath_backend.Infrastructure.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id_User = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id_User = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Role = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RefreshToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -46,9 +46,8 @@ namespace EduPath_backend.Infrastructure.Migrations
                 name: "Assignments",
                 columns: table => new
                 {
-                    Id_Assignment = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Id_Course = table.Column<int>(type: "int", nullable: false),
+                    Id_Assignment = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id_Course = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Date_start = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Date_end = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -69,8 +68,8 @@ namespace EduPath_backend.Infrastructure.Migrations
                 name: "AssignmentUsers",
                 columns: table => new
                 {
-                    Id_Course = table.Column<int>(type: "int", nullable: false),
-                    Id_User = table.Column<int>(type: "int", nullable: false),
+                    Id_Course = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id_User = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Filepath = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -94,8 +93,8 @@ namespace EduPath_backend.Infrastructure.Migrations
                 name: "CourseUsers",
                 columns: table => new
                 {
-                    Id_Course = table.Column<int>(type: "int", nullable: false),
-                    Id_User = table.Column<int>(type: "int", nullable: false)
+                    Id_Course = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id_User = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -112,6 +111,16 @@ namespace EduPath_backend.Infrastructure.Migrations
                         principalTable: "Users",
                         principalColumn: "Id_User",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Courses",
+                columns: new[] { "Id_Course", "Description", "Name" },
+                values: new object[,]
+                {
+                    { new Guid("11111111-1111-1111-1111-111111111111"), "Learn the basics of programming using C#.", "Introduction to Programming" },
+                    { new Guid("11111111-1111-1111-1111-111111111112"), "Explore advanced topics in database design and optimization.", "Advanced Database Systems" },
+                    { new Guid("11111111-1111-1111-1111-111111111113"), "Build modern web applications using ASP.NET Core.", "Web Development with ASP.NET" }
                 });
 
             migrationBuilder.CreateIndex(

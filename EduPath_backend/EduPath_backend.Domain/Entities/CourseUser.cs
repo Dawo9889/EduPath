@@ -8,10 +8,10 @@ namespace EduPath_backend.Domain.Entities
 {
     public class CourseUser
     {
-        public int Id_Course { get; set; }
+        public Guid Id_Course { get; set; }
         public Course Course { get; set; }
 
-        public int Id_User { get; set; }
+        public Guid Id_User { get; set; }
         public User User { get; set; }
     }
 }

@@ -67,19 +67,19 @@ namespace EduPath_backend.Infrastructure.Persistance
             modelBuilder.Entity<Course>().HasData(
                 new Course
                 {
-                    Id_Course = 1,
+                    Id_Course = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                     Name = "Introduction to Programming",
                     Description = "Learn the basics of programming using C#."
                 },
                 new Course
                 {
-                    Id_Course = 2,
+                    Id_Course = Guid.Parse("11111111-1111-1111-1111-111111111112"),
                     Name = "Advanced Database Systems",
                     Description = "Explore advanced topics in database design and optimization."
                 },
                 new Course
                 {
-                    Id_Course = 3,
+                    Id_Course = Guid.Parse("11111111-1111-1111-1111-111111111113"),
                     Name = "Web Development with ASP.NET",
                     Description = "Build modern web applications using ASP.NET Core."
                 }

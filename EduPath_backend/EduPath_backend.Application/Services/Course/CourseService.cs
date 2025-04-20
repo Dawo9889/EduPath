@@ -17,10 +17,27 @@ namespace EduPath_backend.Application.Services.Course
             _courseRepository = courseRepository;
         }
 
-        public Task<List<Domain.Entities.Course>> GetAvailableCoursesAsync()
+        public Task<bool> AddCourseAsync(Domain.Entities.Course course)
         {
-           var courses = _courseRepository.GetAvailableCoursesAsync();
+            var newCourse = new Domain.Entities.Course
+            {
+                Id_Course = course.Id_Course,
+                Name = course.Name,
+                Description = course.Description,
+            };
+            return _courseRepository.AddCourseAsync(newCourse);
+        }
+
+        public async Task<List<Domain.Entities.Course>> GetAvailableCoursesAsync()
+        {
+           var courses = await _courseRepository.GetAvailableCoursesAsync();
            return courses;
+        }
+
+        public async Task<Domain.Entities.Course> GetCourseByIdAsync(Guid id)
+        {
+            var course = await _courseRepository.GetCourseByIdAsync(id);
+            return course;
         }
     }
 }

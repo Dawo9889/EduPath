@@ -25,5 +25,31 @@ namespace EduPath_backend.API.Controllers
             var courses = await _courseService.GetAvailableCoursesAsync();
             return courses;
         }
+
+        [HttpGet("{id}")]
+        public async Task<Course> GetCourseById(Guid id)
+        {
+            var course = await _courseService.GetCourseByIdAsync(id);
+            return course;
+        }
+
+        //Post
+        [HttpPost("add")]
+        public async Task<IActionResult> AddCourse([FromBody] Course course)
+        {
+            if (course == null)
+            {
+                return BadRequest("Course cannot be null");
+            }
+
+            
+            var result = await _courseService.AddCourseAsync(course);
+            if (!result)
+            {
+                return BadRequest("Failed to add course");
+            }
+
+            return CreatedAtAction(nameof(GetCourseById), new { id = course.Id_Course }, course);
+        }
     }
 }

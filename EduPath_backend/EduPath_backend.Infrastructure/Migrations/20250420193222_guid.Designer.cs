@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EduPath_backend.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250417180021_init")]
-    partial class init
+    [Migration("20250420193222_guid")]
+    partial class guid
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,11 +27,9 @@ namespace EduPath_backend.Infrastructure.Migrations
 
             modelBuilder.Entity("EduPath_backend.Domain.Entities.Assignment", b =>
                 {
-                    b.Property<int>("Id_Assignment")
+                    b.Property<Guid>("Id_Assignment")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id_Assignment"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Content")
                         .IsRequired()
@@ -43,8 +41,8 @@ namespace EduPath_backend.Infrastructure.Migrations
                     b.Property<DateTime>("Date_start")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Id_Course")
-                        .HasColumnType("int");
+                    b.Property<Guid>("Id_Course")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Visible")
                         .HasColumnType("bit");
@@ -58,11 +56,11 @@ namespace EduPath_backend.Infrastructure.Migrations
 
             modelBuilder.Entity("EduPath_backend.Domain.Entities.AssignmentUser", b =>
                 {
-                    b.Property<int>("Id_Course")
-                        .HasColumnType("int");
+                    b.Property<Guid>("Id_Course")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Id_User")
-                        .HasColumnType("int");
+                    b.Property<Guid>("Id_User")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Filepath")
                         .IsRequired()
@@ -77,11 +75,9 @@ namespace EduPath_backend.Infrastructure.Migrations
 
             modelBuilder.Entity("EduPath_backend.Domain.Entities.Course", b =>
                 {
-                    b.Property<int>("Id_Course")
+                    b.Property<Guid>("Id_Course")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id_Course"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -94,15 +90,35 @@ namespace EduPath_backend.Infrastructure.Migrations
                     b.HasKey("Id_Course");
 
                     b.ToTable("Courses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id_Course = new Guid("11111111-1111-1111-1111-111111111111"),
+                            Description = "Learn the basics of programming using C#.",
+                            Name = "Introduction to Programming"
+                        },
+                        new
+                        {
+                            Id_Course = new Guid("11111111-1111-1111-1111-111111111112"),
+                            Description = "Explore advanced topics in database design and optimization.",
+                            Name = "Advanced Database Systems"
+                        },
+                        new
+                        {
+                            Id_Course = new Guid("11111111-1111-1111-1111-111111111113"),
+                            Description = "Build modern web applications using ASP.NET Core.",
+                            Name = "Web Development with ASP.NET"
+                        });
                 });
 
             modelBuilder.Entity("EduPath_backend.Domain.Entities.CourseUser", b =>
                 {
-                    b.Property<int>("Id_Course")
-                        .HasColumnType("int");
+                    b.Property<Guid>("Id_Course")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Id_User")
-                        .HasColumnType("int");
+                    b.Property<Guid>("Id_User")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id_Course", "Id_User");
 
@@ -113,11 +129,9 @@ namespace EduPath_backend.Infrastructure.Migrations
 
             modelBuilder.Entity("EduPath_backend.Domain.Entities.User", b =>
                 {
-                    b.Property<int>("Id_User")
+                    b.Property<Guid>("Id_User")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id_User"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()

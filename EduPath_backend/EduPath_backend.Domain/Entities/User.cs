@@ -10,7 +10,7 @@ namespace EduPath_backend.Domain.Entities
     public class User
     {
         [Key]
-        public int Id_User { get; set; }
+        public Guid Id_User { get; set; }
         public string Name { get; set; }
         public string Role { get; set; }
         public string? RefreshToken { get; set; }

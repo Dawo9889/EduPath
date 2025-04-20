@@ -9,6 +9,8 @@ namespace EduPath_backend.Domain.Interfaces
 {
     public interface ICourseRepository
     {
+        Task<bool> AddCourseAsync(Course newCourse);
         Task<List<Course>> GetAvailableCoursesAsync();
+        Task<Course> GetCourseByIdAsync(Guid id);
     }
 }

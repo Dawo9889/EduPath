@@ -10,11 +10,13 @@ namespace EduPath_backend.Domain.Entities
     public class Course
     {
         [Key]
-        public int Id_Course{ get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public Guid Id_Course{ get; set; }
+        public string Name { get; set; } = default!;
+        public string Description { get; set; } = default!;
 
-        public ICollection<CourseUser> CourseUsers { get; set; }
-        public ICollection<Assignment> Assignments { get; set; }
+        public bool IsPublic { get; set; } = false;
+        public string? PasswordHash { get; set; }
+        public ICollection<CourseUser>? CourseUsers { get; set; }
+        public ICollection<Assignment>? Assignments { get; set; }
     }
 }
