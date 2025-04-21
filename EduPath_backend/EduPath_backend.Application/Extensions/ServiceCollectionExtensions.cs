@@ -1,10 +1,8 @@
-﻿using EduPath_backend.Application.Services.Course;
+﻿using EduPath_backend.Application.Mappings;
+using EduPath_backend.Application.Services.Course;
+using EduPath_backend.Application.Validations.Course;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EduPath_backend.Application.Extensions
 {
@@ -14,7 +12,11 @@ namespace EduPath_backend.Application.Extensions
         {
             services.AddScoped<ICourseService, CourseService>();
 
-        }
+            // Mapping
+            services.AddAutoMapper(typeof(CourseMappingProfile));
 
+            // Validators
+            services.AddValidatorsFromAssemblyContaining<CreateCourseDTOValidator>();
+        }
     }
 }

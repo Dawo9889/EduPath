@@ -1,37 +1,34 @@
-﻿using EduPath_backend.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using EduPath_backend.Application.DTOs.Course;
+using EduPath_backend.Domain.Interfaces;
+using AutoMapper;
+
 
 namespace EduPath_backend.Application.Services.Course
 {
     public class CourseService : ICourseService
     {
         private readonly ICourseRepository _courseRepository;
+        private readonly IMapper _mapper;
 
-
-        public CourseService(ICourseRepository courseRepository)
+        public CourseService(ICourseRepository courseRepository, IMapper mapper)
         {
             _courseRepository = courseRepository;
+            _mapper = mapper;
         }
 
-        public Task<bool> AddCourseAsync(Domain.Entities.Course course)
+        public async Task<bool> AddCourseAsync(CreateCourseDTO courseDTO)
         {
-            var newCourse = new Domain.Entities.Course
-            {
-                Id_Course = course.Id_Course,
-                Name = course.Name,
-                Description = course.Description,
-            };
-            return _courseRepository.AddCourseAsync(newCourse);
+            var courseEntity = _mapper.Map<Domain.Entities.Course>(courseDTO);
+            var result = await _courseRepository.AddCourseAsync(courseEntity);
+            return result;
         }
 
-        public async Task<List<Domain.Entities.Course>> GetAvailableCoursesAsync()
+        public async Task<List<ListCourseDTO>> GetAvailableCoursesAsync()
         {
            var courses = await _courseRepository.GetAvailableCoursesAsync();
-           return courses;
+
+            var listCourseDTOs = _mapper.Map<List<ListCourseDTO>>(courses);
+            return listCourseDTOs;
         }
 
         public async Task<Domain.Entities.Course> GetCourseByIdAsync(Guid id)

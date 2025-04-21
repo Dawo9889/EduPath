@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EduPath_backend.Application.DTOs.Course;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +9,8 @@ namespace EduPath_backend.Application.Services.Course
 {
     public interface ICourseService
     {
-        Task<bool> AddCourseAsync(Domain.Entities.Course course);
-        Task<List<Domain.Entities.Course>> GetAvailableCoursesAsync();
+        Task<bool> AddCourseAsync(CreateCourseDTO courseDTO);
+        Task<List<ListCourseDTO>> GetAvailableCoursesAsync();
         Task<Domain.Entities.Course> GetCourseByIdAsync(Guid id);
     }
 }
