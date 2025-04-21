@@ -95,7 +95,7 @@ namespace EduPath_backend.Infrastructure.Persistance
                     Role = UserRole.Admin,
                     RefreshToken = null,
                     RefreshTokenExpiryTime = DateTime.MinValue,
-                    ProfilePicture = null
+                    ProfilePicture = null,
                 },
                 new User
                 {

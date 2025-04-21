@@ -11,11 +11,6 @@ namespace EduPath_backend.Application.DTOs.User
         public Guid Id_User { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public enum UserRole
-        {
-            Admin,
-            Teacher,
-            Student
-        }
+        public string Role { get; set; } 
     }
 }

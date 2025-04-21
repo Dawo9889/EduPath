@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace EduPath_backend.Application.Mappings
 {
@@ -19,10 +20,12 @@ namespace EduPath_backend.Application.Mappings
 
             CreateMap<Course, ListCourseDTO>();
 
-            CreateMap<object, ListOfUsersDTO>()
+            CreateMap<User, ListOfUsersDTO>()
                 .ForMember(dest => dest.Id_User, opt => opt.MapFrom(src => ((User)src).Id_User))
                 .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => ((User)src).FirstName))
-                .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => ((User)src).LastName));
+                .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => ((User)src).LastName))
+                .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role.ToString()));
+
         }
 
         private static string HashPassword(string? plainTextPassword)
