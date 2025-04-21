@@ -96,29 +96,6 @@ namespace EduPath_backend.Infrastructure.Migrations
                     b.HasKey("CourseId");
 
                     b.ToTable("Courses");
-
-                    b.HasData(
-                        new
-                        {
-                            CourseId = new Guid("11111111-1111-1111-1111-111111111111"),
-                            Description = "Learn the basics of programming using C#.",
-                            IsPublic = false,
-                            Name = "Introduction to Programming"
-                        },
-                        new
-                        {
-                            CourseId = new Guid("11111111-1111-1111-1111-111111111112"),
-                            Description = "Explore advanced topics in database design and optimization.",
-                            IsPublic = false,
-                            Name = "Advanced Database Systems"
-                        },
-                        new
-                        {
-                            CourseId = new Guid("11111111-1111-1111-1111-111111111113"),
-                            Description = "Build modern web applications using ASP.NET Core.",
-                            IsPublic = false,
-                            Name = "Web Development with ASP.NET"
-                        });
                 });
 
             modelBuilder.Entity("EduPath_backend.Domain.Entities.CourseUser", b =>

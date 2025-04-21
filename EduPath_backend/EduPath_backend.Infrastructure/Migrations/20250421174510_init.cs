@@ -3,8 +3,6 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace EduPath_backend.Infrastructure.Migrations
 {
     /// <inheritdoc />
@@ -250,16 +248,6 @@ namespace EduPath_backend.Infrastructure.Migrations
                         principalTable: "Courses",
                         principalColumn: "CourseId",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.InsertData(
-                table: "Courses",
-                columns: new[] { "CourseId", "Description", "IsPublic", "Name", "PasswordHash" },
-                values: new object[,]
-                {
-                    { new Guid("11111111-1111-1111-1111-111111111111"), "Learn the basics of programming using C#.", false, "Introduction to Programming", null },
-                    { new Guid("11111111-1111-1111-1111-111111111112"), "Explore advanced topics in database design and optimization.", false, "Advanced Database Systems", null },
-                    { new Guid("11111111-1111-1111-1111-111111111113"), "Build modern web applications using ASP.NET Core.", false, "Web Development with ASP.NET", null }
                 });
 
             migrationBuilder.CreateIndex(

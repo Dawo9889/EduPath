@@ -17,6 +17,15 @@ namespace EduPath_backend.Infrastructure.Extensions
 
 
             services.AddScoped<ICourseRepository, CourseRepository>();
+
+            using (var serviceProvider = services.BuildServiceProvider())
+            {
+                using (var scope = serviceProvider.CreateScope())
+                {
+                    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                    context.Database.Migrate();
+                }
+            }
         }
 
        
