@@ -9,7 +9,8 @@ namespace EduPath_backend.Domain.Entities
     {
         [Key]
         public Guid Id_User { get; set; }
-        public string Name { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
 
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public UserRole Role { get; set; } // Updated to use enum

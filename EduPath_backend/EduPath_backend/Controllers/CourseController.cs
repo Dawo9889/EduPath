@@ -39,6 +39,18 @@ namespace EduPath_backend.API.Controllers
             return course;
         }
 
+
+        [HttpGet("{courseId}/users")]
+        public async Task<IActionResult> GetUsersByCourseId(Guid courseId)
+        {
+            var users = await _courseService.GetUsersByCourseId(courseId);
+            if (users == null)
+            {
+                return NotFound("No users found for this course.");
+            }
+            return Ok(users);
+        }
+
         //Post
         [HttpPost("create")]
         public async Task<IActionResult> AddCourse([FromBody] CreateCourseDTO courseDTO)

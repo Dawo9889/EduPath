@@ -58,6 +58,16 @@ namespace EduPath_backend.Infrastructure.Repositories
                .FirstOrDefaultAsync(c => c.Id_Course == courseId);
         }
 
+        public async Task<List<User>> GetListOfAssignedUsers(Guid courseId)
+        {
+            var users = await _context.CourseUsers
+                .Where(cu => cu.Id_Course == courseId)
+                .Select(cu => cu.User) 
+                .ToListAsync();
+
+            return users;
+        }
+
         public async Task<bool> IsUserInCourseAsync(Guid courseId, Guid userId)
         {
             return await _context.CourseUsers

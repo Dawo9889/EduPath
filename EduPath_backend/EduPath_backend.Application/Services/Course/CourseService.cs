@@ -1,6 +1,7 @@
 ﻿using EduPath_backend.Application.DTOs.Course;
 using EduPath_backend.Domain.Interfaces;
 using AutoMapper;
+using EduPath_backend.Application.DTOs.User;
 
 
 namespace EduPath_backend.Application.Services.Course
@@ -64,7 +65,14 @@ namespace EduPath_backend.Application.Services.Course
 
 
 
+        public async Task<List<ListOfUsersDTO>> GetUsersByCourseId(Guid courseId)
+        {
+            var users = await _courseRepository.GetListOfAssignedUsers(courseId);
 
+            var usersDTO = _mapper.Map<List<ListOfUsersDTO>>(users);
+
+            return usersDTO;
+        }
 
 
         private static string HashPassword(string? plainTextPassword)
@@ -77,5 +85,7 @@ namespace EduPath_backend.Application.Services.Course
             var hash = sha256.ComputeHash(bytes);
             return Convert.ToBase64String(hash);
         }
+
+
     }
 }

@@ -16,5 +16,7 @@ namespace EduPath_backend.Domain.Interfaces
         Task<Course?> GetCourseWithUsersAsync(Guid courseId);
         Task<bool> IsUserInCourseAsync(Guid courseId, Guid userId);
         Task AddUserToCourseAsync(Guid courseId, Guid userId);
+
+        Task<List<User>> GetListOfAssignedUsers(Guid courseId);
     }
 }

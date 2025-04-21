@@ -1,4 +1,5 @@
 ﻿using EduPath_backend.Application.DTOs.Course;
+using EduPath_backend.Application.DTOs.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,7 @@ namespace EduPath_backend.Application.Services.Course
         Task<List<ListCourseDTO>> GetAvailableCoursesAsync();
         Task<Domain.Entities.Course> GetCourseByIdAsync(Guid id);
         Task JoinCourseAsync(Guid courseId, Guid guid, string? password);
+
+        Task<List<ListOfUsersDTO>> GetUsersByCourseId(Guid courseId);
     }
 }

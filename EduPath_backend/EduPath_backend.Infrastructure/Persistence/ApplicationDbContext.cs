@@ -90,7 +90,8 @@ namespace EduPath_backend.Infrastructure.Persistance
                 new User
                 {
                     Id_User = Guid.Parse("22222222-2222-2222-2222-222222222221"),
-                    Name = "Admin User",
+                    FirstName = "Dawid",
+                    LastName = "Dawidowski",
                     Role = UserRole.Admin,
                     RefreshToken = null,
                     RefreshTokenExpiryTime = DateTime.MinValue,
@@ -99,7 +100,8 @@ namespace EduPath_backend.Infrastructure.Persistance
                 new User
                 {
                     Id_User = Guid.Parse("22222222-2222-2222-2222-222222222222"),
-                    Name = "Teacher User",
+                    FirstName = "Szymon",
+                    LastName = "Szymonowski",
                     Role = UserRole.Teacher,
                     RefreshToken = null,
                     RefreshTokenExpiryTime = DateTime.MinValue,
@@ -108,7 +110,8 @@ namespace EduPath_backend.Infrastructure.Persistance
                 new User
                 {
                     Id_User = Guid.Parse("22222222-2222-2222-2222-222222222223"),
-                    Name = "Student User",
+                    FirstName = "Andrzej",
+                    LastName = "Waszut",
                     Role = UserRole.Student,
                     RefreshToken = null,
                     RefreshTokenExpiryTime = DateTime.MinValue,

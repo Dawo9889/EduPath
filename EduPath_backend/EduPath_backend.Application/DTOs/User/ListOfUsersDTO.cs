@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace EduPath_backend.Application.DTOs.User
+{
+    public class ListOfUsersDTO
+    {
+        public Guid Id_User { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public enum UserRole
+        {
+            Admin,
+            Teacher,
+            Student
+        }
+    }
+}
