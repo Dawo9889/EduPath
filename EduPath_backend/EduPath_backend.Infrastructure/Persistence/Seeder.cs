@@ -83,7 +83,6 @@ namespace EduPath_backend.Infrastructure.Persistence
                     Email = adminEmail,
                     FirstName = "System",
                     LastName = "Administrator",
-                    Role = UserRole.Admin,
                     EmailConfirmed = true
                 };
 
