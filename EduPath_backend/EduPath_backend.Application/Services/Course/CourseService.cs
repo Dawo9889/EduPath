@@ -36,5 +36,46 @@ namespace EduPath_backend.Application.Services.Course
             var course = await _courseRepository.GetCourseByIdAsync(id);
             return course;
         }
+
+        public async Task JoinCourseAsync(Guid courseId, Guid userId, string? password)
+        {
+            var course = await _courseRepository.GetCourseWithUsersAsync(courseId);
+            if (course == null)
+                throw new Exception("Course not found");
+
+            var alreadyInCourse = await _courseRepository.IsUserInCourseAsync(courseId, userId);
+            if (alreadyInCourse)
+                throw new Exception("You are already enrolled in this course");
+
+            if (!course.IsPublic)
+            {
+                if (string.IsNullOrWhiteSpace(password))
+                    throw new UnauthorizedAccessException("Password is required for this private course.");
+
+                var hashedInput = HashPassword(password);
+
+                if (course.PasswordHash != hashedInput)
+                    throw new UnauthorizedAccessException("Invalid password.");
+            }
+
+            await _courseRepository.AddUserToCourseAsync(courseId, userId);
+            
+        }
+
+
+
+
+
+
+        private static string HashPassword(string? plainTextPassword)
+        {
+            if (string.IsNullOrEmpty(plainTextPassword))
+                return string.Empty;
+
+            using var sha256 = System.Security.Cryptography.SHA256.Create();
+            var bytes = System.Text.Encoding.UTF8.GetBytes(plainTextPassword);
+            var hash = sha256.ComputeHash(bytes);
+            return Convert.ToBase64String(hash);
+        }
     }
 }

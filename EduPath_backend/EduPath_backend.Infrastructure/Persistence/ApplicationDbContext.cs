@@ -84,6 +84,37 @@ namespace EduPath_backend.Infrastructure.Persistance
                     Description = "Build modern web applications using ASP.NET Core."
                 }
             );
+
+            // Seed data for User
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    Id_User = Guid.Parse("22222222-2222-2222-2222-222222222221"),
+                    Name = "Admin User",
+                    Role = UserRole.Admin,
+                    RefreshToken = null,
+                    RefreshTokenExpiryTime = DateTime.MinValue,
+                    ProfilePicture = null
+                },
+                new User
+                {
+                    Id_User = Guid.Parse("22222222-2222-2222-2222-222222222222"),
+                    Name = "Teacher User",
+                    Role = UserRole.Teacher,
+                    RefreshToken = null,
+                    RefreshTokenExpiryTime = DateTime.MinValue,
+                    ProfilePicture = null
+                },
+                new User
+                {
+                    Id_User = Guid.Parse("22222222-2222-2222-2222-222222222223"),
+                    Name = "Student User",
+                    Role = UserRole.Student,
+                    RefreshToken = null,
+                    RefreshTokenExpiryTime = DateTime.MinValue,
+                    ProfilePicture = null
+                }
+            );
         }
     }
     

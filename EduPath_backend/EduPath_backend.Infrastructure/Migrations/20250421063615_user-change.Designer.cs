@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EduPath_backend.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250420201843_changes")]
-    partial class changes
+    [Migration("20250421063615_user-change")]
+    partial class userchange
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -61,6 +61,9 @@ namespace EduPath_backend.Infrastructure.Migrations
 
                     b.Property<Guid>("Id_User")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Date_submitted")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Filepath")
                         .IsRequired()
@@ -155,13 +158,35 @@ namespace EduPath_backend.Infrastructure.Migrations
                     b.Property<DateTime>("RefreshTokenExpiryTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
 
                     b.HasKey("Id_User");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id_User = new Guid("22222222-2222-2222-2222-222222222221"),
+                            Name = "Admin User",
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Role = 0
+                        },
+                        new
+                        {
+                            Id_User = new Guid("22222222-2222-2222-2222-222222222222"),
+                            Name = "Teacher User",
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Role = 1
+                        },
+                        new
+                        {
+                            Id_User = new Guid("22222222-2222-2222-2222-222222222223"),
+                            Name = "Student User",
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Role = 2
+                        });
                 });
 
             modelBuilder.Entity("EduPath_backend.Domain.Entities.Assignment", b =>

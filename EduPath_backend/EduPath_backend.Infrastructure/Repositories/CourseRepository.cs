@@ -26,6 +26,16 @@ namespace EduPath_backend.Infrastructure.Repositories
             return result > 0;
         }
 
+        public Task AddUserToCourseAsync(Guid courseId, Guid userId)
+        {
+            _context.CourseUsers.Add(new CourseUser
+            {
+                Id_Course = courseId,
+                Id_User = userId
+            });
+            return _context.SaveChangesAsync();
+        }
+
         public async Task<List<Course>> GetAvailableCoursesAsync()
         {
             return await _context.Courses.ToListAsync();
@@ -39,6 +49,19 @@ namespace EduPath_backend.Infrastructure.Repositories
                 return null;
             }
             return course;
+        }
+
+        public async Task<Course?> GetCourseWithUsersAsync(Guid courseId)
+        {
+            return await _context.Courses
+               .Include(c => c.CourseUsers)
+               .FirstOrDefaultAsync(c => c.Id_Course == courseId);
+        }
+
+        public async Task<bool> IsUserInCourseAsync(Guid courseId, Guid userId)
+        {
+            return await _context.CourseUsers
+                .AnyAsync(cu => cu.Id_Course == courseId && cu.Id_User == userId);
         }
     }
 }

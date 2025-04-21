@@ -59,6 +59,9 @@ namespace EduPath_backend.Infrastructure.Migrations
                     b.Property<Guid>("Id_User")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("Date_submitted")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Filepath")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -152,13 +155,35 @@ namespace EduPath_backend.Infrastructure.Migrations
                     b.Property<DateTime>("RefreshTokenExpiryTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
 
                     b.HasKey("Id_User");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id_User = new Guid("22222222-2222-2222-2222-222222222221"),
+                            Name = "Admin User",
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Role = 0
+                        },
+                        new
+                        {
+                            Id_User = new Guid("22222222-2222-2222-2222-222222222222"),
+                            Name = "Teacher User",
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Role = 1
+                        },
+                        new
+                        {
+                            Id_User = new Guid("22222222-2222-2222-2222-222222222223"),
+                            Name = "Student User",
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Role = 2
+                        });
                 });
 
             modelBuilder.Entity("EduPath_backend.Domain.Entities.Assignment", b =>

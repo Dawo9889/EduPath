@@ -12,5 +12,9 @@ namespace EduPath_backend.Domain.Interfaces
         Task<bool> AddCourseAsync(Course newCourse);
         Task<List<Course>> GetAvailableCoursesAsync();
         Task<Course> GetCourseByIdAsync(Guid id);
+
+        Task<Course?> GetCourseWithUsersAsync(Guid courseId);
+        Task<bool> IsUserInCourseAsync(Guid courseId, Guid userId);
+        Task AddUserToCourseAsync(Guid courseId, Guid userId);
     }
 }

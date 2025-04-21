@@ -4,6 +4,7 @@ using EduPath_backend.Domain.Entities;
 using FluentValidation;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace EduPath_backend.API.Controllers
 {
@@ -61,6 +62,30 @@ namespace EduPath_backend.API.Controllers
             }
 
             return Ok("Course created successfully.");
+        }
+
+
+        [HttpPost("{courseId}/join")]
+        public async Task<IActionResult> JoinCourse(Guid courseId, [FromBody] JoinCourseRequestDTO request)
+        {
+            //var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = "22222222-2222-2222-2222-222222222221";
+            if (userId == null)
+                return Unauthorized();
+
+            try
+            {
+                await _courseService.JoinCourseAsync(courseId, Guid.Parse(userId), request.Password);
+                return Ok(new { message = "Successfully joined the course." });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Forbid(ex.Message); // 403
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message }); // 400
+            }
         }
     }
 }

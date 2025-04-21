@@ -12,5 +12,6 @@ namespace EduPath_backend.Application.Services.Course
         Task<bool> AddCourseAsync(CreateCourseDTO courseDTO);
         Task<List<ListCourseDTO>> GetAvailableCoursesAsync();
         Task<Domain.Entities.Course> GetCourseByIdAsync(Guid id);
+        Task JoinCourseAsync(Guid courseId, Guid guid, string? password);
     }
 }
