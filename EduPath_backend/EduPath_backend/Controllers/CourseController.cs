@@ -101,5 +101,26 @@ namespace EduPath_backend.API.Controllers
         }
 
 
+        // Puts
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCourse(Guid id, [FromBody] CreateCourseDTO dto)
+        {
+            var validationResult = await _createCourseValidator.ValidateAsync(dto);
+
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors.Select(e => e.ErrorMessage));
+            }
+            try
+            {
+                await _courseService.UpdateCourseAsync(id, dto);
+                return NoContent();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+        }
+
     }
 }

@@ -73,5 +73,22 @@ namespace EduPath_backend.Infrastructure.Repositories
             return await _context.CourseUsers
                 .AnyAsync(cu => cu.CourseId == courseId && cu.UserId == userId.ToString());
         }
+
+        public async Task<bool> UpdateCourseAsync(Guid CourseId, Course updatedCourse)
+        {
+            var existingCourse = await _context.Courses.FindAsync(CourseId);
+            if (existingCourse == null)
+            {
+                return false;
+            }
+
+            existingCourse.Name = updatedCourse.Name;
+            existingCourse.Description = updatedCourse.Description;
+            existingCourse.IsPublic = updatedCourse.IsPublic;
+            existingCourse.PasswordHash = updatedCourse.PasswordHash;
+            
+            var result = await _context.SaveChangesAsync();
+            return result > 0;
+        }
     }
 }

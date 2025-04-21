@@ -17,6 +17,19 @@ namespace EduPath_backend.Application.Services.Course
             _mapper = mapper;
         }
 
+        private static string HashPassword(string? plainTextPassword)
+        {
+            if (string.IsNullOrEmpty(plainTextPassword))
+                return string.Empty;
+
+            using var sha256 = System.Security.Cryptography.SHA256.Create();
+            var bytes = System.Text.Encoding.UTF8.GetBytes(plainTextPassword);
+            var hash = sha256.ComputeHash(bytes);
+            return Convert.ToBase64String(hash);
+        }
+
+
+
         public async Task<bool> AddCourseAsync(CreateCourseDTO courseDTO)
         {
             var courseEntity = _mapper.Map<Domain.Entities.Course>(courseDTO);
@@ -76,17 +89,23 @@ namespace EduPath_backend.Application.Services.Course
         }
 
 
-        private static string HashPassword(string? plainTextPassword)
+        
+
+        public async Task<bool> UpdateCourseAsync(Guid courseId, CreateCourseDTO updatedCourse)
         {
-            if (string.IsNullOrEmpty(plainTextPassword))
-                return string.Empty;
+            var existingCourse = await _courseRepository.GetCourseByIdAsync(courseId);
+            if (existingCourse == null)
+            {
+                throw new Exception("Course not found");
+            }
+            existingCourse.Name = updatedCourse.Name;
+            existingCourse.Description = updatedCourse.Description;
+            existingCourse.IsPublic = updatedCourse.IsPublic;
 
-            using var sha256 = System.Security.Cryptography.SHA256.Create();
-            var bytes = System.Text.Encoding.UTF8.GetBytes(plainTextPassword);
-            var hash = sha256.ComputeHash(bytes);
-            return Convert.ToBase64String(hash);
+            existingCourse.PasswordHash = HashPassword(updatedCourse.PasswordPlainText);
+            var result = await _courseRepository.UpdateCourseAsync(courseId, existingCourse);
+
+            return result;
         }
-
-
     }
 }

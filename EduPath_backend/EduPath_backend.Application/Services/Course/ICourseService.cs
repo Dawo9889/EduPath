@@ -16,5 +16,7 @@ namespace EduPath_backend.Application.Services.Course
         Task JoinCourseAsync(Guid courseId, Guid guid, string? password);
 
         Task<List<ListOfUsersDTO>> GetUsersByCourseId(Guid courseId);
+
+        Task<bool> UpdateCourseAsync(Guid courseId, CreateCourseDTO updatedCourse);
     }
 }
