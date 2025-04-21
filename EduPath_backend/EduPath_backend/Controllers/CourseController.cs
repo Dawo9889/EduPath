@@ -33,10 +33,10 @@ namespace EduPath_backend.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<Course> GetCourseById(Guid id)
+        public async Task<CourseDetailsDTO> GetCourseById(Guid id)
         {
-            var course = await _courseService.GetCourseByIdAsync(id);
-            return course;
+            var courseDTO = await _courseService.GetCourseByIdAsync(id);
+            return courseDTO;
         }
 
 
@@ -92,12 +92,14 @@ namespace EduPath_backend.API.Controllers
             }
             catch (UnauthorizedAccessException ex)
             {
-                return Forbid(ex.Message); // 403
+                return Forbid(ex.Message);
             }
             catch (Exception ex)
             {
-                return BadRequest(new { error = ex.Message }); // 400
+                return BadRequest(new { error = ex.Message });
             }
         }
+
+
     }
 }

@@ -10,7 +10,7 @@ namespace EduPath_backend.Domain.Entities
     public class Course
     {
         [Key]
-        public Guid Id_Course{ get; set; }
+        public Guid CourseId{ get; set; }
         public string Name { get; set; } = default!;
         public string Description { get; set; } = default!;
 

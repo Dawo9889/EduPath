@@ -20,8 +20,10 @@ namespace EduPath_backend.Application.Mappings
 
             CreateMap<Course, ListCourseDTO>();
 
+            CreateMap<Course, CourseDetailsDTO>();
+
             CreateMap<User, ListOfUsersDTO>()
-                .ForMember(dest => dest.Id_User, opt => opt.MapFrom(src => ((User)src).Id_User))
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => ((User)src).UserId))
                 .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => ((User)src).FirstName))
                 .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => ((User)src).LastName))
                 .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role.ToString()));

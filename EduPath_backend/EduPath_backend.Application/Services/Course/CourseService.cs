@@ -32,10 +32,11 @@ namespace EduPath_backend.Application.Services.Course
             return listCourseDTOs;
         }
 
-        public async Task<Domain.Entities.Course> GetCourseByIdAsync(Guid id)
+        public async Task<CourseDetailsDTO> GetCourseByIdAsync(Guid id)
         {
             var course = await _courseRepository.GetCourseByIdAsync(id);
-            return course;
+            var courseDTO = _mapper.Map<CourseDetailsDTO>(course);
+            return courseDTO;
         }
 
         public async Task JoinCourseAsync(Guid courseId, Guid userId, string? password)

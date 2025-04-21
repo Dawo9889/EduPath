@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace EduPath_backend.Application.DTOs.Course
 {
-    public class ListCourseDTO
+    public class CourseDetailsDTO
     {
         public Guid CourseId { get; set; }
-        public string? Name { get; set; } 
-        public string? Description { get; set; } 
-        public bool IsPublic { get; set; }
+        public string Name { get; set; } = default!;
+        public string Description { get; set; } = default!;
+
+        public bool IsPublic { get; set; } = false;
     }
 }

@@ -9,10 +9,10 @@ namespace EduPath_backend.Domain.Entities
 {
     public class AssignmentUser
     {
-        public Guid Id_Course { get; set; }
+        public Guid CourseId { get; set; }
         public Course Course { get; set; }
 
-        public Guid Id_User { get; set; }
+        public string UserId { get; set; }
         public User User { get; set; }
 
         public string Filepath { get; set; }

@@ -30,8 +30,8 @@ namespace EduPath_backend.Infrastructure.Repositories
         {
             _context.CourseUsers.Add(new CourseUser
             {
-                Id_Course = courseId,
-                Id_User = userId
+                CourseId = courseId,
+                UserId = userId.ToString()
             });
             return _context.SaveChangesAsync();
         }
@@ -43,7 +43,7 @@ namespace EduPath_backend.Infrastructure.Repositories
 
         public async Task<Course> GetCourseByIdAsync(Guid id)
         {
-            var course = await _context.Courses.FirstOrDefaultAsync(c => c.Id_Course == id);
+            var course = await _context.Courses.FirstOrDefaultAsync(c => c.CourseId == id);
             if (course == null)
             {
                 return null;
@@ -55,13 +55,13 @@ namespace EduPath_backend.Infrastructure.Repositories
         {
             return await _context.Courses
                .Include(c => c.CourseUsers)
-               .FirstOrDefaultAsync(c => c.Id_Course == courseId);
+               .FirstOrDefaultAsync(c => c.CourseId == courseId);
         }
 
         public async Task<List<User>> GetListOfAssignedUsers(Guid courseId)
         {
             var users = await _context.CourseUsers
-                .Where(cu => cu.Id_Course == courseId)
+                .Where(cu => cu.CourseId == courseId)
                 .Select(cu => cu.User) 
                 .ToListAsync();
 
@@ -71,7 +71,7 @@ namespace EduPath_backend.Infrastructure.Repositories
         public async Task<bool> IsUserInCourseAsync(Guid courseId, Guid userId)
         {
             return await _context.CourseUsers
-                .AnyAsync(cu => cu.Id_Course == courseId && cu.Id_User == userId);
+                .AnyAsync(cu => cu.CourseId == courseId && cu.UserId == userId.ToString());
         }
     }
 }

@@ -8,7 +8,7 @@ namespace EduPath_backend.Application.DTOs.User
 {
     public class ListOfUsersDTO
     {
-        public Guid Id_User { get; set; }
+        public string UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Role { get; set; } 
