@@ -1,32 +1,30 @@
 import { useEffect, useState } from 'react'
 
 function ToggleDarkMode() {
-    const [darkMode, setDarkMode] = useState(() =>
-        localStorage.getItem('theme') === 'dark'
-      );
+    const [darkMode, setDarkMode] = useState(false);
+
+    // Check if dark mode is enabled in session storage
+    useEffect(() => {
+        const storedTheme = sessionStorage.getItem('theme');
+        if (storedTheme && storedTheme === 'dark') {
+            setDarkMode(true);
+        }}
+    , []);
     
       useEffect(() => {
-        const root = window.document.documentElement;
-        if (darkMode) {
-          root.classList.add('dark');
-          localStorage.setItem('theme', 'dark');
-        } else {
-          root.classList.remove('dark');
-          localStorage.setItem('theme', 'light');
+        const root = window.document.getElementById('theme-root');
+        if (root) {
+          root.classList.remove('theme-light', 'theme-dark');
+          root.classList.add(darkMode ? 'theme-dark' : 'theme-light');
+          sessionStorage.setItem('theme', darkMode ? 'dark' : 'light');
         }
       }, [darkMode]);
     
       return (
         <>
-            <input type='checkbox' id='darkmode-toggle' onToggle={() => setDarkMode(!darkMode)} />
+            <input type='checkbox' id='darkmode-toggle' onClick={() => setDarkMode(!darkMode)} checked={darkMode} onChange={() => {}} />
             <label htmlFor='darkmode-toggle' className='toggle-label'></label>
         </>
-        // <button
-        //   onClick={() => setDarkMode(!darkMode)}
-        //   className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-black dark:text-white rounded"
-        // >
-        //   {darkMode ? '☀️ Light Mode' : '🌙 Dark Mode'}
-        // </button>
       );
 }
 

@@ -1,0 +1,50 @@
+/* This file contains the CSS variables for the dark and light themes */
+/* @custom-variant dark (&:where(.dark, .dark *)); */
+
+.theme-dark{
+    --primary-100:#FF6600;
+    --primary-200:#ff983f;
+    --primary-300:#ffffa1;
+    --accent-100:#F5F5F5;
+    --accent-200:#929292;
+    --text-100:#FFFFFF;
+    --text-200:#e0e0e0;
+    --bg-100:#1D1F21;
+    --bg-200:#2c2e30;
+    --bg-300:#444648;
+}
+
+.theme-light{
+    --primary-100:#FF6600;
+    --primary-200:#ff983f;
+    --primary-300:#ffffa1;
+    --accent-100:#e43b3b;
+    --accent-200:#ffd9c5;
+    --text-100:#1b1b1b;
+    --text-200:#424242;
+    --bg-100:#efefef;
+    --bg-200:#e5e5e5;
+    --bg-300:#bdbdbd;  
+}
+
+.bg {
+    @apply bg-[var(--bg-100)];
+}
+.text-primary {
+    @apply text-[var(--text-100)];
+}
+.bg-secondary {
+    @apply bg-[var(--bg-200)];
+}
+.bg-tertiary {
+    @apply bg-[var(--bg-300)];
+}
+.text-muted {
+    @apply text-[var(--text-200)];
+}
+.accent {
+    @apply text-[var(--accent-100)];
+}
+.btn-primary {
+    @apply bg-[var(--primary-100)] text-[var(--text-100)] hover:bg-[var(--primary-200)] px-4 py-2 rounded;
+}

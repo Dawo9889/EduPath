@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 
 import UserRole from '../types/UserRole';
-
+import LogoHorizontal from './LogoHorizontal';
 import ToggleDarkMode from './ToggleDarkMode'
-import logo_horizontal from '../assets/edupath_text_horizontal.png'
 
 
 function NavBar() {
@@ -54,31 +53,30 @@ function NavBar() {
 
   return (
     <div>
-        <nav className="flex items-center justify-between p-4 bg-gray-800 text-white">
+        <nav className="flex items-center justify-between p-4 bg-secondary text-white">
             <div>
-                <a href="/" className="hover:text-gray-300">
-                    <img src={logo_horizontal} alt="Logo" className="logo-horizontal h-[8vh]" />
+                <a href="/" >
+                  <LogoHorizontal className='w-[200px] h-auto fill-[var(--primary-100)]'/>
                 </a>
             </div>
             <div className="flex items-center space-x-4">
-                <a href="/about" className="hover:text-gray-300">About</a>
-                <a href="/contact" className="hover:text-gray-300">Contact</a>
-
+                <a href="/about" className="font-bold text-primary hover:text-muted">About</a>
+                <a href="/contact" className="font-bold text-primary hover:text-muted">Contact</a>
                 {isAuthenticated ? (
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setOpenDropdown(!openDropdown)}
-                className="hover:text-gray-300"
+                className="pointer font-bold text-primary hover:text-muted"
               >
                 {username}
               </button>
               {openDropdown && (
-                <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded shadow-lg z-10">
+                <div className="absolute right-0 mt-2 w-45 bg-white text-black rounded shadow-lg z-10">
                   {getOptions().map((option, index) => (
                     <a
                         key={index}
                         href={option.path}
-                        className="block px-4 py-2 hover:bg-gray-100"
+                        className="font-medium block px-4 py-2 hover:bg-gray-100 rounded"
                     >
                         {option.label}
                     </a>

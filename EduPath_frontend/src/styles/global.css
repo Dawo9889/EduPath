@@ -1,16 +1,7 @@
 @import "tailwindcss";
 @import "./fonts.css";
+@import "./themes.css";
 
-/* NavBar logo */
-.logo-horizontal{
-    filter: brightness(0) invert(1);
-}
-.logo-horizontal:hover{
-    filter: brightness(0) invert(0.9);
-}
-.logo-horizontal:active{
-    filter: brightness(0) invert(0.8);
-}
 
 /* Darkmode toggle */
 .toggle-label{
@@ -52,4 +43,8 @@
 .toggle-label:active:after{
     width: 40px;
     transition: 0.3s;
+}
+
+.pointer{
+    cursor: pointer;
 }
