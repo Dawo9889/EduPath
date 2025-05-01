@@ -1,14 +1,14 @@
-import { Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
+import { Outlet } from 'react-router-dom';
 import './styles/global.css'
+import NavBar from './components/NavBar';
 
 function App() {
 
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      
-    </Routes>
+    <>
+      <NavBar />
+      {location.pathname === '/' ? "Home" : <Outlet />}
+    </>
   )
 }
 
