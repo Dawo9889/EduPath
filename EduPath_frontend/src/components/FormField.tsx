@@ -18,7 +18,7 @@ const FormField = ({title, value, isPassword, placeholder, otherStyles, onChange
   return (
     <div className={`space-y-2 ${otherStyles}`}>
       <p className='text-lg text-secondary font-medium my-0'>{title}</p>
-      <div className='border-2 w-full h-16 px-4 bg-black-100 rounded-2xl flex items-center'>
+      <div className='border-2 w-full h-12 px-4 bg-black-100 rounded-2xl flex items-center'>
         <input
           className='flex-1 bg-transparent outline-none text-secondary font-regular text-base placeholder-gray-400'
           value={value}

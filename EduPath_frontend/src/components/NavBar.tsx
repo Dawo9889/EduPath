@@ -7,9 +7,9 @@ import ToggleDarkMode from './ToggleDarkMode'
 
 function NavBar() {
 
-  const [isAuthenticated, setIsAuthenticated] = useState(true); // Replace with authentication logic 
-  const [username, setUsername] = useState('test'); // Replace with user data logic
-  const [userRole, setUserRole] = useState<UserRole>('admin'); // Replace with user role logic
+  const [isAuthenticated, setIsAuthenticated] = useState(true);   // Replace with authentication logic 
+  const [username, setUsername] = useState('test');               // Replace with user data logic
+  const [userRole, setUserRole] = useState<UserRole | null>('admin');    // Replace with user role logic
 
   // Dropdown with options depending on user role
   const [openDropdown, setOpenDropdown] = useState(false);
@@ -50,23 +50,29 @@ function NavBar() {
         }
     };
 
+  const logout = () => {
+    // Replace with logout logic
+    setIsAuthenticated(false);
+    setUsername('');
+    setUserRole(null);
+  }
 
   return (
-    <div>
-        <nav className="flex items-center justify-between p-4 bg-secondary">
+    <div className='p-4'>
+        <nav className="flex items-center justify-between p-4 bg-secondary rounded-4xl">
             <div>
                 <a href="/" >
-                  <LogoHorizontal className='w-[200px] h-auto fill-[var(--primary-100)]'/>
+                  <LogoHorizontal className='w-[200px] h-auto fill-[var(--primary-100)] ml-2 hover:brightness-90'/>
                 </a>
             </div>
             <div className="flex items-center space-x-4">
-                <a href="/about" className="font-bold text-[var(--text-100)] hover:text-[var(--text-200)]">About</a>
-                <a href="/contact" className="font-bold text-[var(--text-100)] hover:text-[var(--text-200)]">Contact</a>
+                <a href="/about" className="font-bold text-xl text-[var(--text-100)] hover:text-[var(--text-200)] mx-5">About</a>
+                <a href="/contact" className="font-bold text-xl text-[var(--text-100)] hover:text-[var(--text-200)] mx-5">Contact</a>
                 {isAuthenticated ? (
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setOpenDropdown(!openDropdown)}
-                className="cursor-pointer font-bold text-[var(--text-100)] hover:text-[var(--text-200)]"
+                className="cursor-pointer font-bold text-xl text-[var(--text-100)] hover:text-[var(--text-200)] mx-5"
               >
                 {username}
               </button>
@@ -81,11 +87,17 @@ function NavBar() {
                         {option.label}
                     </a>
                     ))}
+                    <a 
+                        onClick={logout}
+                        className="font-medium block px-4 py-2 hover:bg-[var(--bg-100)] rounded m-1"
+                    >
+                        Logout
+                    </a>
                 </div>
               )}
             </div>
           ) : (
-            <a href="/login" className="hover:text-secondary">Login</a>
+            <a href="/login" className="font-bold text-xl text-[var(--text-100)] hover:text-[var(--text-200)] mx-5">Login</a>
           )}
                 <ToggleDarkMode />
             </div>

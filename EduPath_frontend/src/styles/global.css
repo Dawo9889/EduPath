@@ -2,6 +2,12 @@
 @import "./fonts.css";
 @import "./themes.css";
 
+/* Global styles */
+html, body{
+    margin: 0;
+    padding: 0;
+    background-color: #e91bce;
+}
 
 /* Darkmode toggle */
 .toggle-label{
@@ -15,6 +21,11 @@
     cursor: pointer;
     transition: 0.5s;
 }
+.toggle-label:hover {
+    width: 90px;
+    height: 40px;
+    /* box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25); */
+}
 .toggle-label:after{
     content: "";
     width: 26px;
@@ -27,6 +38,14 @@
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
     transition: 0.5s;
 }
+.toggle-label:hover:after {
+    width: 34px;
+    height: 34px;
+    top: 3px;
+    left: 3px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
 #darkmode-toggle{
     width: 0;
     height: 0;
@@ -37,6 +56,11 @@
 }
 #darkmode-toggle:checked + .toggle-label:after{
     left: 78px;
+    transform: translateX(-100%);
+    background: linear-gradient(150deg, #858585, #2c2c2c);
+}
+#darkmode-toggle:checked:hover + .toggle-label:after{
+    left: 87px;
     transform: translateX(-100%);
     background: linear-gradient(150deg, #858585, #2c2c2c);
 }

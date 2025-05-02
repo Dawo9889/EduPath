@@ -18,8 +18,8 @@ function Login() {
   }, [form.email])
 
   return (
-    <div className="bg-primary w-full h-screen">
-      <div className="flex flex-col items-center justify-center h-50vh bg-tertiary rounded-xl mt-[100px]">
+    <div className="bg-primary h-screen w-[300px] mx-auto">
+      <div className="flex flex-col items-center h-50vh bg-tertiary rounded-xl mt-[100px]">
         <form>
           <FormField
             title={"Email address"}
@@ -37,7 +37,10 @@ function Login() {
             otherStyles={"mt-3"}
             onChange={(e) => setForm({ ...form, password: e.target.value })}
             />
-          <button type="submit" className="btn-primary text-primary font-medium px-4 py-2 rounded-lg m-2">Login</button>
+          <button type="submit"
+            className="block mx-auto btn-primary text-primary font-medium px-4 py-2 rounded-2xl w-[100px] my-3">
+              Login
+          </button>
         </form>
       </div>
     </div>

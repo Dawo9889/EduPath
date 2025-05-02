@@ -1,31 +1,40 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react';
 
 function ToggleDarkMode() {
-    const [darkMode, setDarkMode] = useState(false);
+    // Initialize darkMode based on sessionStorage
+    const initialTheme = sessionStorage.getItem('theme') === 'dark';
+    const [darkMode, setDarkMode] = useState(initialTheme);
 
-    // Check if dark mode is enabled in session storage
+    // Track if component has mounted to disable animation on first render
+    const isFirstRender = useRef(true);
+
     useEffect(() => {
-        const storedTheme = sessionStorage.getItem('theme');
-        if (storedTheme && storedTheme === 'dark') {
-            setDarkMode(true);
-        }}
-    , []);
-    
-      useEffect(() => {
-        const root = window.document.getElementById('theme-root');
+        const root = document.getElementById('theme-root');
         if (root) {
-          root.classList.remove('theme-light', 'theme-dark');
-          root.classList.add(darkMode ? 'theme-dark' : 'theme-light');
-          sessionStorage.setItem('theme', darkMode ? 'dark' : 'light');
+            root.classList.remove('theme-light', 'theme-dark');
+            root.classList.add(darkMode ? 'theme-dark' : 'theme-light');
+            sessionStorage.setItem('theme', darkMode ? 'dark' : 'light');
         }
-      }, [darkMode]);
-    
-      return (
+
+        // After initial render, allow animations
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+        }
+    }, [darkMode]);
+
+    return (
         <>
-            <input type='checkbox' id='darkmode-toggle' onClick={() => setDarkMode(!darkMode)} checked={darkMode} onChange={() => {}} />
-            <label htmlFor='darkmode-toggle' className='toggle-label'></label>
+            <input
+                type="checkbox"
+                id="darkmode-toggle"
+                onClick={() => setDarkMode(!darkMode)}
+                checked={darkMode}
+                onChange={() => {}} // required to avoid React warning
+                className={isFirstRender.current ? 'no-animate' : ''}
+            />
+            <label htmlFor="darkmode-toggle" className="toggle-label" />
         </>
-      );
+    );
 }
 
-export default ToggleDarkMode
+export default ToggleDarkMode;

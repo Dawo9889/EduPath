@@ -46,5 +46,5 @@
     @apply text-[var(--accent-100)];
 }
 .btn-primary {
-    @apply bg-[var(--primary-100)] text-[var(--text-100)] hover:bg-[var(--primary-200)] px-4 py-2 rounded;
+    @apply bg-[var(--primary-100)] text-[var(--text-100)] hover:bg-[var(--primary-200)];
 }
