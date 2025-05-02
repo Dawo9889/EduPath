@@ -53,30 +53,30 @@ function NavBar() {
 
   return (
     <div>
-        <nav className="flex items-center justify-between p-4 bg-secondary text-white">
+        <nav className="flex items-center justify-between p-4 bg-secondary">
             <div>
                 <a href="/" >
                   <LogoHorizontal className='w-[200px] h-auto fill-[var(--primary-100)]'/>
                 </a>
             </div>
             <div className="flex items-center space-x-4">
-                <a href="/about" className="font-bold text-primary hover:text-muted">About</a>
-                <a href="/contact" className="font-bold text-primary hover:text-muted">Contact</a>
+                <a href="/about" className="font-bold text-[var(--text-100)] hover:text-[var(--text-200)]">About</a>
+                <a href="/contact" className="font-bold text-[var(--text-100)] hover:text-[var(--text-200)]">Contact</a>
                 {isAuthenticated ? (
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setOpenDropdown(!openDropdown)}
-                className="pointer font-bold text-primary hover:text-muted"
+                className="cursor-pointer font-bold text-[var(--text-100)] hover:text-[var(--text-200)]"
               >
                 {username}
               </button>
               {openDropdown && (
-                <div className="absolute right-0 mt-2 w-45 bg-white text-black rounded shadow-lg z-10">
+                <div className="absolute right-0 mt-2 w-45 bg-tertiary text-[var(--text-100)] rounded shadow-lg z-10">
                   {getOptions().map((option, index) => (
                     <a
                         key={index}
                         href={option.path}
-                        className="font-medium block px-4 py-2 hover:bg-gray-100 rounded"
+                        className="font-medium block px-4 py-2 hover:bg-[var(--bg-100)] rounded m-1"
                     >
                         {option.label}
                     </a>
@@ -85,7 +85,7 @@ function NavBar() {
               )}
             </div>
           ) : (
-            <a href="/login" className="hover:text-gray-300">Login</a>
+            <a href="/login" className="hover:text-secondary">Login</a>
           )}
                 <ToggleDarkMode />
             </div>

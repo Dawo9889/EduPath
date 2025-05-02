@@ -27,11 +27,8 @@
     --bg-300:#bdbdbd;  
 }
 
-.bg {
+.bg-primary {
     @apply bg-[var(--bg-100)];
-}
-.text-primary {
-    @apply text-[var(--text-100)];
 }
 .bg-secondary {
     @apply bg-[var(--bg-200)];
@@ -39,10 +36,13 @@
 .bg-tertiary {
     @apply bg-[var(--bg-300)];
 }
-.text-muted {
+.text-primary {
+    @apply text-[var(--text-100)];
+}
+.text-secondary {
     @apply text-[var(--text-200)];
 }
-.accent {
+.text-tertiary {
     @apply text-[var(--accent-100)];
 }
 .btn-primary {
