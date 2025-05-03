@@ -8,8 +8,13 @@ import ToggleDarkMode from './ToggleDarkMode'
 function NavBar() {
 
   const [isAuthenticated, setIsAuthenticated] = useState(true);   // Replace with authentication logic 
-  const [username, setUsername] = useState('test');               // Replace with user data logic
+  const [username, setUsername] = useState('XY000000@student.polsl.pl');               // Replace with user data logic
+  const displayUsername = username.length > 11 ? username.toLowerCase().slice(0, 8) + '...' : username;
   const [userRole, setUserRole] = useState<UserRole | null>('admin');    // Replace with user role logic
+
+  // Get current location
+  const isActive = (path: string) => location.pathname.startsWith(path);
+
 
   // Dropdown with options depending on user role
   const [openDropdown, setOpenDropdown] = useState(false);
@@ -60,21 +65,42 @@ function NavBar() {
   return (
     <div className='p-4'>
         <nav className="flex items-center justify-between p-4 bg-secondary rounded-4xl">
-            <div>
+            <div className='mx-2'>
                 <a href="/" >
-                  <LogoHorizontal className='w-[200px] h-auto fill-[var(--primary-100)] ml-2 hover:brightness-90'/>
+                  <LogoHorizontal className='w-[200px] h-auto fill-[var(--primary-100)] hover:brightness-70 transition-filter duration-500 ease-in-out'/>
                 </a>
             </div>
-            <div className="flex items-center space-x-4">
-                <a href="/about" className="font-bold text-xl text-[var(--text-100)] hover:text-[var(--text-200)] mx-5">About</a>
-                <a href="/contact" className="font-bold text-xl text-[var(--text-100)] hover:text-[var(--text-200)] mx-5">Contact</a>
+            <div className="flex items-center">
+              <a
+                  href="/about"
+                  className={`font-bold text-xl px-4 py-2 rounded-2xl transition-colors duration-500 ease-in-out mx-3 ${
+                    isActive('/about') 
+                      ? 'bg-[var(--bg-300)] text-[var(--text-100)] hover:bg-[var(--bg-400)]' 
+                      : 'text-[var(--text-100)] hover:bg-[var(--bg-100)]'
+                  }`}
+                >
+                  About
+              </a>
+                <a 
+                  href="/contact"
+                  className={`font-bold text-xl px-4 py-2 rounded-2xl transition-colors duration-500 ease-in-out mx-3 ${
+                    isActive('/contact') 
+                      ? 'bg-[var(--bg-300)] text-[var(--text-100)] hover:bg-[var(--bg-400)]' 
+                      : 'text-[var(--text-100)] hover:bg-[var(--bg-100)]'
+                  }`}
+                >
+                Contact</a>
                 {isAuthenticated ? (
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setOpenDropdown(!openDropdown)}
-                className="cursor-pointer font-bold text-xl text-[var(--text-100)] hover:text-[var(--text-200)] mx-5"
-              >
-                {username}
+                  className={`font-bold text-xl px-4 py-2 rounded-2xl transition-colors duration-500 ease-in-out mx-3 ${
+                    openDropdown 
+                      ? 'bg-[var(--bg-100)] text-[var(--text-100)] hover:bg-[var(--bg-400)]' 
+                      : 'text-[var(--text-100)] hover:bg-[var(--bg-100)]'
+                  }`}
+                >
+                {displayUsername}
               </button>
               {openDropdown && (
                 <div className="absolute right-0 mt-2 w-45 bg-tertiary text-[var(--text-100)] rounded shadow-lg z-10">
@@ -99,7 +125,10 @@ function NavBar() {
           ) : (
             <a href="/login" className="font-bold text-xl text-[var(--text-100)] hover:text-[var(--text-200)] mx-5">Login</a>
           )}
-                <ToggleDarkMode />
+                <div className='justify-center flex items-center mx-3'>
+                  <ToggleDarkMode />
+                </div>
+                
             </div>
         </nav>
     </div>
