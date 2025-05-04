@@ -10,7 +10,7 @@ function NavBar() {
   const [isAuthenticated, setIsAuthenticated] = useState(true);   // Replace with authentication logic 
   const [username, setUsername] = useState('XY000000@student.polsl.pl');               // Replace with user data logic
   const displayUsername = username.length > 11 ? username.toLowerCase().slice(0, 8) + '...' : username;
-  const [userRole, setUserRole] = useState<UserRole | null>('admin');    // Replace with user role logic
+  const [userRole, setUserRole] = useState<UserRole | null>('student');    // Replace with user role logic
 
   // Get current location
   const isActive = (path: string) => location.pathname.startsWith(path);
@@ -34,19 +34,19 @@ function NavBar() {
         switch (userRole) {
             case 'admin':
                 return [
-                  { label: 'Admin Dashboard', path: '/admin/dashboard' },
+                  { label: 'Dashboard', path: '/admin/dashboard' },
                   { label: 'Manage Users', path: '/admin/manage-users' },
                   { label: 'Account Settings', path: '/settings' },
                 ];
               case 'lecturer':
                 return [
-                  { label: 'Lecturer Dashboard', path: '/lecturer/dashboard' },
+                  { label: 'Dashboard', path: '/lecturer/dashboard' },
                   { label: 'Manage Courses', path: '/lecturer/manage-courses' },
                   { label: 'Account Settings', path: '/settings' },
                 ];
               case 'student':
                 return [
-                  { label: 'Student Dashboard', path: '/student/dashboard' },
+                  { label: 'Dashboard', path: '/student/dashboard' },
                   { label: 'My Courses', path: '/student/courses' },
                   { label: 'Account Settings', path: '/settings' },
                 ];
@@ -67,7 +67,7 @@ function NavBar() {
         <nav className="flex items-center justify-between p-4 bg-secondary rounded-4xl">
             <div className='mx-2'>
                 <a href="/" >
-                  <LogoHorizontal className='w-[200px] h-auto fill-[var(--primary-100)] hover:brightness-70 transition-filter duration-500 ease-in-out'/>
+                  <LogoHorizontal className='w-[200px] h-auto fill-[var(--primary-100)] hover:brightness-85 transition-filter duration-500 ease-in-out'/>
                 </a>
             </div>
             <div className="flex items-center">

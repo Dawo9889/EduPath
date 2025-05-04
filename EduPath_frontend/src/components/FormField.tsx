@@ -9,9 +9,10 @@ interface FormFieldProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
   placeholder: string,
   otherStyles: string,
+  fieldName?: string,
 }
 
-const FormField = ({title, value, isPassword, placeholder, otherStyles, onChange}: FormFieldProps) => {
+const FormField = ({title, value, isPassword, placeholder, otherStyles, onChange, fieldName}: FormFieldProps) => {
 
     const [showPassword, setShowPassword] = useState(false);
 
@@ -25,6 +26,7 @@ const FormField = ({title, value, isPassword, placeholder, otherStyles, onChange
           placeholder={placeholder}
           onChange={onChange}
           type={isPassword && !showPassword ? 'password' : 'text'}
+          name={fieldName}
         />
         {isPassword && (
           <button

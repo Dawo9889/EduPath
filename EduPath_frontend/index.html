@@ -7,6 +7,12 @@
     <title>EduPath</title>
   </head>
   <body>
+    <script>
+      (function () {
+        const theme = sessionStorage.getItem('theme') || 'light';
+        document.documentElement.classList.add('theme-' + theme);
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
