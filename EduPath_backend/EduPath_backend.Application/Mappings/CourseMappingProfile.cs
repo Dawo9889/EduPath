@@ -25,8 +25,7 @@ namespace EduPath_backend.Application.Mappings
             CreateMap<User, ListOfUsersDTO>()
                 .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => ((User)src).UserId))
                 .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => ((User)src).FirstName))
-                .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => ((User)src).LastName))
-                .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role.ToString()));
+                .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => ((User)src).LastName));
 
         }
 

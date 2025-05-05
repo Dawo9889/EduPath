@@ -107,5 +107,16 @@ namespace EduPath_backend.Application.Services.Course
 
             return result;
         }
+
+        public async Task<ListCourseDTO> GetCoursesByUserIdAsync(Guid userId)
+        {
+            var courses = await _courseRepository.GetCoursesByUserIdAsync(userId);
+            if (courses == null)
+            {
+                throw new Exception("Courses not found");
+            }
+            var coursesDTO = _mapper.Map<ListCourseDTO>(courses);
+            return coursesDTO;
+        }
     }
 }

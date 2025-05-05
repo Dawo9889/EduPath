@@ -13,22 +13,15 @@ namespace EduPath_backend.Domain.Entities
         public string UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-
-        [JsonConverter(typeof(JsonStringEnumConverter))]
-        public UserRole Role { get; set; } 
-
         public string? RefreshToken { get; set; }
         public DateTime RefreshTokenExpiryTime { get; set; }
         public byte[]? ProfilePicture { get; set; }
 
+        public bool MustChangePassword { get; set; } = true;
+
+        //Relations
         public ICollection<CourseUser> CourseUsers { get; set; }
         public ICollection<AssignmentUser> AssignmentUsers { get; set; }
     }
 
-    public enum UserRole
-    {
-        Admin,
-        Teacher,
-        Student
-    }
 }

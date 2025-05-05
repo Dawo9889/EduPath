@@ -11,6 +11,6 @@ namespace EduPath_backend.Application.DTOs.User
         public string UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Role { get; set; } 
+        //public string Role { get; set; } 
     }
 }

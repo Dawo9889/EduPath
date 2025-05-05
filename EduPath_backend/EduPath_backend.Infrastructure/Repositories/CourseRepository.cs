@@ -51,6 +51,14 @@ namespace EduPath_backend.Infrastructure.Repositories
             return course;
         }
 
+        public async Task<List<Course>> GetCoursesByUserIdAsync(Guid userId)
+        {
+            return await _context.CourseUsers
+                .Where(cu => cu.UserId == userId.ToString())
+                .Select(cu => cu.Course)
+                .ToListAsync();
+        }
+
         public async Task<Course?> GetCourseWithUsersAsync(Guid courseId)
         {
             return await _context.Courses

@@ -57,30 +57,7 @@ namespace EduPath_backend.Infrastructure.Persistance
                 .HasOne(a => a.Course)
                 .WithMany(c => c.Assignments)
                 .HasForeignKey(a => a.CourseId);
-
-
-            // Seed data for Course
-            modelBuilder.Entity<Course>().HasData(
-                new Course
-                {
-                    CourseId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
-                    Name = "Introduction to Programming",
-                    Description = "Learn the basics of programming using C#."
-                },
-                new Course
-                {
-                    CourseId = Guid.Parse("11111111-1111-1111-1111-111111111112"),
-                    Name = "Advanced Database Systems",
-                    Description = "Explore advanced topics in database design and optimization."
-                },
-                new Course
-                {
-                    CourseId = Guid.Parse("11111111-1111-1111-1111-111111111113"),
-                    Name = "Web Development with ASP.NET",
-                    Description = "Build modern web applications using ASP.NET Core."
-                }
-            );
-
+ 
 
         }
     }
