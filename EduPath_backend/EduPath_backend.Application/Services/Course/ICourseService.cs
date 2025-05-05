@@ -18,5 +18,6 @@ namespace EduPath_backend.Application.Services.Course
         Task<List<ListOfUsersDTO>> GetUsersByCourseId(Guid courseId);
 
         Task<bool> UpdateCourseAsync(Guid courseId, CreateCourseDTO updatedCourse);
+        Task <ListCourseDTO> GetCoursesByUserIdAsync(Guid userId);
     }
 }

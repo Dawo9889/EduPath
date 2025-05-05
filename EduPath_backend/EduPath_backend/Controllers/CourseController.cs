@@ -51,6 +51,14 @@ namespace EduPath_backend.API.Controllers
             return Ok(users);
         }
 
+
+        [HttpGet("user/{userId}")] // Retrieve all courses a specific user is enrolled in.
+        public async Task<IActionResult> GetCoursesByUserId(Guid userId)
+        {
+            var courses = await _courseService.GetCoursesByUserIdAsync(userId);
+            return Ok(courses);
+        }
+
         //Post
         [HttpPost("create")]
         public async Task<IActionResult> AddCourse([FromBody] CreateCourseDTO courseDTO)
@@ -121,6 +129,23 @@ namespace EduPath_backend.API.Controllers
                 return NotFound(new { message = ex.Message });
             }
         }
+
+
+
+        ////Deletes
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> DeleteCourse(Guid id)
+        //{
+        //    try
+        //    {
+        //        await _courseService.DeleteCourseAsync(id);
+        //        return NoContent();
+        //    }
+        //    catch (KeyNotFoundException ex)
+        //    {
+        //        return NotFound(new { message = ex.Message });
+        //    }
+        //}
 
     }
 }
