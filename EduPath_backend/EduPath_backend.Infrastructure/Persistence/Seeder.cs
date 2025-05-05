@@ -26,6 +26,7 @@ namespace EduPath_backend.Infrastructure.Persistence
             await SeedRolesAsync(roleManager);
             await SeedCoursesAsync(context);
             await SeedAdminUserAsync(userManager);
+            await SeedAssignmentAsync(context);
         }
 
         private static async Task SeedRolesAsync(RoleManager<IdentityRole> roleManager)
@@ -38,6 +39,75 @@ namespace EduPath_backend.Infrastructure.Persistence
                 {
                     await roleManager.CreateAsync(new IdentityRole(role));
                 }
+            }
+        }
+
+        private static async Task SeedAssignmentAsync(ApplicationDbContext context)
+        {
+            if (!context.Assignments.Any())
+            {
+                context.Assignments.AddRange(
+                    new Assignment
+                    {
+                        Id_Assignment = Guid.NewGuid(),
+                        CourseId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
+                        Name = "Zadanie 1",
+                        Content = "Opis zadania 1",
+                        Date_start = new DateTime(2025, 5, 1),
+                        Date_end = new DateTime(2025, 5, 10),
+                        Visible = true
+                    },
+                    new Assignment
+                    {
+                        Id_Assignment = Guid.NewGuid(),
+                        CourseId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
+                        Name = "Zadanie 2",
+                        Content = "Opis zadania 2",
+                        Date_start = new DateTime(2025, 5, 2),
+                        Date_end = new DateTime(2025, 5, 15),
+                        Visible = false
+                    },
+                    new Assignment
+                    {
+                        Id_Assignment = Guid.NewGuid(),
+                        CourseId = Guid.Parse("11111111-1111-1111-1111-111111111112"),
+                        Name = "Zadanie 1",
+                        Content = "Opis zadania 1",
+                        Date_start = new DateTime(2025, 5, 1),
+                        Date_end = new DateTime(2025, 5, 10),
+                        Visible = true
+                    },
+                    new Assignment
+                    {
+                        Id_Assignment = Guid.NewGuid(),
+                        CourseId = Guid.Parse("11111111-1111-1111-1111-111111111112"),
+                        Name = "Zadanie 2",
+                        Content = "Opis zadania 2",
+                        Date_start = new DateTime(2025, 5, 2),
+                        Date_end = new DateTime(2025, 5, 15),
+                        Visible = false
+                    },
+                    new Assignment
+                    {
+                        Id_Assignment = Guid.NewGuid(),
+                        CourseId = Guid.Parse("11111111-1111-1111-1111-111111111113"),
+                        Name = "Zadanie 1",
+                        Content = "Opis zadania 1",
+                        Date_start = new DateTime(2025, 5, 1),
+                        Date_end = new DateTime(2025, 5, 10),
+                        Visible = true
+                    },
+                    new Assignment
+                    {
+                        Id_Assignment = Guid.NewGuid(),
+                        CourseId = Guid.Parse("11111111-1111-1111-1111-111111111113"),
+                        Name = "Zadanie 2",
+                        Content = "Opis zadania 2",
+                        Date_start = new DateTime(2025, 5, 2),
+                        Date_end = new DateTime(2025, 5, 15),
+                        Visible = false
+                    });
+                await context.SaveChangesAsync();
             }
         }
 

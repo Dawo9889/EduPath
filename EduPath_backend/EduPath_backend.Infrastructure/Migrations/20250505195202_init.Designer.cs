@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EduPath_backend.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250505173856_init")]
+    [Migration("20250505195202_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -43,6 +43,10 @@ namespace EduPath_backend.Infrastructure.Migrations
 
                     b.Property<DateTime>("Date_start")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Visible")
                         .HasColumnType("bit");

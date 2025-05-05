@@ -184,6 +184,7 @@ namespace EduPath_backend.Infrastructure.Migrations
                 {
                     Id_Assignment = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CourseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Date_start = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Date_end = table.Column<DateTime>(type: "datetime2", nullable: false),

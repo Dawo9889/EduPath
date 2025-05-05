@@ -17,6 +17,7 @@ namespace EduPath_backend.Infrastructure.Extensions
 
 
             services.AddScoped<ICourseRepository, CourseRepository>();
+            services.AddScoped<IAssignmentRepository, AssignmentRepository>();
 
             using (var serviceProvider = services.BuildServiceProvider())
             {

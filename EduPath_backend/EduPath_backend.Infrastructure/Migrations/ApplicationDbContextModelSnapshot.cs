@@ -41,6 +41,10 @@ namespace EduPath_backend.Infrastructure.Migrations
                     b.Property<DateTime>("Date_start")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("Visible")
                         .HasColumnType("bit");
 
