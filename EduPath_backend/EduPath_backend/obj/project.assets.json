@@ -5588,11 +5588,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\studia\\Semestr 6\\Wsp蟪czesne aplikacje webowe\\Edu\\EduPath_backend\\EduPath_backend\\EduPath_backend.API.csproj",
+      "projectUniqueName": "D:\\studia\\Semestr 6\\Wsp贸艂czesne aplikacje webowe\\Edu\\EduPath_backend\\EduPath_backend\\EduPath_backend.API.csproj",
       "projectName": "EduPath_backend.API",
-      "projectPath": "D:\\studia\\Semestr 6\\Wsp蟪czesne aplikacje webowe\\Edu\\EduPath_backend\\EduPath_backend\\EduPath_backend.API.csproj",
+      "projectPath": "D:\\studia\\Semestr 6\\Wsp贸艂czesne aplikacje webowe\\Edu\\EduPath_backend\\EduPath_backend\\EduPath_backend.API.csproj",
       "packagesPath": "C:\\Users\\Dawid\\.nuget\\packages\\",
-      "outputPath": "D:\\studia\\Semestr 6\\Wsp蟪czesne aplikacje webowe\\Edu\\EduPath_backend\\EduPath_backend\\obj\\",
+      "outputPath": "D:\\studia\\Semestr 6\\Wsp贸艂czesne aplikacje webowe\\Edu\\EduPath_backend\\EduPath_backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Dawid\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -5610,11 +5610,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\studia\\Semestr 6\\Wsp蟪czesne aplikacje webowe\\Edu\\EduPath_backend\\EduPath_backend.Application\\EduPath_backend.Application.csproj": {
-              "projectPath": "D:\\studia\\Semestr 6\\Wsp蟪czesne aplikacje webowe\\Edu\\EduPath_backend\\EduPath_backend.Application\\EduPath_backend.Application.csproj"
+            "D:\\studia\\Semestr 6\\Wsp贸艂czesne aplikacje webowe\\Edu\\EduPath_backend\\EduPath_backend.Application\\EduPath_backend.Application.csproj": {
+              "projectPath": "D:\\studia\\Semestr 6\\Wsp贸艂czesne aplikacje webowe\\Edu\\EduPath_backend\\EduPath_backend.Application\\EduPath_backend.Application.csproj"
             },
-            "D:\\studia\\Semestr 6\\Wsp蟪czesne aplikacje webowe\\Edu\\EduPath_backend\\EduPath_backend.Infrastructure\\EduPath_backend.Infrastructure.csproj": {
-              "projectPath": "D:\\studia\\Semestr 6\\Wsp蟪czesne aplikacje webowe\\Edu\\EduPath_backend\\EduPath_backend.Infrastructure\\EduPath_backend.Infrastructure.csproj"
+            "D:\\studia\\Semestr 6\\Wsp贸艂czesne aplikacje webowe\\Edu\\EduPath_backend\\EduPath_backend.Infrastructure\\EduPath_backend.Infrastructure.csproj": {
+              "projectPath": "D:\\studia\\Semestr 6\\Wsp贸艂czesne aplikacje webowe\\Edu\\EduPath_backend\\EduPath_backend.Infrastructure\\EduPath_backend.Infrastructure.csproj"
             }
           }
         }

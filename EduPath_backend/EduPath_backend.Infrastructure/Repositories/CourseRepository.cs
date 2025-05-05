@@ -70,7 +70,7 @@ namespace EduPath_backend.Infrastructure.Repositories
         {
             var users = await _context.CourseUsers
                 .Where(cu => cu.CourseId == courseId)
-                .Select(cu => cu.User) 
+                .Select(cu => cu.User)
                 .ToListAsync();
 
             return users;
@@ -94,9 +94,21 @@ namespace EduPath_backend.Infrastructure.Repositories
             existingCourse.Description = updatedCourse.Description;
             existingCourse.IsPublic = updatedCourse.IsPublic;
             existingCourse.PasswordHash = updatedCourse.PasswordHash;
-            
+
             var result = await _context.SaveChangesAsync();
             return result > 0;
+        }
+
+        public async Task<bool> DeleteCourseAsync(Guid courseId)
+        {
+            var course = await _context.Courses.FindAsync(courseId);
+            if (course == null)
+                return false;
+
+            _context.Courses.Remove(course);
+            await _context.SaveChangesAsync();
+
+            return true;
         }
     }
 }

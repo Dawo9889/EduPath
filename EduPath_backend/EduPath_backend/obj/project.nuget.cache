@@ -2,7 +2,7 @@
   "version": 2,
   "dgSpecHash": "7aa1MfqURDk=",
   "success": true,
-  "projectFilePath": "D:\\studia\\Semestr 6\\Wsp�czesne aplikacje webowe\\Edu\\EduPath_backend\\EduPath_backend\\EduPath_backend.API.csproj",
+  "projectFilePath": "D:\\studia\\Semestr 6\\Współczesne aplikacje webowe\\Edu\\EduPath_backend\\EduPath_backend\\EduPath_backend.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Dawid\\.nuget\\packages\\automapper\\14.0.0\\automapper.14.0.0.nupkg.sha512",
     "C:\\Users\\Dawid\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",

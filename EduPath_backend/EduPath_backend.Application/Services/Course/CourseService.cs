@@ -118,5 +118,15 @@ namespace EduPath_backend.Application.Services.Course
             var coursesDTO = _mapper.Map<ListCourseDTO>(courses);
             return coursesDTO;
         }
+
+        public async Task<bool> DeleteCourseAsync(Guid courseId)
+        {
+            var course = await _courseRepository.GetCourseByIdAsync(courseId);
+            if (course == null)
+            {
+                throw new Exception("Course not found");
+            }
+            return await _courseRepository.DeleteCourseAsync(courseId);
+        }
     }
 }

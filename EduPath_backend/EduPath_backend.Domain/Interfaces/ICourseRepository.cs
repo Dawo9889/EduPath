@@ -22,5 +22,7 @@ namespace EduPath_backend.Domain.Interfaces
         Task<bool> UpdateCourseAsync(Guid CourseId, Course updatedCourse);
 
         Task<List<Course>> GetCoursesByUserIdAsync(Guid userId);
+
+        Task<bool> DeleteCourseAsync(Guid courseId);
     }
 }

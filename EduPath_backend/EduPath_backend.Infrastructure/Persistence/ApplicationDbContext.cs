@@ -31,12 +31,14 @@ namespace EduPath_backend.Infrastructure.Persistance
             modelBuilder.Entity<CourseUser>()
                 .HasOne(cu => cu.Course)
                 .WithMany(c => c.CourseUsers)
-                .HasForeignKey(cu => cu.CourseId);
+                .HasForeignKey(cu => cu.CourseId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<CourseUser>()
                 .HasOne(cu => cu.User)
                 .WithMany(u => u.CourseUsers)
-                .HasForeignKey(cu => cu.UserId);
+                .HasForeignKey(cu => cu.UserId)
+                .OnDelete(DeleteBehavior.Cascade); ;
 
             // Configure Assignment-User Many-to-Many Relationship
             modelBuilder.Entity<AssignmentUser>()

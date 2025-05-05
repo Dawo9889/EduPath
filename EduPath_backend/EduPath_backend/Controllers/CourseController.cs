@@ -132,20 +132,20 @@ namespace EduPath_backend.API.Controllers
 
 
 
-        ////Deletes
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteCourse(Guid id)
-        //{
-        //    try
-        //    {
-        //        await _courseService.DeleteCourseAsync(id);
-        //        return NoContent();
-        //    }
-        //    catch (KeyNotFoundException ex)
-        //    {
-        //        return NotFound(new { message = ex.Message });
-        //    }
-        //}
+        //Deletes
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCourse(Guid id)
+        {
+            try
+            {
+                await _courseService.DeleteCourseAsync(id);
+                return NoContent();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+        }
 
     }
 }
