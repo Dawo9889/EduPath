@@ -146,6 +146,36 @@ namespace EduPath_backend.API.Controllers
                 return NotFound(new { message = ex.Message });
             }
         }
+        //[HttpDelete("{courseId}/users/{userId}")]
+        //public async Task<IActionResult> RemoveStudentFromCourse(Guid courseId, Guid userId)
+        //{
+        //    // Simulate getting the course owner's ID (replace with actual logic to get the current user ID)
+        //    var ownerId = "5a347d1e-81f5-4493-81ab-a79b15ffa2d4"; // Example owner ID
+        //    if (ownerId == null)
+        //        return Unauthorized();
+
+        //    try
+        //    {
+        //        // Check if the current user is the owner of the course
+        //        var isOwner = await _courseService.IsCourseOwnerAsync(courseId, Guid.Parse(ownerId));
+        //        if (!isOwner)
+        //        {
+        //            return Forbid("You are not authorized to remove students from this course.");
+        //        }
+
+        //        // Remove the student from the course
+        //        await _courseService.RemoveStudentFromCourseAsync(courseId, userId);
+        //        return Ok(new { message = "Student removed from the course successfully." });
+        //    }
+        //    catch (KeyNotFoundException ex)
+        //    {
+        //        return NotFound(new { message = ex.Message });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(new { error = ex.Message });
+        //    }
+        //}
 
     }
 }

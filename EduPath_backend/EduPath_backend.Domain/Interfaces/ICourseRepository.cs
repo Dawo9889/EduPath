@@ -14,7 +14,9 @@ namespace EduPath_backend.Domain.Interfaces
         Task<Course> GetCourseByIdAsync(Guid id);
 
         Task<Course?> GetCourseWithUsersAsync(Guid courseId);
+
         Task<bool> IsUserInCourseAsync(Guid courseId, Guid userId);
+
         Task AddUserToCourseAsync(Guid courseId, Guid userId);
 
         Task<List<User>> GetListOfAssignedUsers(Guid courseId);
@@ -24,5 +26,7 @@ namespace EduPath_backend.Domain.Interfaces
         Task<List<Course>> GetCoursesByUserIdAsync(Guid userId);
 
         Task<bool> DeleteCourseAsync(Guid courseId);
+
+        Task<bool> IsCourseOwnerAsync(Guid courseId, Guid userId);
     }
 }

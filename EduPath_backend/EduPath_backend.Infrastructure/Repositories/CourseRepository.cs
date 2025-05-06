@@ -110,5 +110,19 @@ namespace EduPath_backend.Infrastructure.Repositories
 
             return true;
         }
+
+        public async Task<bool> IsCourseOwnerAsync(Guid courseId, Guid userId)
+        {
+            var course = await _context.Courses
+                .Include(c => c.CourseUsers)
+                .FirstOrDefaultAsync(c => c.CourseId == courseId);
+
+            if (course == null)
+            {
+                return false;
+            }
+
+            return course.CourseUsers.Any(cu => cu.UserId == userId.ToString());
+        }
     }
 }

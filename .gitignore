@@ -1,6 +1,6 @@
 # Own ignores
 [Cc]ourses_files/
-
+Migrations/
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/visualstudio

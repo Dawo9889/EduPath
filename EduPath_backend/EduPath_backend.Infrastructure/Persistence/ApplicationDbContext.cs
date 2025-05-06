@@ -24,6 +24,14 @@ namespace EduPath_backend.Infrastructure.Persistance
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Course>()
+            .HasOne(c => c.Owner)
+            .WithMany() 
+            .HasForeignKey(c => c.OwnerId)
+            .OnDelete(DeleteBehavior.Restrict); 
+
+
+
             // Configure Course-User Many-to-Many Relationship
             modelBuilder.Entity<CourseUser>()
                 .HasKey(cu => new { cu.CourseId, cu.UserId }); // Composite Key

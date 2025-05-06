@@ -16,6 +16,14 @@ namespace EduPath_backend.Domain.Entities
 
         public bool IsPublic { get; set; } = false;
         public string? PasswordHash { get; set; }
+
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime? UpdatedAt { get; set; }
+
+        public string OwnerId { get; set; } = default!;
+        public User Owner { get; set; } = default!;
+
+
         public ICollection<CourseUser>? CourseUsers { get; set; }
         public ICollection<Assignment>? Assignments { get; set; }
     }
