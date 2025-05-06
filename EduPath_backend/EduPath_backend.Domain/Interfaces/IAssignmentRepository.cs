@@ -13,6 +13,7 @@ namespace EduPath_backend.Domain.Interfaces
         Task<Assignment> GetAssignmentById(Guid id);
         Task<List<Assignment>> GetAllAssignmentsByCourse(Guid CourseId);
         Task<List<Assignment>> GetAllAssignments();
+        Task<List<AssignmentUser>> GetAssignmentByUserId(string userId);
 
     }
 }

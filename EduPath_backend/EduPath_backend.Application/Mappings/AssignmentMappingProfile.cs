@@ -15,6 +15,11 @@ namespace EduPath_backend.Application.Mappings
         {
             CreateMap<Assignment, ListAssingmentDTO>();
             CreateMap<ListAssingmentDTO, Assignment>();
+
+            CreateMap<AssignmentUser, AssignmentUserDTO>()
+                .ForMember(dest => dest.AssignmentName, opt => opt.MapFrom(src => ((AssignmentUser)src).Assignment.Name))
+                .ForMember(dest => dest.AssignmentContent, opt => opt.MapFrom(src => ((AssignmentUser)src).Assignment.Content))
+                .ForMember(dest => dest.UserEmail, opt => opt.MapFrom(src => ((AssignmentUser)src).User.Email));
         }
     }
 }

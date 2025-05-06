@@ -202,32 +202,6 @@ namespace EduPath_backend.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AssignmentUsers",
-                columns: table => new
-                {
-                    CourseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Filepath = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Date_submitted = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AssignmentUsers", x => new { x.CourseId, x.UserId });
-                    table.ForeignKey(
-                        name: "FK_AssignmentUsers_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_AssignmentUsers_Courses_CourseId",
-                        column: x => x.CourseId,
-                        principalTable: "Courses",
-                        principalColumn: "CourseId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "CourseUsers",
                 columns: table => new
                 {
@@ -248,6 +222,32 @@ namespace EduPath_backend.Infrastructure.Migrations
                         column: x => x.CourseId,
                         principalTable: "Courses",
                         principalColumn: "CourseId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AssignmentUsers",
+                columns: table => new
+                {
+                    AssignmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Filepath = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Date_submitted = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AssignmentUsers", x => new { x.AssignmentId, x.UserId });
+                    table.ForeignKey(
+                        name: "FK_AssignmentUsers_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AssignmentUsers_Assignments_AssignmentId",
+                        column: x => x.AssignmentId,
+                        principalTable: "Assignments",
+                        principalColumn: "Id_Assignment",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -325,9 +325,6 @@ namespace EduPath_backend.Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Assignments");
-
-            migrationBuilder.DropTable(
                 name: "AssignmentUsers");
 
             migrationBuilder.DropTable(
@@ -335,6 +332,9 @@ namespace EduPath_backend.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Assignments");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

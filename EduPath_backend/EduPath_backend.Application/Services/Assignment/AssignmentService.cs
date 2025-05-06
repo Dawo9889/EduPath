@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EduPath_backend.Application.DTOs.Assingment;
 using EduPath_backend.Application.DTOs.Course;
+using EduPath_backend.Domain.Entities;
 using EduPath_backend.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -28,12 +29,27 @@ namespace EduPath_backend.Application.Services.Assignment
             return result;
         }
 
-        public async Task<List<ListAssingmentDTO>> GetAllAssingmentsAsync()
+        public async Task<List<ListAssingmentDTO>> GetAllAssignmentsAsync()
         {
             var assignments = await _assignmentRepository.GetAllAssignments();
-
             var listAssignmentsDTOs = _mapper.Map<List<ListAssingmentDTO>>(assignments);
             return listAssignmentsDTOs;
+        }
+
+        public async Task<List<ListAssingmentDTO>> GetAssignmentsByCourse(Guid courseId)
+        {
+            var assignmentsByCourse = await _assignmentRepository.GetAllAssignmentsByCourse(courseId);
+
+            var assignmentsByCourseDTO = _mapper.Map<List<ListAssingmentDTO>>(assignmentsByCourse);
+            return assignmentsByCourseDTO;
+        }
+
+        public async Task<List<AssignmentUserDTO>> GetAssignmentByUserId(string userId)
+        {
+            var assignmentByUser = await _assignmentRepository.GetAssignmentByUserId(userId);
+
+            var assignmentByUserDTO = _mapper.Map<List<AssignmentUserDTO>>(assignmentByUser);
+            return assignmentByUserDTO;
         }
     }
 }

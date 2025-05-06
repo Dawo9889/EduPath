@@ -21,8 +21,22 @@ namespace EduPath_backend.API.Controllers
         [HttpGet("all")]
         public async Task<List<ListAssingmentDTO>> GetAllAssingments()
         {
-            var assingments = await _assignmentService.GetAllAssingmentsAsync();
+            var assingments = await _assignmentService.GetAllAssignmentsAsync();
             return assingments;
+        }
+
+        [HttpGet("by-course/{courseId}")]
+        public async Task<List<ListAssingmentDTO>> GetAllAssingmentsByCourse(Guid courseId)
+        {
+            var assingmentsByCourse = await _assignmentService.GetAssignmentsByCourse(courseId);
+            return assingmentsByCourse;
+        }
+
+        [HttpGet("by-user/{userId}")]
+        public async Task<List<AssignmentUserDTO>> GetAllAssingmentsByUser(string userId)
+        {
+            var assingmentsByUser = await _assignmentService.GetAssignmentByUserId(userId);
+            return assingmentsByUser;
         }
 
         [HttpPost("create")]

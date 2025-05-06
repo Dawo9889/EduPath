@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EduPath_backend.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250505195202_init")]
+    [Migration("20250506184117_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -60,7 +60,7 @@ namespace EduPath_backend.Infrastructure.Migrations
 
             modelBuilder.Entity("EduPath_backend.Domain.Entities.AssignmentUser", b =>
                 {
-                    b.Property<Guid>("CourseId")
+                    b.Property<Guid>("AssignmentId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("UserId")
@@ -73,7 +73,7 @@ namespace EduPath_backend.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("CourseId", "UserId");
+                    b.HasKey("AssignmentId", "UserId");
 
                     b.HasIndex("UserId");
 
@@ -354,9 +354,9 @@ namespace EduPath_backend.Infrastructure.Migrations
 
             modelBuilder.Entity("EduPath_backend.Domain.Entities.AssignmentUser", b =>
                 {
-                    b.HasOne("EduPath_backend.Domain.Entities.Course", "Course")
+                    b.HasOne("EduPath_backend.Domain.Entities.Assignment", "Assignment")
                         .WithMany()
-                        .HasForeignKey("CourseId")
+                        .HasForeignKey("AssignmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -366,7 +366,7 @@ namespace EduPath_backend.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Course");
+                    b.Navigation("Assignment");
 
                     b.Navigation("User");
                 });

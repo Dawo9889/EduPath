@@ -1,4 +1,5 @@
-﻿using EduPath_backend.Domain.Entities;
+﻿using EduPath_backend.Application.DTOs.Assingment;
+using EduPath_backend.Domain.Entities;
 using EduPath_backend.Domain.Interfaces;
 using EduPath_backend.Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
@@ -45,6 +46,18 @@ namespace EduPath_backend.Infrastructure.Repositories
                 return null;
             }
             return assingment;
+        }
+
+        public async Task<List<AssignmentUser>> GetAssignmentByUserId(string userId)
+        {
+            var result = await _context.AssignmentUsers
+                .Include(a => a.User)
+                .Include(a => a.Assignment)
+                .Where(au => au.UserId == userId)
+                .Distinct()
+                .ToListAsync();
+
+            return result;
         }
     }
 }

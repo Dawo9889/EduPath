@@ -26,7 +26,9 @@ namespace EduPath_backend.Infrastructure.Persistence
             await SeedRolesAsync(roleManager);
             await SeedCoursesAsync(context);
             await SeedAdminUserAsync(userManager);
+            await SeedStudentUserAsync(userManager);
             await SeedAssignmentAsync(context);
+            await SeedAssignmentUsersAsync(context, userManager);
         }
 
         private static async Task SeedRolesAsync(RoleManager<IdentityRole> roleManager)
@@ -161,6 +163,55 @@ namespace EduPath_backend.Infrastructure.Persistence
                 {
                     await userManager.AddToRoleAsync(admin, "Admin");
                 }
+            }
+        }
+        private static async Task SeedStudentUserAsync(UserManager<User> userManager)
+        {
+            string studentEmail = "student@edupath.local";
+            string studentPassword = "Admin123!";
+
+            var existingUser = await userManager.FindByEmailAsync(studentEmail);
+            if (existingUser == null)
+            {
+                var student = new User
+                {
+                    UserName = studentEmail,
+                    Email = studentEmail,
+                    FirstName = "System",
+                    LastName = "Administrator",
+                    EmailConfirmed = true
+                };
+
+                var result = await userManager.CreateAsync(student, studentPassword);
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(student, "Student");
+                }
+            }
+        }
+
+        private static async Task SeedAssignmentUsersAsync(ApplicationDbContext context, UserManager<User> userManager)
+        {
+            var student = await userManager.FindByNameAsync("student@edupath.local");
+            if (student == null)
+                return;
+
+            var assignments = await context.Assignments
+                .Where(a => a.CourseId == Guid.Parse("11111111-1111-1111-1111-111111111111"))
+                .ToListAsync();
+
+            if (!context.AssignmentUsers.Any())
+            {
+                var assignmentUsers = assignments.Select(a => new AssignmentUser
+                {
+                    AssignmentId = a.Id_Assignment,
+                    UserId = student.Id,
+                    Filepath = "/LOCAL/PATH",
+                    Date_submitted = DateTime.UtcNow
+                });
+
+                context.AssignmentUsers.AddRange(assignmentUsers);
+                await context.SaveChangesAsync();
             }
         }
     }

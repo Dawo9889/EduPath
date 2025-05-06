@@ -13,6 +13,8 @@ namespace EduPath_backend.Application.Services.Assignment
     public interface IAssignmentService
     {
         Task<bool> AddAssignmentAsync(CreateAssignmentDTO assignmentDTO);
-        Task<List<ListAssingmentDTO>> GetAllAssingmentsAsync();
+        Task<List<ListAssingmentDTO>> GetAllAssignmentsAsync();
+        Task<List<ListAssingmentDTO>> GetAssignmentsByCourse(Guid courseId);
+        Task<List<AssignmentUserDTO>> GetAssignmentByUserId(string userId);
     }
 }
