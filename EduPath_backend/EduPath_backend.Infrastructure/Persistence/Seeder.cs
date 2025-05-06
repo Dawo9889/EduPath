@@ -50,7 +50,8 @@ namespace EduPath_backend.Infrastructure.Persistence
                     {
                         CourseId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                         Name = "Introduction to Programming",
-                        Description = "Learn the basics of programming using C#."
+                        Description = "Learn the basics of programming using C#.",
+                        PasswordHash = "VzEUIAl9XhLjgS1XlUWaxUWCcqtRHZ2xTwrhjyXJ6no="
                     },
                     new Course
                     {

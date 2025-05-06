@@ -10,11 +10,15 @@ namespace EduPath_backend.Application.Services.Course
     {
         private readonly ICourseRepository _courseRepository;
         private readonly IMapper _mapper;
+        private readonly string _coursesBasePath;
 
         public CourseService(ICourseRepository courseRepository, IMapper mapper)
         {
             _courseRepository = courseRepository;
             _mapper = mapper;
+
+            _coursesBasePath = Environment.GetEnvironmentVariable("COURSES_BASE_PATH") 
+                ?? Path.Combine(Directory.GetCurrentDirectory(), "courses_files");
         }
 
         private static string HashPassword(string? plainTextPassword)
@@ -32,9 +36,29 @@ namespace EduPath_backend.Application.Services.Course
 
         public async Task<bool> AddCourseAsync(CreateCourseDTO courseDTO)
         {
+            courseDTO.PasswordPlainText = HashPassword(courseDTO.PasswordPlainText);
             var courseEntity = _mapper.Map<Domain.Entities.Course>(courseDTO);
             var result = await _courseRepository.AddCourseAsync(courseEntity);
-            return result;
+            
+            if (result)
+            {
+                var courseFolderPath = Path.Combine(_coursesBasePath, courseDTO.Name.ToLower());
+
+                if (!Directory.Exists(courseFolderPath))
+                {
+                    Directory.CreateDirectory(courseFolderPath);
+                }
+                else
+                {
+                    throw new Exception("Course folder already exists.");
+                }
+
+                return result;
+            }
+            else
+            {
+                throw new Exception("Failed to create course.");
+            }
         }
 
         public async Task<List<ListCourseDTO>> GetAvailableCoursesAsync()

@@ -16,7 +16,7 @@ namespace EduPath_backend.Application.Mappings
         public CourseMappingProfile()
         {
             CreateMap<CreateCourseDTO, Course>()
-                .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => HashPassword(src.PasswordPlainText)));
+                .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => src.PasswordPlainText));
 
             CreateMap<Course, ListCourseDTO>();
 
@@ -29,15 +29,15 @@ namespace EduPath_backend.Application.Mappings
 
         }
 
-        private static string HashPassword(string? plainTextPassword)
-        {
-            if (string.IsNullOrEmpty(plainTextPassword))
-                return string.Empty;
+        //private static string HashPassword(string? plainTextPassword)
+        //{
+        //    if (string.IsNullOrEmpty(plainTextPassword))
+        //        return string.Empty;
 
-            using var sha256 = System.Security.Cryptography.SHA256.Create();
-            var bytes = System.Text.Encoding.UTF8.GetBytes(plainTextPassword);
-            var hash = sha256.ComputeHash(bytes);
-            return Convert.ToBase64String(hash);
-        }
+        //    using var sha256 = System.Security.Cryptography.SHA256.Create();
+        //    var bytes = System.Text.Encoding.UTF8.GetBytes(plainTextPassword);
+        //    var hash = sha256.ComputeHash(bytes);
+        //    return Convert.ToBase64String(hash);
+        //}
     }
 }

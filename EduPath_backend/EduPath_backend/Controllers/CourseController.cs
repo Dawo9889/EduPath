@@ -89,7 +89,7 @@ namespace EduPath_backend.API.Controllers
         public async Task<IActionResult> JoinCourse(Guid courseId, [FromBody] JoinCourseRequestDTO request)
         {
             //var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var userId = "22222222-2222-2222-2222-222222222221";
+            var userId = "5a347d1e-81f5-4493-81ab-a79b15ffa2d4";
             if (userId == null)
                 return Unauthorized();
 
