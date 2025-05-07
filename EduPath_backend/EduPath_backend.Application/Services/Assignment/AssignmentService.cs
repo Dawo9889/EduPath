@@ -51,5 +51,24 @@ namespace EduPath_backend.Application.Services.Assignment
             var assignmentByUserDTO = _mapper.Map<List<AssignmentUserDTO>>(assignmentByUser);
             return assignmentByUserDTO;
         }
+
+        public async Task<bool> UpdateAssignmentAsync(Guid AssignmentId, CreateAssignmentDTO assignmentDTO)
+        {
+            var existingAssignment = await _assignmentRepository.GetAssignmentById(AssignmentId);
+            if (existingAssignment == null)
+            {
+                throw new Exception("Course not found");
+            }
+            existingAssignment.CourseId = assignmentDTO.CourseId;
+            existingAssignment.Name = assignmentDTO.Name;
+            existingAssignment.Content = assignmentDTO.Content;
+            existingAssignment.Date_start = assignmentDTO.Date_start;
+            existingAssignment.Date_end = assignmentDTO.Date_end;
+            existingAssignment.Visible = assignmentDTO.Visible;
+
+            var result = await _assignmentRepository.UpdateAssignment(AssignmentId, existingAssignment);
+
+            return result;
+        }
     }
 }

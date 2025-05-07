@@ -63,5 +63,25 @@ namespace EduPath_backend.API.Controllers
 
             return Ok("Assignment created successfully.");
         }
+
+        [HttpPut("update/{AssignmentId}")]
+        public async Task<IActionResult> UpdateAssignment(Guid AssignmentId, [FromBody] CreateAssignmentDTO updateAssignmentDTO)
+        {
+            var validationResult = await _createAssignmentValidator.ValidateAsync(updateAssignmentDTO);
+
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors.Select(e => e.ErrorMessage));
+            }
+            try
+            {
+                await _assignmentService.UpdateAssignmentAsync(AssignmentId, updateAssignmentDTO);
+                return NoContent();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+        }
     }
 }

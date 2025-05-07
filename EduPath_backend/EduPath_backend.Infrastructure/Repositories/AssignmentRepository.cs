@@ -59,5 +59,23 @@ namespace EduPath_backend.Infrastructure.Repositories
 
             return result;
         }
+
+        public async Task<bool> UpdateAssignment(Guid assignmentId, Assignment assignment)
+        {
+            var existingAssignment = await _context.Assignments.FindAsync(assignmentId);
+            if (existingAssignment == null)
+            {
+                return false;
+            }
+            existingAssignment.CourseId = assignment.CourseId;
+            existingAssignment.Name = assignment.Name;
+            existingAssignment.Content = assignment.Content;
+            existingAssignment.Date_start = assignment.Date_start;
+            existingAssignment.Date_end = assignment.Date_end;
+            existingAssignment.Visible = assignment.Visible;
+
+            var result = await _context.SaveChangesAsync();
+            return result > 0;
+        }
     }
 }

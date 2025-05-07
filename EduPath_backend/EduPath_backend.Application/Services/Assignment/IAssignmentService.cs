@@ -16,5 +16,6 @@ namespace EduPath_backend.Application.Services.Assignment
         Task<List<ListAssingmentDTO>> GetAllAssignmentsAsync();
         Task<List<ListAssingmentDTO>> GetAssignmentsByCourse(Guid courseId);
         Task<List<AssignmentUserDTO>> GetAssignmentByUserId(string userId);
+        Task<bool> UpdateAssignmentAsync(Guid AssignmentId, CreateAssignmentDTO assignmentDTO);
     }
 }
