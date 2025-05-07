@@ -70,5 +70,16 @@ namespace EduPath_backend.Application.Services.Assignment
 
             return result;
         }
+
+        public async Task<bool> DeleteAssignmentAsync(Guid AssignmentId)
+        {
+            var existingAssignment = await _assignmentRepository.GetAssignmentById(AssignmentId);
+            if (existingAssignment == null)
+            {
+                return false;
+            }
+            var result = await _assignmentRepository.DeleteAssignment(AssignmentId);
+            return result;
+        }
     }
 }

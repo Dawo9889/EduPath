@@ -77,5 +77,19 @@ namespace EduPath_backend.Infrastructure.Repositories
             var result = await _context.SaveChangesAsync();
             return result > 0;
         }
+
+        public async Task<bool> DeleteAssignment(Guid assignmentId)
+        {
+            var existingAssignment = await _context.Assignments.FirstOrDefaultAsync(x => x.Id_Assignment == assignmentId);
+            if (existingAssignment == null)
+            {
+                return false;
+            }
+
+            _context.Assignments.Remove(existingAssignment);
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
     }
 }

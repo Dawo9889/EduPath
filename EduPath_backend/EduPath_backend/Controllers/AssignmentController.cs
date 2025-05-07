@@ -83,5 +83,18 @@ namespace EduPath_backend.API.Controllers
                 return NotFound(new { message = ex.Message });
             }
         }
+
+        [HttpDelete("delete/{AssignmentId}")]
+        public async Task<IActionResult> DeleteAssignment(Guid AssignmentId)
+        {
+            var result = await _assignmentService.DeleteAssignmentAsync(AssignmentId);
+
+            if (result)
+            {
+                return Ok("Assignment removed");
+            }
+
+            return NotFound("Assignment not found");
+        }
     }
 }
