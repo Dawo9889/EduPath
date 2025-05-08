@@ -16,7 +16,7 @@ namespace EduPath_backend.Domain.Entities
         [ForeignKey("Course")]
         public Guid CourseId { get; set; }
         public Course Course { get; set; }
-
+        public string Name { get; set; }
         public string Content { get; set; }
         public DateTime Date_start { get; set; }
         public DateTime Date_end { get; set; }
