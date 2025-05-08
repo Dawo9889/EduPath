@@ -37,8 +37,16 @@ namespace EduPath_backend.Infrastructure.Persistence
             // Seed courses with the teacherUser as owner
             await SeedCoursesAsync(context, teacherUser.Id);
 
+            // Seed sample assignments 
             await SeedAssignmentAsync(context);
+
             await SeedAssignmentUsersAsync(context, userManager);
+
+            // Seed multiple users and teachers
+            await SeedMultipleUsersAsync(userManager, 6);
+
+            await SeedCourseUsersAsync(context, userManager);
+
         }
 
         private static async Task SeedRolesAsync(RoleManager<IdentityRole> roleManager)
@@ -95,6 +103,54 @@ namespace EduPath_backend.Infrastructure.Persistence
 
             return teacher;
         }
+
+        private static async Task<User> SeedStudentUserAsync(UserManager<User> userManager)
+        {
+            string studentEmail = "student@edupath.local";
+            string studentPassword = "Admin123!";
+
+            var existingUser = await userManager.FindByEmailAsync(studentEmail);
+            if (existingUser != null)
+                return existingUser;
+
+            var student = new User
+            {
+                UserName = studentEmail,
+                Email = studentEmail,
+                FirstName = "System",
+                LastName = "Administrator",
+                EmailConfirmed = true
+            };
+            var result = await userManager.CreateAsync(student, studentPassword);
+            if (result.Succeeded)
+                await userManager.AddToRoleAsync(student, "Student");
+
+            return student;
+        }
+
+        private static async Task SeedMultipleUsersAsync(UserManager<User> userManager, int userCount)
+        {
+            for (int i = 1; i <= userCount; i++)
+            {
+                string studentEmail = $"student{i}@edupath.local";
+                var student = await userManager.FindByEmailAsync(studentEmail);
+                if (student == null)
+                {
+                    student = new User
+                    {
+                        UserName = studentEmail,
+                        Email = studentEmail,
+                        FirstName = $"Student{i}",
+                        LastName = "Johnson",
+                        EmailConfirmed = true
+                    };
+                    var result = await userManager.CreateAsync(student, "Student123!");
+                    if (result.Succeeded)
+                        await userManager.AddToRoleAsync(student, "Student");
+                }
+            }
+        }
+
 
         private static async Task SeedAssignmentAsync(ApplicationDbContext context)
         {
@@ -200,29 +256,6 @@ namespace EduPath_backend.Infrastructure.Persistence
             context.Courses.AddRange(courses);
             await context.SaveChangesAsync();
         }
-        private static async Task<User> SeedStudentUserAsync(UserManager<User> userManager)
-        {
-            string studentEmail = "student@edupath.local";
-            string studentPassword = "Admin123!";
-
-            var existingUser = await userManager.FindByEmailAsync(studentEmail);
-            if (existingUser != null)
-                return existingUser;
-
-            var student = new User
-            {
-                UserName = studentEmail,
-                Email = studentEmail,
-                FirstName = "System",
-                LastName = "Administrator",
-                EmailConfirmed = true
-            };
-            var result = await userManager.CreateAsync(student, studentPassword);
-            if (result.Succeeded)
-                await userManager.AddToRoleAsync(student, "Student");
-
-            return student;
-        }
 
         private static async Task SeedAssignmentUsersAsync(ApplicationDbContext context, UserManager<User> userManager)
         {
@@ -248,5 +281,36 @@ namespace EduPath_backend.Infrastructure.Persistence
                 await context.SaveChangesAsync();
             }
         }
+
+        private static async Task SeedCourseUsersAsync(ApplicationDbContext context, UserManager<User> userManager)
+        {
+            var students = await userManager.GetUsersInRoleAsync("Student");
+
+            if (!students.Any())
+                return;
+
+            var courses = await context.Courses.ToListAsync();
+
+            if (context.CourseUsers.Any())
+                return;
+
+            var courseUsers = new List<CourseUser>();
+
+            for (int i = 0; i < courses.Count && i < students.Count; i++)
+            {
+                courseUsers.Add(new CourseUser
+                {
+                    CourseId = courses[i].CourseId,
+                    UserId = students[i].Id
+                });
+            }
+
+            if (courseUsers.Any())
+            {
+                context.CourseUsers.AddRange(courseUsers);
+                await context.SaveChangesAsync();
+            }
+        }
+
     }
 }
