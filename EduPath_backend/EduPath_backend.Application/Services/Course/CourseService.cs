@@ -42,7 +42,7 @@ namespace EduPath_backend.Application.Services.Course
             
             if (result)
             {
-                var courseFolderPath = Path.Combine(_coursesBasePath, courseDTO.Name.ToLower());
+                var courseFolderPath = Path.Combine(_coursesBasePath, courseEntity.CourseId.ToString());
 
                 if (!Directory.Exists(courseFolderPath))
                 {

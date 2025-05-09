@@ -5583,23 +5583,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\huber\\.nuget\\packages\\": {},
+    "C:\\Users\\dawol\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Nextcloud\\studia\\infa ms\\semestr 6\\Współczesne aplikacje webowe\\EduPath\\EduPath_backend\\EduPath_backend\\EduPath_backend.API.csproj",
+      "projectUniqueName": "D:\\studia\\semestr 6\\Współczesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend\\EduPath_backend.API.csproj",
       "projectName": "EduPath_backend.API",
-      "projectPath": "D:\\Nextcloud\\studia\\infa ms\\semestr 6\\Współczesne aplikacje webowe\\EduPath\\EduPath_backend\\EduPath_backend\\EduPath_backend.API.csproj",
-      "packagesPath": "C:\\Users\\huber\\.nuget\\packages\\",
-      "outputPath": "D:\\Nextcloud\\studia\\infa ms\\semestr 6\\Współczesne aplikacje webowe\\EduPath\\EduPath_backend\\EduPath_backend\\obj\\",
+      "projectPath": "D:\\studia\\semestr 6\\Współczesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend\\EduPath_backend.API.csproj",
+      "packagesPath": "C:\\Users\\dawol\\.nuget\\packages\\",
+      "outputPath": "D:\\studia\\semestr 6\\Współczesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\huber\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\dawol\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -5614,11 +5614,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\Nextcloud\\studia\\infa ms\\semestr 6\\Współczesne aplikacje webowe\\EduPath\\EduPath_backend\\EduPath_backend.Application\\EduPath_backend.Application.csproj": {
-              "projectPath": "D:\\Nextcloud\\studia\\infa ms\\semestr 6\\Współczesne aplikacje webowe\\EduPath\\EduPath_backend\\EduPath_backend.Application\\EduPath_backend.Application.csproj"
+            "D:\\studia\\semestr 6\\Współczesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend.Application\\EduPath_backend.Application.csproj": {
+              "projectPath": "D:\\studia\\semestr 6\\Współczesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend.Application\\EduPath_backend.Application.csproj"
             },
-            "D:\\Nextcloud\\studia\\infa ms\\semestr 6\\Współczesne aplikacje webowe\\EduPath\\EduPath_backend\\EduPath_backend.Infrastructure\\EduPath_backend.Infrastructure.csproj": {
-              "projectPath": "D:\\Nextcloud\\studia\\infa ms\\semestr 6\\Współczesne aplikacje webowe\\EduPath\\EduPath_backend\\EduPath_backend.Infrastructure\\EduPath_backend.Infrastructure.csproj"
+            "D:\\studia\\semestr 6\\Współczesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend.Infrastructure\\EduPath_backend.Infrastructure.csproj": {
+              "projectPath": "D:\\studia\\semestr 6\\Współczesne Aplikacje Webowe\\projekt\\EduPath_backend\\EduPath_backend.Infrastructure\\EduPath_backend.Infrastructure.csproj"
             }
           }
         }
@@ -5673,7 +5673,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
