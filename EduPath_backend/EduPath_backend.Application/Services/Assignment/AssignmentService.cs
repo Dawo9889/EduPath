@@ -16,17 +16,40 @@ namespace EduPath_backend.Application.Services.Assignment
         private readonly IAssignmentRepository _assignmentRepository;
         private readonly IMapper _mapper;
 
+        private readonly string _coursesBasePath;
+
         public AssignmentService(IAssignmentRepository assignmentRepository, IMapper mapper)
         {
             _assignmentRepository = assignmentRepository;
             _mapper = mapper;
+
+            _coursesBasePath = Environment.GetEnvironmentVariable("COURSES_BASE_PATH")
+                ?? Path.Combine(Directory.GetCurrentDirectory(), "courses_files");
         }
 
         public async Task<bool> AddAssignmentAsync(CreateAssignmentDTO assignmentDTO)
         {
-            var courseEntity = _mapper.Map<Domain.Entities.Assignment>(assignmentDTO);
-            var result = await _assignmentRepository.AddAssignment(courseEntity);
-            return result;
+            var assignmentEntity = _mapper.Map<Domain.Entities.Assignment>(assignmentDTO);
+            var result = await _assignmentRepository.AddAssignment(assignmentEntity);
+            if (result)
+            {
+                var assignmentFolderPath = Path.Combine(_coursesBasePath, assignmentEntity.CourseId.ToString(), assignmentEntity.Id_Assignment.ToString());
+
+                if (!Directory.Exists(assignmentFolderPath))
+                {
+                    Directory.CreateDirectory(assignmentFolderPath);
+                }
+                else
+                {
+                    throw new Exception("Course folder already exists.");
+                }
+
+                return result;
+            }
+            else
+            {
+                throw new Exception("Failed to create course.");
+            }
         }
 
         public async Task<List<ListAssingmentDTO>> GetAllAssignmentsAsync()
