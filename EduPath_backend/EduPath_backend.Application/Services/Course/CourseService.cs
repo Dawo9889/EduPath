@@ -150,6 +150,22 @@ namespace EduPath_backend.Application.Services.Course
             {
                 throw new Exception("Course not found");
             }
+            // Define the course folder path
+            var courseFolderPath = Path.Combine(_coursesBasePath, courseId.ToString());
+            // Delete folder contents if exists
+            if (Directory.Exists(courseFolderPath))
+            {
+                try
+                {
+                    // Delete all files and subdirectories
+                    Directory.Delete(courseFolderPath, recursive: true);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"Failed to delete course folder: {ex.Message}");
+                }
+            }
+
             return await _courseRepository.DeleteCourseAsync(courseId);
         }
     }
