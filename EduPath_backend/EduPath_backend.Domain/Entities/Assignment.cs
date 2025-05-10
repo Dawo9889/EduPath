@@ -11,7 +11,7 @@ namespace EduPath_backend.Domain.Entities
     public class Assignment
     {
         [Key]
-        public Guid Id_Assignment { get; set; }
+        public Guid AssignmentId { get; set; }
 
         [ForeignKey("Course")]
         public Guid CourseId { get; set; }

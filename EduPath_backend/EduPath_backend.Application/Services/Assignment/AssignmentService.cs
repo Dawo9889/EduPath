@@ -33,7 +33,7 @@ namespace EduPath_backend.Application.Services.Assignment
             var result = await _assignmentRepository.AddAssignment(assignmentEntity);
             if (result)
             {
-                var assignmentFolderPath = Path.Combine(_coursesBasePath, assignmentEntity.CourseId.ToString(), assignmentEntity.Id_Assignment.ToString());
+                var assignmentFolderPath = Path.Combine(_coursesBasePath, assignmentEntity.CourseId.ToString(), assignmentEntity.AssignmentId.ToString());
 
                 if (!Directory.Exists(assignmentFolderPath))
                 {

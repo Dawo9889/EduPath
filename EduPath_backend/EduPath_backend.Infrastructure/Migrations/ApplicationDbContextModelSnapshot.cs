@@ -24,7 +24,7 @@ namespace EduPath_backend.Infrastructure.Migrations
 
             modelBuilder.Entity("EduPath_backend.Domain.Entities.Assignment", b =>
                 {
-                    b.Property<Guid>("Id_Assignment")
+                    b.Property<Guid>("AssignmentId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -48,7 +48,7 @@ namespace EduPath_backend.Infrastructure.Migrations
                     b.Property<bool>("Visible")
                         .HasColumnType("bit");
 
-                    b.HasKey("Id_Assignment");
+                    b.HasKey("AssignmentId");
 
                     b.HasIndex("CourseId");
 
@@ -63,7 +63,7 @@ namespace EduPath_backend.Infrastructure.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("Date_submitted")
+                    b.Property<DateTime>("DateSubmitted")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Filepath")

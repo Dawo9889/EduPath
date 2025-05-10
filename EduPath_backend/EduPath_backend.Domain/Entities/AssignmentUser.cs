@@ -14,6 +14,6 @@ namespace EduPath_backend.Domain.Entities
         public string UserId { get; set; }
         public User User { get; set; }
         public string Filepath { get; set; }
-        public DateTime Date_submitted { get; set; }
+        public DateTime DateSubmitted { get; set; }
     }
 }

@@ -41,7 +41,7 @@ namespace EduPath_backend.Infrastructure.Repositories
 
         public async Task<Assignment> GetAssignmentById(Guid id)
         {
-            var assingment = await _context.Assignments.FirstOrDefaultAsync(a => a.Id_Assignment == id);
+            var assingment = await _context.Assignments.FirstOrDefaultAsync(a => a.AssignmentId == id);
             if (assingment == null){
                 return null;
             }
@@ -80,7 +80,7 @@ namespace EduPath_backend.Infrastructure.Repositories
 
         public async Task<bool> DeleteAssignment(Guid assignmentId)
         {
-            var existingAssignment = await _context.Assignments.FirstOrDefaultAsync(x => x.Id_Assignment == assignmentId);
+            var existingAssignment = await _context.Assignments.FirstOrDefaultAsync(x => x.AssignmentId == assignmentId);
             if (existingAssignment == null)
             {
                 return false;

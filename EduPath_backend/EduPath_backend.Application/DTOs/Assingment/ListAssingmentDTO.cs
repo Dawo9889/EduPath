@@ -8,7 +8,7 @@ namespace EduPath_backend.Application.DTOs.Assingment
 {
     public class ListAssingmentDTO
     {
-        public Guid Id_Assignment { get; set; }
+        public Guid AssignmentId { get; set; }
         public Guid CourseId { get; set; }
         public string Name { get; set; } = default!;
         public string Content { get; set; } = default!;

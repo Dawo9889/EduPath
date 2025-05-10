@@ -159,7 +159,7 @@ namespace EduPath_backend.Infrastructure.Persistence
                 context.Assignments.AddRange(
                     new Assignment
                     {
-                        Id_Assignment = Guid.NewGuid(),
+                        AssignmentId = Guid.NewGuid(),
                         CourseId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                         Name = "Zadanie 1",
                         Content = "Opis zadania 1",
@@ -169,7 +169,7 @@ namespace EduPath_backend.Infrastructure.Persistence
                     },
                     new Assignment
                     {
-                        Id_Assignment = Guid.NewGuid(),
+                        AssignmentId = Guid.NewGuid(),
                         CourseId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                         Name = "Zadanie 2",
                         Content = "Opis zadania 2",
@@ -179,7 +179,7 @@ namespace EduPath_backend.Infrastructure.Persistence
                     },
                     new Assignment
                     {
-                        Id_Assignment = Guid.NewGuid(),
+                        AssignmentId = Guid.NewGuid(),
                         CourseId = Guid.Parse("11111111-1111-1111-1111-111111111112"),
                         Name = "Zadanie 1",
                         Content = "Opis zadania 1",
@@ -189,7 +189,7 @@ namespace EduPath_backend.Infrastructure.Persistence
                     },
                     new Assignment
                     {
-                        Id_Assignment = Guid.NewGuid(),
+                        AssignmentId = Guid.NewGuid(),
                         CourseId = Guid.Parse("11111111-1111-1111-1111-111111111112"),
                         Name = "Zadanie 2",
                         Content = "Opis zadania 2",
@@ -199,7 +199,7 @@ namespace EduPath_backend.Infrastructure.Persistence
                     },
                     new Assignment
                     {
-                        Id_Assignment = Guid.NewGuid(),
+                        AssignmentId = Guid.NewGuid(),
                         CourseId = Guid.Parse("11111111-1111-1111-1111-111111111113"),
                         Name = "Zadanie 1",
                         Content = "Opis zadania 1",
@@ -209,7 +209,7 @@ namespace EduPath_backend.Infrastructure.Persistence
                     },
                     new Assignment
                     {
-                        Id_Assignment = Guid.NewGuid(),
+                        AssignmentId = Guid.NewGuid(),
                         CourseId = Guid.Parse("11111111-1111-1111-1111-111111111113"),
                         Name = "Zadanie 2",
                         Content = "Opis zadania 2",
@@ -271,10 +271,10 @@ namespace EduPath_backend.Infrastructure.Persistence
             {
                 var assignmentUsers = assignments.Select(a => new AssignmentUser
                 {
-                    AssignmentId = a.Id_Assignment,
+                    AssignmentId = a.AssignmentId,
                     UserId = student.Id,
                     Filepath = "/LOCAL/PATH",
-                    Date_submitted = DateTime.UtcNow
+                    DateSubmitted = DateTime.UtcNow
                 });
 
                 context.AssignmentUsers.AddRange(assignmentUsers);
