@@ -1,4 +1,6 @@
-﻿using EduPath_backend.Application.DTOs.User;
+﻿using AutoMapper;
+using EduPath_backend.Application.DTOs.User;
+using EduPath_backend.Domain.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -13,11 +15,37 @@ namespace EduPath_backend.Application.Services.User
         private readonly UserManager<Domain.Entities.User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public UserService(UserManager<Domain.Entities.User> userManager, RoleManager<IdentityRole> roleManager)
+        private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
+
+        public UserService(UserManager<Domain.Entities.User> userManager, RoleManager<IdentityRole> roleManager, IUserRepository userRepository, IMapper mapper)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _userRepository = userRepository;
+            _mapper = mapper;
         }
+
+        public async Task<bool> AssignUserToCourseAsync(UserCourseDTO userCourseDTO)
+        {
+            var userCourse = new Domain.Entities.CourseUser
+            {
+                UserId = userCourseDTO.userID,
+                CourseId = userCourseDTO.courseID
+            };
+
+            var result = await _userRepository.AssignUserToCourse(userCourse);
+
+            if (result)
+            {
+                return true;
+            }
+            else
+            {
+                throw new Exception("User is currently assigned to this course.");
+            }
+        }
+
         public async Task<bool> CreateUserAsync(CreateUserDTO dto)
         {
             var user = new Domain.Entities.User
@@ -40,6 +68,26 @@ namespace EduPath_backend.Application.Services.User
             await _userManager.AddToRoleAsync(user, dto.Role);
 
             return true;
+        }
+
+        public async Task<bool> DeleteUserFromCourseAsync(UserCourseDTO userCourseDTO)
+        {
+            var userCourse = new Domain.Entities.CourseUser
+            {
+                UserId = userCourseDTO.userID,
+                CourseId = userCourseDTO.courseID
+            };
+
+            var result = await _userRepository.DeleteUserFromCourse(userCourse);
+
+            if (result)
+            {
+                return true;
+            }
+            else
+            {
+                throw new Exception("User was not assigned to this course");
+            }
         }
     }
 }

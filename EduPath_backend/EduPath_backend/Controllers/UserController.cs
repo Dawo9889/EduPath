@@ -24,5 +24,24 @@ namespace EduPath_backend.API.Controllers
 
             return BadRequest("Something went wrong");
         }
+        [HttpPost("assignUserToCourse")]
+        public async Task<IActionResult> AssignUserToCourse([FromBody] UserCourseDTO userCourseDTO)
+        {
+            var result = await _userService.AssignUserToCourseAsync(userCourseDTO);
+            if (result)
+                return Ok("User assigned to this course");
+
+            return BadRequest("Something went wrong while assign user to course");
+        }
+
+        [HttpDelete("deleteUserFromCourse")]
+        public async Task<IActionResult> DeleteUserFromCourse([FromBody] UserCourseDTO userCourseDTO)
+        {
+            var result = await _userService.DeleteUserFromCourseAsync(userCourseDTO);
+            if (result)
+                return Ok("User removed from this course");
+
+            return BadRequest("Something went wrong while removing this user");
+        }
     }
 }

@@ -10,6 +10,7 @@ namespace EduPath_backend.Application.Services.User
     public interface IUserService
     {
         Task<bool> CreateUserAsync(CreateUserDTO dto);
-        
-     }
+        Task<bool> AssignUserToCourseAsync(UserCourseDTO dto);
+        Task<bool> DeleteUserFromCourseAsync(UserCourseDTO dto);
+    }
 }
