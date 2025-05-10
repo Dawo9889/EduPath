@@ -70,8 +70,8 @@ namespace EduPath_backend.Infrastructure.Repositories
             existingAssignment.CourseId = assignment.CourseId;
             existingAssignment.Name = assignment.Name;
             existingAssignment.Content = assignment.Content;
-            existingAssignment.Date_start = assignment.Date_start;
-            existingAssignment.Date_end = assignment.Date_end;
+            existingAssignment.DateStart = assignment.DateStart;
+            existingAssignment.DateEnd = assignment.DateEnd;
             existingAssignment.Visible = assignment.Visible;
 
             var result = await _context.SaveChangesAsync();

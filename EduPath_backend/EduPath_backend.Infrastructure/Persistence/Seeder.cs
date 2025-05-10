@@ -163,8 +163,8 @@ namespace EduPath_backend.Infrastructure.Persistence
                         CourseId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                         Name = "Zadanie 1",
                         Content = "Opis zadania 1",
-                        Date_start = new DateTime(2025, 5, 1),
-                        Date_end = new DateTime(2025, 5, 10),
+                        DateStart = new DateTime(2025, 5, 1),
+                        DateEnd = new DateTime(2025, 5, 10),
                         Visible = true
                     },
                     new Assignment
@@ -173,8 +173,8 @@ namespace EduPath_backend.Infrastructure.Persistence
                         CourseId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                         Name = "Zadanie 2",
                         Content = "Opis zadania 2",
-                        Date_start = new DateTime(2025, 5, 2),
-                        Date_end = new DateTime(2025, 5, 15),
+                        DateStart = new DateTime(2025, 5, 2),
+                        DateEnd = new DateTime(2025, 5, 15),
                         Visible = false
                     },
                     new Assignment
@@ -183,8 +183,8 @@ namespace EduPath_backend.Infrastructure.Persistence
                         CourseId = Guid.Parse("11111111-1111-1111-1111-111111111112"),
                         Name = "Zadanie 1",
                         Content = "Opis zadania 1",
-                        Date_start = new DateTime(2025, 5, 1),
-                        Date_end = new DateTime(2025, 5, 10),
+                        DateStart = new DateTime(2025, 5, 1),
+                        DateEnd = new DateTime(2025, 5, 10),
                         Visible = true
                     },
                     new Assignment
@@ -193,8 +193,8 @@ namespace EduPath_backend.Infrastructure.Persistence
                         CourseId = Guid.Parse("11111111-1111-1111-1111-111111111112"),
                         Name = "Zadanie 2",
                         Content = "Opis zadania 2",
-                        Date_start = new DateTime(2025, 5, 2),
-                        Date_end = new DateTime(2025, 5, 15),
+                        DateStart = new DateTime(2025, 5, 2),
+                        DateEnd = new DateTime(2025, 5, 15),
                         Visible = false
                     },
                     new Assignment
@@ -203,8 +203,8 @@ namespace EduPath_backend.Infrastructure.Persistence
                         CourseId = Guid.Parse("11111111-1111-1111-1111-111111111113"),
                         Name = "Zadanie 1",
                         Content = "Opis zadania 1",
-                        Date_start = new DateTime(2025, 5, 1),
-                        Date_end = new DateTime(2025, 5, 10),
+                        DateStart = new DateTime(2025, 5, 1),
+                        DateEnd = new DateTime(2025, 5, 10),
                         Visible = true
                     },
                     new Assignment
@@ -213,8 +213,8 @@ namespace EduPath_backend.Infrastructure.Persistence
                         CourseId = Guid.Parse("11111111-1111-1111-1111-111111111113"),
                         Name = "Zadanie 2",
                         Content = "Opis zadania 2",
-                        Date_start = new DateTime(2025, 5, 2),
-                        Date_end = new DateTime(2025, 5, 15),
+                        DateStart = new DateTime(2025, 5, 2),
+                        DateEnd = new DateTime(2025, 5, 15),
                         Visible = false
                     });
                 await context.SaveChangesAsync();

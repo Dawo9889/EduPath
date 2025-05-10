@@ -35,10 +35,10 @@ namespace EduPath_backend.Infrastructure.Migrations
                     b.Property<Guid>("CourseId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("Date_end")
+                    b.Property<DateTime>("DateEnd")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("Date_start")
+                    b.Property<DateTime>("DateStart")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")

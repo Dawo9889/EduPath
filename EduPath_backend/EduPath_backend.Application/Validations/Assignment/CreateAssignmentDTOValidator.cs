@@ -14,10 +14,10 @@ namespace EduPath_backend.Application.Validations.Assignment
         {
             RuleFor(x => x.Name).NotEmpty().WithMessage("Name is required.");
             RuleFor(x => x.Content).NotEmpty().WithMessage("Content is required."); ;
-            RuleFor(x => x.Date_start).NotEmpty().WithMessage("Date_start is required."); ;
-            RuleFor(x => x.Date_end).NotEmpty().WithMessage("Date_end is required."); ;
+            RuleFor(x => x.DateStart).NotEmpty().WithMessage("DateStart is required."); ;
+            RuleFor(x => x.DateEnd).NotEmpty().WithMessage("DateEnd is required."); ;
             RuleFor(x => x.Visible).NotEmpty().WithMessage("Visible is required."); ;
-            RuleFor(x => x.Date_start).LessThan(x => x.Date_end).WithMessage("Start date must be before end date.");
+            RuleFor(x => x.DateStart).LessThan(x => x.DateEnd).WithMessage("Start date must be before end date.");
         }
     }
 }

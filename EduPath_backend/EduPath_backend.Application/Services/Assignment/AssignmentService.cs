@@ -85,8 +85,8 @@ namespace EduPath_backend.Application.Services.Assignment
             existingAssignment.CourseId = assignmentDTO.CourseId;
             existingAssignment.Name = assignmentDTO.Name;
             existingAssignment.Content = assignmentDTO.Content;
-            existingAssignment.Date_start = assignmentDTO.Date_start;
-            existingAssignment.Date_end = assignmentDTO.Date_end;
+            existingAssignment.DateStart = assignmentDTO.DateStart;
+            existingAssignment.DateEnd = assignmentDTO.DateEnd;
             existingAssignment.Visible = assignmentDTO.Visible;
 
             var result = await _assignmentRepository.UpdateAssignment(AssignmentId, existingAssignment);

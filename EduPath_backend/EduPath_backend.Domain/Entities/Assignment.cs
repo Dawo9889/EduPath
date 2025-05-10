@@ -18,8 +18,8 @@ namespace EduPath_backend.Domain.Entities
         public Course Course { get; set; }
         public string Name { get; set; }
         public string Content { get; set; }
-        public DateTime Date_start { get; set; }
-        public DateTime Date_end { get; set; }
+        public DateTime DateStart { get; set; }
+        public DateTime DateEnd { get; set; }
         public bool Visible { get; set; }
     }
 }
