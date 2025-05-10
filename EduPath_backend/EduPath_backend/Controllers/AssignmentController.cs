@@ -1,5 +1,6 @@
 ﻿using EduPath_backend.Application.DTOs.Assingment;
 using EduPath_backend.Application.DTOs.Course;
+using EduPath_backend.Application.DTOs.User;
 using EduPath_backend.Application.Services.Assignment;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +34,7 @@ namespace EduPath_backend.API.Controllers
         }
 
         [HttpGet("by-user/{userId}")]
-        public async Task<List<AssignmentUserDTO>> GetAllAssingmentsByUser(string userId)
+        public async Task<List<AssignmentUserDetailsDTO>> GetAllAssingmentsByUser(string userId)
         {
             var assingmentsByUser = await _assignmentService.GetAssignmentByUserId(userId);
             return assingmentsByUser;
@@ -62,6 +63,15 @@ namespace EduPath_backend.API.Controllers
             }
 
             return Ok("Assignment created successfully.");
+        }
+        [HttpPost("uploadAssignment")]
+        public async Task<IActionResult> UploadAssignment([FromBody] AssignmentUserDTO assignmentUserDTO)
+        {
+            var result = await _assignmentService.UploadAssignmentAsync(assignmentUserDTO);
+            if (result)
+                return Ok("File was successfully uploaded");
+
+            return BadRequest("Something went wrong while uploading file");
         }
 
         [HttpPut("update/{AssignmentId}")]

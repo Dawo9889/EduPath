@@ -91,5 +91,20 @@ namespace EduPath_backend.Infrastructure.Repositories
 
             return true;
         }
+
+        public async Task<bool> UploadAssignment(AssignmentUser assignmentUser)
+        {
+            bool alreadyAssigned = await _context.AssignmentUsers
+                .AnyAsync(cu => cu.AssignmentId == assignmentUser.AssignmentId && cu.UserId == assignmentUser.UserId && cu.Filepath == assignmentUser.Filepath);
+
+            if (alreadyAssigned)
+            {
+                return false;
+            }
+
+            _context.AssignmentUsers.Add(assignmentUser);
+            var result = await _context.SaveChangesAsync();
+            return result > 0;
+        }
     }
 }

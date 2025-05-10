@@ -67,11 +67,11 @@ namespace EduPath_backend.Application.Services.Assignment
             return assignmentsByCourseDTO;
         }
 
-        public async Task<List<AssignmentUserDTO>> GetAssignmentByUserId(string userId)
+        public async Task<List<AssignmentUserDetailsDTO>> GetAssignmentByUserId(string userId)
         {
             var assignmentByUser = await _assignmentRepository.GetAssignmentByUserId(userId);
 
-            var assignmentByUserDTO = _mapper.Map<List<AssignmentUserDTO>>(assignmentByUser);
+            var assignmentByUserDTO = _mapper.Map<List<AssignmentUserDetailsDTO>>(assignmentByUser);
             return assignmentByUserDTO;
         }
 
@@ -103,6 +103,27 @@ namespace EduPath_backend.Application.Services.Assignment
             }
             var result = await _assignmentRepository.DeleteAssignment(AssignmentId);
             return result;
+        }
+
+        public async Task<bool> UploadAssignmentAsync(AssignmentUserDTO assignmentUserDTO)
+        {
+            var assignmentUser = new Domain.Entities.AssignmentUser
+            {
+                AssignmentId = assignmentUserDTO.AssignmentId,
+                UserId = assignmentUserDTO.UserId,
+                Filepath = Path.Combine(_coursesBasePath, assignmentUserDTO.CourseId,(assignmentUserDTO.AssignmentId).ToString(),assignmentUserDTO.UserId,assignmentUserDTO.Filename)
+            };
+
+            var result = await _assignmentRepository.UploadAssignment(assignmentUser);
+
+            if (result)
+            {
+                return true;
+            }
+            else
+            {
+                throw new Exception("Sth went wrong");
+            }
         }
     }
 }

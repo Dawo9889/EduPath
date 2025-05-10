@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace EduPath_backend.Application.DTOs.Assingment
 {
-    public class AssignmentUserDTO
+    public class AssignmentUserDetailsDTO
     {
         public Guid AssignmentId { get; set; }
-        public string UserId { get; set; }
-        public string CourseId { get; set; }
-        public string Filename { get; set; }
+        public string AssignmentName { get; set; } = default!;
+        public string AssignmentContent { get; set; } = default!;
+        public string UserEmail { get; set; }
     }
 }

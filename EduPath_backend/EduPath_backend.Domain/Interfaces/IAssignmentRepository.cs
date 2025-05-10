@@ -16,6 +16,7 @@ namespace EduPath_backend.Domain.Interfaces
         Task<List<AssignmentUser>> GetAssignmentByUserId(string userId);
         Task<bool> UpdateAssignment(Guid assignmentId, Assignment assignment);
         Task<bool> DeleteAssignment(Guid assignmentId);
+        Task<bool> UploadAssignment(AssignmentUser assignmentUser);
 
     }
 }
