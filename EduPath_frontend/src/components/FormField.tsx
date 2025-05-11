@@ -10,18 +10,19 @@ interface FormFieldProps {
   placeholder: string,
   otherStyles: string,
   fieldName?: string,
+  inputfieldstyles?: string,
 }
 
-const FormField = ({title, value, isPassword, placeholder, otherStyles, onChange, fieldName}: FormFieldProps) => {
+const FormField = ({title, value, isPassword, placeholder, otherStyles, onChange, fieldName, inputfieldstyles}: FormFieldProps) => {
 
     const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className={`space-y-2 ${otherStyles}`}>
-      <p className='text-lg text-secondary font-medium my-0'>{title}</p>
-      <div className='border-2 w-full h-12 px-4 bg-black-100 rounded-2xl flex items-center'>
+      <p className='text-lg text-secondary font-medium mb-1'>{title}</p>
+      <div className={`w-full h-12 px-4 rounded-2xl flex items-center ${inputfieldstyles}`}>
         <input
-          className='flex-1 bg-transparent outline-none text-secondary font-regular text-base placeholder-gray-400'
+          className={`flex-1 bg-transparent outline-none text-secondary font-regular text-base placeholder-gray-400`}
           value={value}
           placeholder={placeholder}
           onChange={onChange}

@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
+import { IoCloseOutline } from "react-icons/io5";
 import User from '../../types/User';
 import FormField from '../FormField';
 
-interface Props {
+interface userFormProps {
   user: User;
   onSave: (user: User) => void;
+  onClose?: () => void;
 }
 
-function UserForm({ user, onSave }: Props) {
+function UserForm({ user, onSave, onClose }: userFormProps) {
   const [formData, setFormData] = useState<User>({
     id: '',
     firstname: '',
@@ -33,7 +35,14 @@ function UserForm({ user, onSave }: Props) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mb-6 space-y-2">
+    <div className="m-4 relative">
+    <form onSubmit={handleSubmit} className="mb-6 space-y-2 relative">
+      <h2 className="text-2xl font-bold mb-4 text-primary">{user.id !== '' ? 'Edit User' : 'Add User'}</h2>
+      {/* Close button */}
+      <IoCloseOutline
+                className="text-4xl absolute top-0 right-0 cursor-pointer text-gray-600 hover:text-red-500"
+                onClick={onClose}
+              />
       <div className="flex flex-col gap-4">
         <FormField
           title={'First name'}
@@ -43,6 +52,7 @@ function UserForm({ user, onSave }: Props) {
           placeholder={'First name'}
           otherStyles={''}
           fieldName="firstname"
+          inputfieldstyles='bg-secondary'
         />
         <FormField
           title={'Last name'}
@@ -52,6 +62,7 @@ function UserForm({ user, onSave }: Props) {
           placeholder={'Last name'}
           otherStyles={''}
           fieldName="lastname"
+          inputfieldstyles='bg-secondary'
         />
         <FormField
           title={'Email address'}
@@ -61,6 +72,7 @@ function UserForm({ user, onSave }: Props) {
           placeholder={'Email address'}
           otherStyles={''}
           fieldName='email'
+          inputfieldstyles='bg-secondary'
         />
         <select
           name="role"
@@ -77,6 +89,7 @@ function UserForm({ user, onSave }: Props) {
         {user.id !== '' ? 'Update User' : 'Add User'}
       </button>
     </form>
+    </div>
   );
 }
 

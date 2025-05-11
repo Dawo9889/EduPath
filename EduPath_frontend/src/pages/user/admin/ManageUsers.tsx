@@ -5,6 +5,7 @@ import CSVImport from '../../../components/admin/CSVImport';
 import User from '../../../types/User';
 import { AnimatePresence, motion } from 'framer-motion';
 
+
 function ManageUsers() {
   const [users, setUsers] = useState<User[]>([]);
   const [editingUser, setEditingUser] = useState<User | null>(null);
@@ -40,7 +41,7 @@ function ManageUsers() {
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold mb-4">Manage Users</h1>
+      <h1 className="text-3xl font-bold mb-4 text-primary">Manage Users</h1>
       <button
         onClick={() =>
           setEditingUser({ id: '', firstname: '', lastname: '', email: '', role: 'student' }) // adjust fields to match User type
@@ -84,16 +85,11 @@ function ManageUsers() {
             onClick={() => setEditingUser(null)} // Close on overlay click
           >
             <div
-              className="bg-white rounded-xl shadow-lg mt-20 p-6 w-full max-w-xl"
+              className="bg-primary rounded-xl shadow-lg mt-20 w-full max-w-xl relative"
               onClick={(e) => e.stopPropagation()} // Prevent click from closing modal
             >
-              <UserForm user={editingUser} onSave={handleUserSave} />
-              <button
-                onClick={() => setEditingUser(null)}
-                className="mt-4 text-sm text-gray-500 hover:text-red-600"
-              >
-                Cancel
-              </button>
+                          
+              <UserForm user={editingUser} onSave={handleUserSave} onClose={() => setEditingUser(null)} />
             </div>
           </motion.div>
           </>
@@ -137,10 +133,6 @@ function ManageUsers() {
           </>
         )}
       </AnimatePresence>
-      
-
-      {/* <UserForm onSave={handleUserSave} user={editingUser} /> */}
-      {/* <CSVImport onImport={handleCSVImport} /> */}
       
     </div>
   );

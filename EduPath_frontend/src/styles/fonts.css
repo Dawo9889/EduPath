@@ -100,14 +100,14 @@
   font-family: 'Kanit-SemiBold';
   src: url('../assets/fonts/Kanit-SemiBold.ttf') format('truetype');
 }
-.font-semi-bold {
+.font-semibold {
     font-family: 'Kanit-SemiBold', sans-serif;
 }
 @font-face {
   font-family: 'Kanit-SemiBoldItalic';
   src: url('../assets/fonts/Kanit-SemiBoldItalic.ttf') format('truetype');
 }
-.font-semi-bold-italic {
+.font-semibold-italic {
     font-family: 'Kanit-SemiBoldItalic', sans-serif;
 }
 @font-face {
