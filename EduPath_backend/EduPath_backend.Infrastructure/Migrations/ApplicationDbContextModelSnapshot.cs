@@ -57,11 +57,12 @@ namespace EduPath_backend.Infrastructure.Migrations
 
             modelBuilder.Entity("EduPath_backend.Domain.Entities.AssignmentUser", b =>
                 {
-                    b.Property<Guid>("AssignmentId")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("AssignmentId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DateSubmitted")
                         .HasColumnType("datetime2");
@@ -70,7 +71,13 @@ namespace EduPath_backend.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("AssignmentId", "UserId");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AssignmentId");
 
                     b.HasIndex("UserId");
 

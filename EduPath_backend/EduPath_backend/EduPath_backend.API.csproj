@@ -22,8 +22,4 @@
     <ProjectReference Include="..\EduPath_backend.Infrastructure\EduPath_backend.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="courses_files\11111111-1111-1111-1111-111111111111\3d659c32-5ca1-4775-9c6a-584df0b874af\1568d2c8-b523-4c80-8a8e-6f1b1ff425c5\" />
-  </ItemGroup>
-
 </Project>

@@ -50,7 +50,7 @@ namespace EduPath_backend.Infrastructure.Persistance
 
             // Configure Assignment-User Many-to-Many Relationship
             modelBuilder.Entity<AssignmentUser>()
-                .HasKey(au => new { au.AssignmentId, au.UserId }); // Composite Key
+                .HasKey(au => au.Id);
 
             modelBuilder.Entity<AssignmentUser>()
                 .HasOne(au => au.Assignment)

@@ -9,6 +9,7 @@ namespace EduPath_backend.Domain.Entities
 {
     public class AssignmentUser
     {
+        public Guid Id { get; set; } = Guid.NewGuid();
         public Guid AssignmentId { get; set; }
         public Assignment Assignment { get; set; }
         public string UserId { get; set; }
