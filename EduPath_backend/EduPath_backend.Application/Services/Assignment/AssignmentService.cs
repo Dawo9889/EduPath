@@ -105,13 +105,14 @@ namespace EduPath_backend.Application.Services.Assignment
             return result;
         }
 
-        public async Task<bool> UploadAssignmentAsync(AssignmentUserDTO assignmentUserDTO)
+        public async Task<bool> UploadAssignmentAsync(UploadAssignmentUserDTO uploadAssignmentUserDTO)
         {
-            var assignmentUser = new Domain.Entities.AssignmentUser
+            var assignmentUser = new AssignmentUser
             {
-                AssignmentId = assignmentUserDTO.AssignmentId,
-                UserId = assignmentUserDTO.UserId,
-                Filepath = Path.Combine(_coursesBasePath, assignmentUserDTO.CourseId,(assignmentUserDTO.AssignmentId).ToString(),assignmentUserDTO.UserId,assignmentUserDTO.Filename)
+                AssignmentId = uploadAssignmentUserDTO.AssignmentId,
+                UserId = uploadAssignmentUserDTO.UserId,
+                DateSubmitted = uploadAssignmentUserDTO.DateSubmitted,
+                Filepath = Path.Combine(_coursesBasePath, uploadAssignmentUserDTO.CourseId,(uploadAssignmentUserDTO.AssignmentId).ToString(),uploadAssignmentUserDTO.UserId,uploadAssignmentUserDTO.Filename)
             };
 
             var result = await _assignmentRepository.UploadAssignment(assignmentUser);

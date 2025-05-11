@@ -18,6 +18,6 @@ namespace EduPath_backend.Application.Services.Assignment
         Task<List<AssignmentUserDetailsDTO>> GetAssignmentByUserId(string userId);
         Task<bool> UpdateAssignmentAsync(Guid AssignmentId, CreateAssignmentDTO assignmentDTO);
         Task<bool> DeleteAssignmentAsync(Guid AssignmentId);
-        Task<bool> UploadAssignmentAsync(AssignmentUserDTO assignmentUserDTO);
+        Task<bool> UploadAssignmentAsync(UploadAssignmentUserDTO assignmentUserDTO);
     }
 }
