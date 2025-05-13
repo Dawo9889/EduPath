@@ -2,6 +2,8 @@
 using EduPath_backend.Application.Services.Course;
 using EduPath_backend.Domain.Entities;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -26,6 +28,7 @@ namespace EduPath_backend.API.Controllers
         //Gets
 
         [HttpGet("all")]
+        [Authorize(Roles = "Admin")]
         public async Task<List<ListCourseDTO>> GetAllCourses()
         {
             var courses = await _courseService.GetAvailableCoursesAsync();

@@ -1,5 +1,6 @@
 ﻿using EduPath_backend.Application.DTOs.User;
 using EduPath_backend.Application.Services.User;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EduPath_backend.API.Controllers
@@ -32,6 +33,19 @@ namespace EduPath_backend.API.Controllers
                 return Ok("User assigned to this course");
 
             return BadRequest("Something went wrong while assign user to course");
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginDTO model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var (success, response, error) = await _userService.LoginAsync(model);
+            if (!success)
+                return Unauthorized(error);
+
+            return Ok(response);
         }
 
         [HttpDelete("deleteUserFromCourse")]

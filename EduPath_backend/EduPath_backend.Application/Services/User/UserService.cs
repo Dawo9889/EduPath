@@ -2,9 +2,14 @@
 using EduPath_backend.Application.DTOs.User;
 using EduPath_backend.Domain.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,15 +20,17 @@ namespace EduPath_backend.Application.Services.User
         private readonly UserManager<Domain.Entities.User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
+        private readonly IConfiguration _configuration;
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
 
-        public UserService(UserManager<Domain.Entities.User> userManager, RoleManager<IdentityRole> roleManager, IUserRepository userRepository, IMapper mapper)
+        public UserService(UserManager<Domain.Entities.User> userManager, RoleManager<IdentityRole> roleManager, IUserRepository userRepository, IMapper mapper, IConfiguration configuration)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _userRepository = userRepository;
             _mapper = mapper;
+            _configuration = configuration;
         }
 
         public async Task<bool> AssignUserToCourseAsync(UserCourseDTO userCourseDTO)
@@ -60,13 +67,19 @@ namespace EduPath_backend.Application.Services.User
             var result = await _userManager.CreateAsync(user, dto.TemporaryPassword);
 
             if (!result.Succeeded)
-                return false;
+                return false; 
 
             if (!await _roleManager.RoleExistsAsync(dto.Role))
                 await _roleManager.CreateAsync(new IdentityRole(dto.Role));
 
             await _userManager.AddToRoleAsync(user, dto.Role);
+            var passwordResetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var emailConfirmToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
+            var resetLink = $"https://twoja-apka/reset-password?userId={user.Id}&resetToken={Uri.EscapeDataString(passwordResetToken)}&emailToken={Uri.EscapeDataString(emailConfirmToken)}";
+
+            // Tymczasowy log:
+            Console.WriteLine("RESET LINK: " + resetLink);
             return true;
         }
 
@@ -89,5 +102,86 @@ namespace EduPath_backend.Application.Services.User
                 throw new Exception("User was not assigned to this course");
             }
         }
+
+        public async Task<(bool Success, LoginResponseDTO Response, string ErrorMessage)> LoginAsync(LoginDTO request)
+        {
+            var user = await _userManager.FindByEmailAsync(request.Email);
+            if (user == null || !await _userManager.CheckPasswordAsync(user, request.Password))
+                return (false, null, "Invalid email or password.");
+
+
+            if (!await _userManager.IsEmailConfirmedAsync(user))
+                return (false, null, "Email not confirmed.");
+
+            var accessToken = await GenerateJwtToken(user);
+            var refreshToken = GenerateRefreshToken();
+
+            user.RefreshToken = refreshToken;
+            user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
+            await _userManager.UpdateAsync(user);
+
+            var response = new LoginResponseDTO
+            {
+                AccessToken = accessToken,
+                RefreshToken = refreshToken,
+                ExpiresIn = 3600
+            };
+
+            return (true, response, null);
+        }
+
+
+
+
+        private string GenerateRefreshToken()
+        {
+            var randomNumber = new byte[64];
+            using var rng = RandomNumberGenerator.Create();
+            rng.GetBytes(randomNumber);
+
+
+            var base64String = Convert.ToBase64String(randomNumber);
+
+
+            return base64String
+                .Replace('+', '-')
+                .Replace('/', '_')
+                .TrimEnd('=');
+        }
+        private async Task<string> GenerateJwtToken(Domain.Entities.User user)
+        {
+            var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.NameIdentifier, user.Id),
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                };
+
+            var roles = await _userManager.GetRolesAsync(user); 
+            claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+
+            var jwtSettings = _configuration.GetSection("Jwt");
+            var secretKey = jwtSettings["Key"];
+            var issuer = jwtSettings["Issuer"];
+            var audience = jwtSettings["Audience"];
+
+            var signingCredentials = new SigningCredentials(
+                new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)),
+                SecurityAlgorithms.HmacSha256);
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.UtcNow.AddHours(1),
+                Issuer = issuer,
+                Audience = audience,
+                SigningCredentials = signingCredentials
+            };
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
+        }
+
     }
 }

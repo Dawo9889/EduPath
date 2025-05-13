@@ -12,5 +12,7 @@ namespace EduPath_backend.Application.Services.User
         Task<bool> CreateUserAsync(CreateUserDTO dto);
         Task<bool> AssignUserToCourseAsync(UserCourseDTO dto);
         Task<bool> DeleteUserFromCourseAsync(UserCourseDTO dto);
+
+        Task<(bool Success, LoginResponseDTO Response, string ErrorMessage)> LoginAsync(LoginDTO request);
     }
 }
