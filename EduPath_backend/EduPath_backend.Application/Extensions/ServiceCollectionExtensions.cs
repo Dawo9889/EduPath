@@ -20,6 +20,8 @@ namespace EduPath_backend.Application.Extensions
 
             // Mapping
             services.AddAutoMapper(typeof(CourseMappingProfile));
+            services.AddAutoMapper(typeof(UserMappingProfile));
+            services.AddAutoMapper(typeof(AssignmentMappingProfile));
 
             // Validators
             services.AddValidatorsFromAssemblyContaining<CreateCourseDTOValidator>();

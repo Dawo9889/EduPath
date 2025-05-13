@@ -2,6 +2,7 @@
 using EduPath_backend.Application.DTOs.Course;
 using EduPath_backend.Application.DTOs.User;
 using EduPath_backend.Application.Services.Assignment;
+using EduPath_backend.Domain.Entities;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -136,11 +137,24 @@ namespace EduPath_backend.API.Controllers
         [HttpDelete("delete/{AssignmentId}")]
         public async Task<IActionResult> DeleteAssignment(Guid AssignmentId)
         {
+            var assignment = await _assignmentService.GetAssignmentByAssignmentId(AssignmentId);
+            var basePath = Environment.GetEnvironmentVariable("COURSES_BASE_PATH")
+                ?? Path.Combine(Directory.GetCurrentDirectory(), "courses_files");
+
+            var pathToDelete = Path.Combine(basePath, assignment.CourseId.ToString(), AssignmentId.ToString());
+
+            if (Directory.Exists(pathToDelete))
+            {
+                {
+                    Directory.Delete(pathToDelete, recursive: true);
+                }
+            }
+
             var result = await _assignmentService.DeleteAssignmentAsync(AssignmentId);
 
             if (result)
             {
-                return Ok("Assignment removed");
+                return Ok("Assignment with files was removed");
             }
 
             return NotFound("Assignment not found");

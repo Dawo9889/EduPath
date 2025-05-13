@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using EduPath_backend.Domain.Entities;
 using EduPath_backend.Domain.Interfaces;
 using EduPath_backend.Infrastructure.Persistance;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace EduPath_backend.Infrastructure.Repositories
@@ -31,6 +32,24 @@ namespace EduPath_backend.Infrastructure.Repositories
             _context.CourseUsers.Add(courseUser);
             var result = await _context.SaveChangesAsync();
             return result > 0;
+        }
+        public async Task<List<User>> GetListOfAllUsers()
+        {
+            var users = await _context.Users
+                .ToListAsync();
+
+            return users;
+        }
+
+        public async Task<Dictionary<string, string>> GetUserRolesAsync()
+        {
+            var roles = await (
+                from userRole in _context.UserRoles
+                join role in _context.Roles on userRole.RoleId equals role.Id
+                select new { userRole.UserId, role.Name }
+            ).ToListAsync();
+
+            return roles.ToDictionary(r => r.UserId, r => r.Name);
         }
 
         public async Task<bool> DeleteUserFromCourse(CourseUser courseUser)

@@ -2,6 +2,7 @@
 using EduPath_backend.Application.DTOs.User;
 using EduPath_backend.Domain.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -89,5 +90,41 @@ namespace EduPath_backend.Application.Services.User
                 throw new Exception("User was not assigned to this course");
             }
         }
+
+        public async Task<List<ListOfUsersDTO>> GetAllUsersAsync()
+        {
+            var users = await _userRepository.GetListOfAllUsers();
+            var userRoles = await _userRepository.GetUserRolesAsync();
+
+            var result = users.Select(user => new ListOfUsersDTO
+            {
+                UserId = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Role = userRoles.TryGetValue(user.Id, out var role) ? role : "No Role"
+            }).ToList();
+
+            return result;
+        }
+
+        public async Task<List<ListOfUsersDTO>> GetUsersByRoleAsync(string roleName)
+        {
+            var users = await _userRepository.GetListOfAllUsers();
+            var userRoles = await _userRepository.GetUserRolesAsync();
+
+            var filteredUsers = users
+                .Where(user => userRoles.TryGetValue(user.Id, out var role) && role.Equals(roleName, StringComparison.OrdinalIgnoreCase))
+                .Select(user => new ListOfUsersDTO
+                {
+                    UserId = user.Id,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Role = userRoles[user.Id]
+                })
+                .ToList();
+
+            return filteredUsers;
+        }
+
     }
 }

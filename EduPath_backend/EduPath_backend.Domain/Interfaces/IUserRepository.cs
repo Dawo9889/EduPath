@@ -11,5 +11,7 @@ namespace EduPath_backend.Domain.Interfaces
     {
         Task<bool> AssignUserToCourse(CourseUser courseUser);
         Task<bool> DeleteUserFromCourse(CourseUser courseUser);
+        Task<List<User>> GetListOfAllUsers();
+        Task<Dictionary<string, string>> GetUserRolesAsync();
     }
 }

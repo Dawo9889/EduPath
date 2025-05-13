@@ -14,6 +14,21 @@ namespace EduPath_backend.API.Controllers
         {
             _userService = userService;
         }
+
+        [HttpGet("get-all-users")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var result = await _userService.GetAllUsersAsync();
+            return Ok(result);
+        }
+
+        [HttpGet("get-users-by-role/{roleName}")]
+        public async Task<IActionResult> GetAllUsersByRole(string roleName)
+        {
+            var result = await _userService.GetUsersByRoleAsync(roleName);
+            return Ok(result);
+        }
+
         // TODO: Add admin auth 
         [HttpPost("create")]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserDTO dto)
