@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -73,12 +74,20 @@ namespace EduPath_backend.Application.Services.User
                 await _roleManager.CreateAsync(new IdentityRole(dto.Role));
 
             await _userManager.AddToRoleAsync(user, dto.Role);
+
+
+
+
             var passwordResetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
             var emailConfirmToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
-            var resetLink = $"https://twoja-apka/reset-password?userId={user.Id}&resetToken={Uri.EscapeDataString(passwordResetToken)}&emailToken={Uri.EscapeDataString(emailConfirmToken)}";
-
+            var resetLink = $"https://twoja-apka/reset-password?userId={user.Id}" +
+                            $"&resetToken={passwordResetToken}" +
+                            $"&emailToken={emailConfirmToken}";
             // Tymczasowy log:
+            Console.WriteLine("UserId: " + user.Id);
+            Console.WriteLine("Password Reset Tokne: " + passwordResetToken);
+            Console.WriteLine("Email Confirm Token: " + emailConfirmToken);
             Console.WriteLine("RESET LINK: " + resetLink);
             return true;
         }
@@ -101,6 +110,27 @@ namespace EduPath_backend.Application.Services.User
             {
                 throw new Exception("User was not assigned to this course");
             }
+        }
+        public async Task<bool> CompleteRegistrationAsync(CompleteRegistrationDTO request)
+        {
+            var user = await _userManager.FindByIdAsync(request.UserId);
+            if (user == null)
+                return false;
+
+            var confirmResult = await _userManager.ConfirmEmailAsync(user, request.EmailToken);
+            if (!confirmResult.Succeeded)
+                return false;
+
+            var resetResult = await _userManager.ResetPasswordAsync(user, request.ResetToken, request.NewPassword);
+            if (!resetResult.Succeeded)
+                return false;
+
+
+
+            user.MustChangePassword = false;
+            await _userManager.UpdateAsync(user);
+
+            return true;
         }
 
         public async Task<(bool Success, LoginResponseDTO Response, string ErrorMessage)> LoginAsync(LoginDTO request)

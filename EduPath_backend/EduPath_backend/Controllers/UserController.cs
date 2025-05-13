@@ -1,5 +1,6 @@
 ﻿using EduPath_backend.Application.DTOs.User;
 using EduPath_backend.Application.Services.User;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,6 +34,17 @@ namespace EduPath_backend.API.Controllers
                 return Ok("User assigned to this course");
 
             return BadRequest("Something went wrong while assign user to course");
+        }
+
+        [HttpPost("complete-registration")]
+        public async Task<IActionResult> CompleteRegistration([FromBody] CompleteRegistrationDTO request)
+        {
+
+
+            var result = await _userService.CompleteRegistrationAsync(request);
+            if (result)
+                return Ok("Password changed and email confirmed.");
+            return BadRequest("Failed to complete registration.");
         }
 
         [HttpPost("login")]
