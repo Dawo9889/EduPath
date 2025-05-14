@@ -52,6 +52,13 @@ namespace EduPath_backend.Application.Services.Assignment
             }
         }
 
+        public async Task<ListAssingmentDTO> GetAssignmentByAssignmentId(Guid assignmentId)
+        {
+            var assignment = await _assignmentRepository.GetAssignmentById(assignmentId);
+            var assignmentDTO = _mapper.Map<ListAssingmentDTO>(assignment);
+            return assignmentDTO;
+        }
+
         public async Task<List<ListAssingmentDTO>> GetAllAssignmentsAsync()
         {
             var assignments = await _assignmentRepository.GetAllAssignments();
