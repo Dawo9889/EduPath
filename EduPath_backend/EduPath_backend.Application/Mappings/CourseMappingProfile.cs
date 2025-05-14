@@ -27,6 +27,8 @@ namespace EduPath_backend.Application.Mappings
                 .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => ((User)src).FirstName))
                 .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => ((User)src).LastName));
 
+
+
         }
 
         //private static string HashPassword(string? plainTextPassword)

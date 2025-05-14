@@ -29,7 +29,6 @@ namespace EduPath_backend.API.Controllers
         //Gets
 
         [HttpGet("all")]
-        [Authorize(Roles = "Admin")]
         public async Task<List<ListCourseDTO>> GetAllCourses()
         {
             var courses = await _courseService.GetAvailableCoursesAsync();
@@ -57,9 +56,10 @@ namespace EduPath_backend.API.Controllers
         }
 
 
-        [HttpGet("user/{userId}")] // Retrieve all courses a specific user is enrolled in.
-        public async Task<IActionResult> GetCoursesByUserId(string userId)
+        [HttpGet("user/enrolledCourses")] // Retrieve all courses a specific user is enrolled in.
+        public async Task<IActionResult> GetCoursesByUserId()
         {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var courses = await _courseService.GetCoursesByUserIdAsync(userId);
             return Ok(courses);
         }
