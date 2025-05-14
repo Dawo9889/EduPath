@@ -101,6 +101,7 @@ namespace EduPath_backend.Application.Services.User
                 UserId = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
+                Email = user.Email,
                 Role = userRoles.TryGetValue(user.Id, out var role) ? role : "No Role"
             }).ToList();
 
