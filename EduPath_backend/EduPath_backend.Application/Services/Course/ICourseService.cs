@@ -13,13 +13,13 @@ namespace EduPath_backend.Application.Services.Course
         Task<bool> AddCourseAsync(CreateCourseDTO courseDTO);
         Task<List<ListCourseDTO>> GetAvailableCoursesAsync();
         Task<CourseDetailsDTO> GetCourseByIdAsync(Guid id);
-        Task JoinCourseAsync(Guid courseId, Guid guid, string? password);
+        Task JoinCourseAsync(Guid courseId, string? password, string userId);
 
         Task<List<ListOfUsersDTO>> GetUsersByCourseId(Guid courseId);
 
-        Task<bool> UpdateCourseAsync(Guid courseId, CreateCourseDTO updatedCourse);
-        Task <ListCourseDTO> GetCoursesByUserIdAsync(Guid userId);
+        Task<bool> UpdateCourseAsync(Guid courseId, CreateCourseDTO updatedCourse, string userId);
+        Task <ListCourseDTO> GetCoursesByUserIdAsync(string userId);
 
-        Task<bool> DeleteCourseAsync(Guid courseId);
+        Task<bool> DeleteCourseAsync(Guid courseId, string userId);
     }
 }

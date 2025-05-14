@@ -14,6 +14,6 @@ namespace EduPath_backend.Application.DTOs.Course
         public bool IsPublic { get; set; } = false;
 
         public string? PasswordPlainText { get; set; }
-        public string OwnerId { get; set; } = default!;
+        public string? OwnerId { get; set; }
     }
 }

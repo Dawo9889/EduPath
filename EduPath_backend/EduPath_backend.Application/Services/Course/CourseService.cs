@@ -2,6 +2,8 @@
 using EduPath_backend.Domain.Interfaces;
 using AutoMapper;
 using EduPath_backend.Application.DTOs.User;
+using EduPath_backend.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 
 
 namespace EduPath_backend.Application.Services.Course
@@ -11,14 +13,16 @@ namespace EduPath_backend.Application.Services.Course
         private readonly ICourseRepository _courseRepository;
         private readonly IMapper _mapper;
         private readonly string _coursesBasePath;
+        private readonly UserManager<Domain.Entities.User> _userManager;
 
-        public CourseService(ICourseRepository courseRepository, IMapper mapper)
+        public CourseService(ICourseRepository courseRepository, IMapper mapper, UserManager<Domain.Entities.User> userManager)
         {
             _courseRepository = courseRepository;
             _mapper = mapper;
 
-            _coursesBasePath = Environment.GetEnvironmentVariable("COURSES_BASE_PATH") 
+            _coursesBasePath = Environment.GetEnvironmentVariable("COURSES_BASE_PATH")
                 ?? Path.Combine(Directory.GetCurrentDirectory(), "courses_files");
+            _userManager = userManager;
         }
 
         private static string HashPassword(string? plainTextPassword)
@@ -76,7 +80,7 @@ namespace EduPath_backend.Application.Services.Course
             return courseDTO;
         }
 
-        public async Task JoinCourseAsync(Guid courseId, Guid userId, string? password)
+        public async Task JoinCourseAsync(Guid courseId, string? password, string userId)
         {
             var course = await _courseRepository.GetCourseWithUsersAsync(courseId);
             if (course == null)
@@ -115,13 +119,21 @@ namespace EduPath_backend.Application.Services.Course
 
         
 
-        public async Task<bool> UpdateCourseAsync(Guid courseId, CreateCourseDTO updatedCourse)
+        public async Task<bool> UpdateCourseAsync(Guid courseId, CreateCourseDTO updatedCourse, string userId)
         {
             var existingCourse = await _courseRepository.GetCourseByIdAsync(courseId);
             if (existingCourse == null)
             {
                 throw new Exception("Course not found");
             }
+
+            var user = await _userManager.FindByIdAsync(userId);
+            var isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
+
+            if (existingCourse.OwnerId != userId && !isAdmin)
+                throw new UnauthorizedAccessException("You are not allowed to edit this course.");
+
+
             existingCourse.Name = updatedCourse.Name;
             existingCourse.Description = updatedCourse.Description;
             existingCourse.IsPublic = updatedCourse.IsPublic;
@@ -132,7 +144,7 @@ namespace EduPath_backend.Application.Services.Course
             return result;
         }
 
-        public async Task<ListCourseDTO> GetCoursesByUserIdAsync(Guid userId)
+        public async Task<ListCourseDTO> GetCoursesByUserIdAsync(string userId)
         {
             var courses = await _courseRepository.GetCoursesByUserIdAsync(userId);
             if (courses == null)
@@ -143,13 +155,15 @@ namespace EduPath_backend.Application.Services.Course
             return coursesDTO;
         }
 
-        public async Task<bool> DeleteCourseAsync(Guid courseId)
+        public async Task<bool> DeleteCourseAsync(Guid courseId, string userId)
         {
             var course = await _courseRepository.GetCourseByIdAsync(courseId);
             if (course == null)
             {
                 throw new Exception("Course not found");
             }
+            if (course.OwnerId != userId)
+                throw new UnauthorizedAccessException("You are not allowed to delete this course.");
             // Define the course folder path
             var courseFolderPath = Path.Combine(_coursesBasePath, courseId.ToString());
             // Delete folder contents if exists

@@ -15,18 +15,18 @@ namespace EduPath_backend.Domain.Interfaces
 
         Task<Course?> GetCourseWithUsersAsync(Guid courseId);
 
-        Task<bool> IsUserInCourseAsync(Guid courseId, Guid userId);
+        Task<bool> IsUserInCourseAsync(Guid courseId, string userId);
 
-        Task AddUserToCourseAsync(Guid courseId, Guid userId);
+        Task AddUserToCourseAsync(Guid courseId, string userId);
 
         Task<List<User>> GetListOfAssignedUsers(Guid courseId);
 
         Task<bool> UpdateCourseAsync(Guid CourseId, Course updatedCourse);
 
-        Task<List<Course>> GetCoursesByUserIdAsync(Guid userId);
+        Task<List<Course>> GetCoursesByUserIdAsync(string userId);
 
         Task<bool> DeleteCourseAsync(Guid courseId);
 
-        Task<bool> IsCourseOwnerAsync(Guid courseId, Guid userId);
+        Task<bool> IsCourseOwnerAsync(Guid courseId, string userId);
     }
 }

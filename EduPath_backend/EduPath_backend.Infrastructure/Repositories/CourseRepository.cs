@@ -26,7 +26,7 @@ namespace EduPath_backend.Infrastructure.Repositories
             return result > 0;
         }
 
-        public Task AddUserToCourseAsync(Guid courseId, Guid userId)
+        public Task AddUserToCourseAsync(Guid courseId, string userId)
         {
             _context.CourseUsers.Add(new CourseUser
             {
@@ -51,7 +51,7 @@ namespace EduPath_backend.Infrastructure.Repositories
             return course;
         }
 
-        public async Task<List<Course>> GetCoursesByUserIdAsync(Guid userId)
+        public async Task<List<Course>> GetCoursesByUserIdAsync(string userId)
         {
             return await _context.CourseUsers
                 .Where(cu => cu.UserId == userId.ToString())
@@ -76,7 +76,7 @@ namespace EduPath_backend.Infrastructure.Repositories
             return users;
         }
 
-        public async Task<bool> IsUserInCourseAsync(Guid courseId, Guid userId)
+        public async Task<bool> IsUserInCourseAsync(Guid courseId, string userId)
         {
             return await _context.CourseUsers
                 .AnyAsync(cu => cu.CourseId == courseId && cu.UserId == userId.ToString());
@@ -111,7 +111,7 @@ namespace EduPath_backend.Infrastructure.Repositories
             return true;
         }
 
-        public async Task<bool> IsCourseOwnerAsync(Guid courseId, Guid userId)
+        public async Task<bool> IsCourseOwnerAsync(Guid courseId, string userId)
         {
             var course = await _context.Courses
                 .Include(c => c.CourseUsers)

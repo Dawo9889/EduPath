@@ -13,6 +13,7 @@ namespace EduPath_backend.API.Controllers
 
     [Route("api/course")]
     [ApiController]
+    [Authorize]
     public class CourseController : ControllerBase
     {
         private readonly ICourseService _courseService;
@@ -36,6 +37,7 @@ namespace EduPath_backend.API.Controllers
         }
 
         [HttpGet("{id}")]
+
         public async Task<CourseDetailsDTO> GetCourseById(Guid id)
         {
             var courseDTO = await _courseService.GetCourseByIdAsync(id);
@@ -56,7 +58,7 @@ namespace EduPath_backend.API.Controllers
 
 
         [HttpGet("user/{userId}")] // Retrieve all courses a specific user is enrolled in.
-        public async Task<IActionResult> GetCoursesByUserId(Guid userId)
+        public async Task<IActionResult> GetCoursesByUserId(string userId)
         {
             var courses = await _courseService.GetCoursesByUserIdAsync(userId);
             return Ok(courses);
@@ -64,12 +66,16 @@ namespace EduPath_backend.API.Controllers
 
         //Post
         [HttpPost("create")]
+        [Authorize(Roles = "Admin,Teacher")]
         public async Task<IActionResult> AddCourse([FromBody] CreateCourseDTO courseDTO)
         {
             if (courseDTO == null)
             {
                 return BadRequest("Course cannot be null");
             }
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            courseDTO.OwnerId = userId;
 
             var validationResult = await _createCourseValidator.ValidateAsync(courseDTO);
 
@@ -91,14 +97,13 @@ namespace EduPath_backend.API.Controllers
         [HttpPost("{courseId}/join")]
         public async Task<IActionResult> JoinCourse(Guid courseId, [FromBody] JoinCourseRequestDTO request)
         {
-            //var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var userId = "5a347d1e-81f5-4493-81ab-a79b15ffa2d4";
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (userId == null)
                 return Unauthorized();
 
             try
             {
-                await _courseService.JoinCourseAsync(courseId, Guid.Parse(userId), request.Password);
+                await _courseService.JoinCourseAsync(courseId, request.Password, userId);
                 return Ok(new { message = "Successfully joined the course." });
             }
             catch (UnauthorizedAccessException ex)
@@ -114,17 +119,20 @@ namespace EduPath_backend.API.Controllers
 
         // Puts
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin,Teacher")]
         public async Task<IActionResult> UpdateCourse(Guid id, [FromBody] CreateCourseDTO dto)
         {
             var validationResult = await _createCourseValidator.ValidateAsync(dto);
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
+            dto.OwnerId = userId;
             if (!validationResult.IsValid)
             {
                 return BadRequest(validationResult.Errors.Select(e => e.ErrorMessage));
             }
             try
             {
-                await _courseService.UpdateCourseAsync(id, dto);
+                await _courseService.UpdateCourseAsync(id, dto, userId);
                 return NoContent();
             }
             catch (KeyNotFoundException ex)
@@ -137,11 +145,15 @@ namespace EduPath_backend.API.Controllers
 
         //Deletes
         [HttpDelete("{id}")]
+
+        [Authorize(Roles = "Admin,Teacher")]
         public async Task<IActionResult> DeleteCourse(Guid id)
         {
             try
             {
-                await _courseService.DeleteCourseAsync(id);
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+                await _courseService.DeleteCourseAsync(id, userId);
                 return NoContent();
             }
             catch (KeyNotFoundException ex)
@@ -150,7 +162,7 @@ namespace EduPath_backend.API.Controllers
             }
         }
         //[HttpDelete("{courseId}/users/{userId}")]
-        //public async Task<IActionResult> RemoveStudentFromCourse(Guid courseId, Guid userId)
+        //public async Task<IActionResult> RemoveStudentFromCourse(Guid courseId, string userId)
         //{
         //    // Simulate getting the course owner's ID (replace with actual logic to get the current user ID)
         //    var ownerId = "5a347d1e-81f5-4493-81ab-a79b15ffa2d4"; // Example owner ID
