@@ -7,6 +7,7 @@ function App() {
   return (
     <div className='bg-primary min-h-screen' id='theme-root'>
       <NavBar />
+      <div className='h-[110px]'></div>
       {location.pathname === '/' ? <Home/> : <Outlet />}
     </div>
   )

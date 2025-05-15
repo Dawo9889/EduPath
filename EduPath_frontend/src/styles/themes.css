@@ -48,7 +48,7 @@
     @apply text-[var(--accent-100)];
 }
 .btn-primary {
-    @apply bg-[var(--primary-100)] text-[var(--text-100)] hover:bg-[var(--primary-200)];
+    @apply bg-[var(--primary-100)] text-[var(--text-100)] hover:bg-[var(--primary-200)] cursor-pointer;
 }
 .shadow-primary {
     @apply inset-shadow-[0_0_3px_0px_var(--primary-100)];

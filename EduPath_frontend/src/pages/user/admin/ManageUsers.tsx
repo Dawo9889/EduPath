@@ -14,10 +14,7 @@ function ManageUsers() {
 
   // Fetch users on load
   useEffect(() => {
-    fetch('/api/users') // replace with your backend URL
-      .then(res => res.json())
-      .then(data => setUsers(data))
-      .catch(err => console.error(err));
+    
   }, []);
 
   const handleUserSave = (newUser: User) => {

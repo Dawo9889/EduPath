@@ -7,8 +7,8 @@ import ToggleDarkMode from './ToggleDarkMode'
 
 function NavBar() {
 
-  const [isAuthenticated, setIsAuthenticated] = useState(true);                                         // Replace with authentication logic 
-  const [username, setUsername] = useState('XY000000@student.polsl.pl');                                // Replace with user data logic
+  const [isAuthenticated, setIsAuthenticated] = useState(true);                                            // Replace with authentication logic 
+  const [username, setUsername] = useState('XY000000@student.polsl.pl');                                   // Replace with user data logic
   const displayUsername = username.length > 11 ? username.toLowerCase().slice(0, 8) + '...' : username;
   const [userRole, setUserRole] = useState<UserRole | null>('lecturer');                                   // Replace with user role logic
 
@@ -63,8 +63,8 @@ function NavBar() {
   }
 
   return (
-    <div className='p-4'>
-        <nav className="flex items-center justify-between p-4 bg-secondary rounded-4xl">
+    <div className='fixed p-4 w-full z-50'>
+        <nav className="flex items-center justify-between p-4 bg-secondary rounded-4xl shadow-md">
             <div className='mx-2'>
                 <a href="/" >
                   <LogoHorizontal className='w-[200px] h-auto fill-[var(--primary-100)] hover:brightness-85 transition-filter duration-500 ease-in-out'/>
@@ -94,7 +94,7 @@ function NavBar() {
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setOpenDropdown(!openDropdown)}
-                  className={`font-bold text-xl px-4 py-2 rounded-2xl transition-colors duration-500 ease-in-out mx-3 ${
+                  className={`font-bold text-xl px-4 py-2 rounded-2xl transition-colors duration-500 ease-in-out mx-3 cursor-pointer ${
                     openDropdown 
                       ? 'bg-[var(--bg-100)] text-[var(--text-100)] hover:bg-[var(--bg-400)]' 
                       : 'text-[var(--text-100)] hover:bg-[var(--bg-100)]'
@@ -103,19 +103,19 @@ function NavBar() {
                 {displayUsername}
               </button>
               {openDropdown && (
-                <div className="absolute right-0 mt-2 w-45 bg-tertiary text-[var(--text-100)] rounded shadow-lg z-10">
+                <div className="absolute right-0 mt-2 w-45 bg-tertiary text-[var(--text-100)] rounded-xl shadow-lg z-10">
                   {getOptions().map((option, index) => (
                     <a
                         key={index}
                         href={option.path}
-                        className="font-medium block px-4 py-2 hover:bg-[var(--bg-100)] rounded m-1"
+                        className="font-medium block px-4 py-2 hover:bg-[var(--bg-100)] rounded-xl m-1 cursor-pointer"
                     >
                         {option.label}
                     </a>
                     ))}
                     <a 
                         onClick={logout}
-                        className="font-medium block px-4 py-2 hover:bg-[var(--bg-100)] rounded m-1"
+                        className="font-medium block px-4 py-2 hover:bg-[var(--bg-100)] rounded-xl m-1 cursor-pointer"
                     >
                         Logout
                     </a>
