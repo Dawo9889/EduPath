@@ -44,7 +44,7 @@ function CSVImport({ onImport }: Props) {
         type="file"
         accept=".csv"
         onChange={handleFileChange}
-        className="mb-2"
+        className="mb-2 cursor-pointer font-light"
       />
       <button
         onClick={handleImport}

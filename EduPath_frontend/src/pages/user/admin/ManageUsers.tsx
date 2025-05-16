@@ -4,6 +4,7 @@ import UserForm from '../../../components/admin/UserForm';
 import CSVImport from '../../../components/admin/CSVImport';
 import User from '../../../types/User';
 import { AnimatePresence, motion } from 'framer-motion';
+import { IoCloseOutline } from 'react-icons/io5';
 
 
 function ManageUsers() {
@@ -66,7 +67,7 @@ function ManageUsers() {
         {editingUser && (
           <>
           <motion.div
-          className="fixed inset-0 bg-black"
+          className="fixed inset-0 bg-black z-60"
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.4 }}
           exit={{ opacity: 0 }}
@@ -74,7 +75,7 @@ function ManageUsers() {
           onClick={() => setEditingUser(null)}
           />
           <motion.div
-            className="fixed top-0 left-0 w-full h-full flex justify-center items-start z-50"
+            className="fixed top-0 left-0 w-full h-full flex justify-center items-start z-70"
             initial={{ y: '-100%', opacity: 0 }}
             animate={{ y: '0%', opacity: 1 }}
             exit={{ y: '-100%', opacity: 0 }}
@@ -96,7 +97,7 @@ function ManageUsers() {
         {showCSVModal && (
           <>
           <motion.div
-          className="fixed inset-0 bg-black"
+          className="fixed inset-0 bg-black z-60"
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.4 }}
           exit={{ opacity: 0 }}
@@ -104,7 +105,7 @@ function ManageUsers() {
           onClick={() => setShowCSVModal(false)}
           />
           <motion.div
-            className="fixed top-0 left-0 w-full h-full flex justify-center items-start z-50"
+            className="fixed top-0 left-0 w-full h-full flex justify-center items-start z-70"
             initial={{ y: '-100%', opacity: 0 }}
             animate={{ y: '0%', opacity: 1 }}
             exit={{ y: '-100%', opacity: 0 }}
@@ -112,19 +113,19 @@ function ManageUsers() {
             onClick={() => setShowCSVModal(false)}
           >
             <div
-              className="bg-white rounded-xl shadow-lg mt-20 p-6 w-full max-w-xl"
+              className="bg-white rounded-xl shadow-lg mt-20 p-6 w-full max-w-xl relative"
               onClick={(e) => e.stopPropagation()}
             >
+              {/* Close button */}
+                    <IoCloseOutline
+                              className="text-4xl absolute top-2 right-2 cursor-pointer text-gray-600 hover:text-red-500"
+                              onClick={() => setShowCSVModal(false)}
+                            />
+                    <div className="flex flex-col gap-4"></div>
               <CSVImport onImport={(users) => {
                 handleCSVImport(users);
                 setShowCSVModal(false);
               }} />
-              <button
-                onClick={() => setShowCSVModal(false)}
-                className="mt-4 text-sm text-gray-500 hover:text-red-600"
-              >
-                Cancel
-              </button>
             </div>
           </motion.div>
           </>
