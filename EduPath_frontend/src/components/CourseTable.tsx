@@ -18,8 +18,8 @@ function CourseTable({ Courses, onEdit, onDelete }: Props) {
     return "John Doe"; // Replace with actual lecturer name
   }
 
-  const viewCourseTasks = (CourseId: string) => {
-    // Redirect to the course tasks page
+  const viewCoursePage = (CourseId: string) => {
+    // Redirect to the course page
     window.location.href = `/lecturer/course/${CourseId}`;
   }
 
@@ -46,9 +46,9 @@ function CourseTable({ Courses, onEdit, onDelete }: Props) {
               </button>
             <button
                 className="text-blue-600 hover:text-blue-800 hover:underline cursor-pointer"
-                onClick={() => viewCourseTasks(Course.id)}
+                onClick={() => viewCoursePage(Course.id)}
               >
-                View Tasks
+                View Course
               </button>
               <button
                 className="text-red-600 hover:text-red-800 hover:underline cursor-pointer"

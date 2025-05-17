@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import CourseTable from '../../../components/CourseTable';
 import CourseForm from '../../../components/lecturer/CourseForm';
-import CSVImport from '../../../components/admin/CSVImport';
+// import CSVImport from '../../../components/admin/CSVImport';
 import Course from '../../../types/Course';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -10,11 +10,17 @@ function ManageCourses() {
   const [courses, setCourses] = useState<Course[]>([]);
   const [editingCourse, setEditingCourse] = useState<Course | null>(null);
 
-  const [showCSVModal, setShowCSVModal] = useState(false);
+  // const [showCSVModal, setShowCSVModal] = useState(false);
 
   // Fetch courses on load
   useEffect(() => {
-    
+    // dummy data, replace with fetched courses
+    const initialCourses = [
+      { id: 'dummy-course-1', name: 'Dummy Course 1', description: 'A dummy course created for testing', lecturerId: '', students: [] },
+      { id: 'dummy-course-2', name: 'Dummy Course 2', description: 'A dummy course created for testing', lecturerId: '', students: [] },
+      { id: 'dummy-course-3', name: 'Dummy Course 3', description: 'A dummy course created for testing', lecturerId: '', students: [] },
+    ];
+    setCourses(initialCourses);
   }, []);
 
   const handleCourseSave = (newCourse: Course) => {

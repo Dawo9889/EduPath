@@ -10,6 +10,8 @@ import Enroll from "../pages/user/student/Enroll";
 import ManageUsers from "../pages/user/admin/ManageUsers";
 import ManageAccount from "../pages/user/ManageAccount";
 import ManageCourses from "../pages/user/lecturer/ManageCourses";
+import CourseDashboard from "../pages/user/CourseDashboard";
+import AssignmentDetails from "../pages/user/AssignmentDetails";
 
 
 
@@ -26,6 +28,8 @@ export const routes: RouteObject[] = [
             {path: 'admin/manage-users', element: <ManageUsers />},
             {path: 'lecturer/dashboard', element: <LecturerDashboard />},
             {path: 'lecturer/manage-courses', element: <ManageCourses />},
+            {path: 'lecturer/course/:courseId', element: <CourseDashboard />},
+            {path: 'lecturer/course/:courseId/assignment/:assignmentId', element: <AssignmentDetails />},
             {path: 'student/dashboard', element: <StudentDashboard />},
             {path: 'student/enroll', element: <Enroll />},
             {path: 'settings', element: <ManageAccount />},
