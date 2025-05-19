@@ -63,8 +63,8 @@ function NavBar() {
   }
 
   return (
-    <div className='fixed p-4 w-full z-50 min-w-[800px]'>
-        <nav className="flex items-center justify-between p-4 bg-secondary rounded-4xl shadow-md">
+    <div className='fixed p-4 w-full z-45 min-w-[800px]'>
+        <nav className="flex items-center justify-between p-4 bg-secondary rounded-4xl shadow-md z-50">
             <div className='mx-2'>
                 <a href="/" >
                   <LogoHorizontal className='w-[200px] h-auto fill-[var(--primary-100)] hover:brightness-85 transition-filter duration-500 ease-in-out'/>

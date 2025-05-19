@@ -49,7 +49,7 @@ const paginatedUsers = useMemo(() => {
   };
 
   return (
-    <div className="mt-6">
+    <div className="mt-6 text-primary">
       <div className="flex justify-between items-center mb-2">
         <div className="mb-4">
           <label className="mr-2 font-medium">Show</label>
@@ -60,7 +60,7 @@ const paginatedUsers = useMemo(() => {
               setRowsPerPage(value);
               setCurrentPage(1); // reset to page 1 when changing rows
             }}
-            className="p-2 rounded border border-gray-300"
+            className="p-2 rounded border border-gray-300 cursor-pointer bg-primary text-primary"
           >
             <option value={25}>25</option>
             <option value={50}>50</option>
@@ -73,9 +73,9 @@ const paginatedUsers = useMemo(() => {
         </div>
       </div>
 
-      <table className="w-full rounded-xl shadow-md overflow-hidden">
+      <table className="w-full rounded-xl shadow-md overflow-hidden text-primary">
         <thead>
-          <tr className="bg-gray-100 text-left">
+          <tr className="bg-tertiary text-left">
             {["firstname", "lastname", "email", "role"].map((key) => (
               <th
                 key={key}
@@ -91,7 +91,7 @@ const paginatedUsers = useMemo(() => {
         </thead>
         <tbody>
           {paginatedUsers.map((user) => (
-            <tr key={user.id} className="border-t">
+            <tr key={user.id} className="border-t bg-secondary">
               <td className="p-2">{user.firstname}</td>
               <td className="p-2">{user.lastname}</td>
               <td className="p-2">{user.email}</td>

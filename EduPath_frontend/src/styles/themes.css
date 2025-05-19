@@ -50,6 +50,9 @@
 .btn-primary {
     @apply bg-[var(--primary-100)] text-[var(--text-100)] hover:bg-[var(--primary-200)] cursor-pointer;
 }
+.btn-primary:disabled {
+    @apply bg-[var(--primary-300)] cursor-not-allowed;
+}
 .shadow-primary {
     @apply inset-shadow-[0_0_3px_0px_var(--primary-100)];
 }

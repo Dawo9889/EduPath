@@ -44,13 +44,13 @@ function ManageUsers() {
         onClick={() =>
           setEditingUser({ id: '', firstname: '', lastname: '', email: '', role: 'student' }) // adjust fields to match User type
         }
-        className="mb-4 px-4 py-2 rounded font-medium text-[var(--text-100)] bg-[var(--bg-200)] hover:bg-[var(--bg-300)]"
+        className="mb-4 px-4 py-2 rounded font-medium text-[var(--text-100)] bg-[var(--bg-200)] hover:bg-[var(--bg-300)] cursor-pointer"
         >
         Add User
       </button>
       <button
           onClick={() => setShowCSVModal(true)}
-          className="mb-4 ml-2 px-4 py-2 rounded font-medium text-[var(--text-100)] bg-[var(--bg-200)] hover:bg-[var(--bg-300)]"
+          className="mb-4 ml-2 px-4 py-2 rounded font-medium text-[var(--text-100)] bg-[var(--bg-200)] hover:bg-[var(--bg-300)] cursor-pointer"
         >
           Bulk add
       </button>

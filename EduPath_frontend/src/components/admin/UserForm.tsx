@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { IoCloseOutline } from "react-icons/io5";
 import User from '../../types/User';
 import FormField from '../FormField';
+import { form } from 'framer-motion/client';
 
 interface userFormProps {
   user: User;
@@ -17,6 +18,8 @@ function UserForm({ user, onSave, onClose }: userFormProps) {
     email: '',
     role: 'student',
   });
+
+  const [inputsValid, setInputsValid] = useState(false);
 
   useEffect(() => {
     if (user) setFormData(user);
@@ -74,18 +77,21 @@ function UserForm({ user, onSave, onClose }: userFormProps) {
           fieldName='email'
           inputfieldstyles='bg-secondary'
         />
+        <p className='text-lg text-secondary font-medium'>Role</p>
         <select
           name="role"
-          className="border p-2 rounded w-1/3"
+          className="flex-1 bg-secondary outline-none text-secondary font-regular text-base mt-[-10px]
+          w-full min-h-12 px-4 rounded-2xl appearance-none"
           value={formData.role}
           onChange={handleChange}
+          defaultValue={'student'}
         >
           <option value="student">Student</option>
           <option value="lecturer">Lecturer</option>
           <option value="admin">Admin</option>
         </select>
       </div>
-      <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
+      <button type="submit" className="btn-primary text-white px-4 py-2 rounded" disabled={formData.firstname === '' || formData.lastname === '' || formData.email === ''}>
         {user.id !== '' ? 'Update User' : 'Add User'}
       </button>
     </form>
