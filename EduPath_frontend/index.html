@@ -8,11 +8,18 @@
   </head>
   <body>
     <script>
-      (function () {
-        const theme = sessionStorage.getItem('theme') || 'light';
-        document.documentElement.classList.add('theme-' + theme);
-      })();
-    </script>
+  (function() {
+    function getCookie(name) {
+      const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+      return match ? decodeURIComponent(match[2]) : null;
+    }
+    var theme = getCookie('theme');
+    if (!theme) {
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    document.documentElement.classList.add(theme === 'dark' ? 'theme-dark' : 'theme-light');
+  })();
+</script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

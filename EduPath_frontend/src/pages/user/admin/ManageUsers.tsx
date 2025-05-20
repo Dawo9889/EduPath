@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import UserTable from '../../../components/admin/UserTable';
 import UserForm from '../../../components/admin/UserForm';
 import CSVImport from '../../../components/admin/CSVImport';
+import ConfirmUserDelete from '../../../components/admin/ConfirmUserDelete';
 import User from '../../../types/User';
 import { AnimatePresence, motion } from 'framer-motion';
 import { IoCloseOutline } from 'react-icons/io5';
@@ -12,6 +13,7 @@ function ManageUsers() {
   const [editingUser, setEditingUser] = useState<User | null>(null);
 
   const [showCSVModal, setShowCSVModal] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
 
   // Fetch users on load
   useEffect(() => {
@@ -59,7 +61,7 @@ function ManageUsers() {
       {users.length === 0 ? (
         <p className="text-gray-500">No users found. Please add a user.</p>
       ):
-      <UserTable users={users} onEdit={setEditingUser} onDelete={handleUserDelete} />
+      <UserTable users={users} onEdit={setEditingUser} onDelete={() => setConfirmDelete(true)} />
       }
       
       {/* Animated Popup */}  
@@ -113,7 +115,7 @@ function ManageUsers() {
             onClick={() => setShowCSVModal(false)}
           >
             <div
-              className="bg-white rounded-xl shadow-lg mt-20 p-6 w-full max-w-xl relative"
+              className="bg-secondary rounded-xl shadow-lg mt-20 p-6 w-full max-w-xl relative"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close button */}
@@ -126,6 +128,46 @@ function ManageUsers() {
                 handleCSVImport(users);
                 setShowCSVModal(false);
               }} />
+            </div>
+          </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {confirmDelete && (
+          <>
+          <motion.div
+          className="fixed inset-0 bg-black z-60"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.4 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          onClick={() => setConfirmDelete(false)}
+          />
+          <motion.div
+            className="fixed top-0 left-0 w-full h-full flex justify-center items-start z-70"
+            initial={{ y: '-100%', opacity: 0 }}
+            animate={{ y: '0%', opacity: 1 }}
+            exit={{ y: '-100%', opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            onClick={() => setConfirmDelete(false)}
+          >
+            <div
+              className="bg-secondary rounded-xl shadow-lg mt-20 p-6 w-full max-w-xl relative"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close button */}
+                    <IoCloseOutline
+                              className="text-4xl absolute top-2 right-2 cursor-pointer text-gray-600 hover:text-red-500"
+                              onClick={() => setShowCSVModal(false)}
+                            />
+                    <div className="flex flex-col gap-4"></div>
+              <ConfirmUserDelete
+                onDelete={() => {
+                  setConfirmDelete(false);
+                }}
+                onClose={() => setConfirmDelete(false)} />
             </div>
           </motion.div>
           </>

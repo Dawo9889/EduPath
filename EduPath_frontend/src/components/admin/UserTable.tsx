@@ -14,7 +14,6 @@ function UserTable({ users, onEdit, onDelete }: Props) {
   const [sortKey, setSortKey] = useState<SortKey>("firstname");
   const [sortOrder, setSortOrder] = useState<SortOrder>("asc");
   const [rowsPerPage, setRowsPerPage] = useState<number>(25);
-  const [entriesPerPage, setEntriesPerPage] = useState<number>(25);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
 
@@ -50,7 +49,7 @@ const paginatedUsers = useMemo(() => {
 
   return (
     <div className="mt-6 text-primary">
-      <div className="flex justify-between items-center mb-2">
+      <div className="flex justify-between items-center">
         <div className="mb-4">
           <label className="mr-2 font-medium">Show</label>
           <select
@@ -73,7 +72,7 @@ const paginatedUsers = useMemo(() => {
         </div>
       </div>
 
-      <table className="w-full rounded-xl shadow-md overflow-hidden text-primary">
+      <table className="w-full min-w-[800px] rounded-xl shadow-md overflow-hidden text-primary">
         <thead>
           <tr className="bg-tertiary text-left">
             {["firstname", "lastname", "email", "role"].map((key) => (
@@ -86,25 +85,25 @@ const paginatedUsers = useMemo(() => {
                 {sortKey === key && (sortOrder === "asc" ? "▲" : "▼")}
               </th>
             ))}
-            <th className="p-2">Actions</th>
+            <th className="p-2 text-center">Actions</th>
           </tr>
         </thead>
         <tbody>
           {paginatedUsers.map((user) => (
             <tr key={user.id} className="border-t bg-secondary">
-              <td className="p-2">{user.firstname}</td>
-              <td className="p-2">{user.lastname}</td>
+              <td className="p-2 w-[15%]">{user.firstname}</td>
+              <td className="p-2 w-[20%]">{user.lastname}</td>
               <td className="p-2">{user.email}</td>
-              <td className="p-2">{user.role}</td>
-              <td className="p-2 space-x-2">
+              <td className="p-2 w-[15%]">{user.role}</td>
+              <td className="p-2 w-[18%]">
                 <button
-                  className="text-blue-600 hover:text-blue-800 hover:underline"
+                  className="btn-primary text-white w-[47%] px-2 py-1 rounded mr-[6%]"
                   onClick={() => onEdit(user)}
                 >
                   Edit
                 </button>
                 <button
-                  className="text-red-600 hover:text-red-800 hover:underline"
+                  className="btn-danger text-white w-[47%] px-2 py-1 rounded"
                   onClick={() => onDelete(user.id)}
                 >
                   Delete
@@ -120,7 +119,7 @@ const paginatedUsers = useMemo(() => {
         <button
           disabled={currentPage === 1}
           onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-          className="px-3 py-1 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
+          className="px-3 py-1 rounded bg-tertiary hover:bg-gray-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
         >
           Previous
         </button>
@@ -130,7 +129,7 @@ const paginatedUsers = useMemo(() => {
         <button
           disabled={currentPage === totalPages}
           onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-          className="px-3 py-1 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
+          className="px-3 py-1 rounded bg-tertiary hover:bg-gray-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
         >
           Next
         </button>
