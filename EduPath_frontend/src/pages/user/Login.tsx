@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import FormField from "../../components/FormField"
 
 function Login() {
-  const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}$/;
   const [emailValid, setEmailValid] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -12,14 +12,15 @@ function Login() {
     password: ''
   });
 
+
   useEffect(() => {
     const result = EMAIL_REGEX.test(form.email);
     setEmailValid(result);
   }, [form.email])
 
   return (
-    <div className="bg-primary h-screen w-[300px] mx-auto">
-      <div className="flex flex-col items-center h-50vh bg-secondary rounded-xl shadow-lg mt-20 w-full max-w-xl relative">
+    <div className="bg-primary h-screen w-[400px] mx-auto">
+      <div className="flex flex-col items-center h-50vh bg-secondary rounded-xl shadow-lg mt-20 w-full relative">
         <h2 className="text-2xl font-bold mb-4 text-primary">Login</h2>
         <form>
           <FormField
@@ -27,9 +28,10 @@ function Login() {
             isPassword={false}
             value={form.email}
             placeholder={"Email address"}
-            otherStyles={""} 
+            otherStyles={"w-[350px]"} 
             onChange={(e) => setForm({ ...form, email: e.target.value })}
             inputfieldstyles='bg-primary'
+            inputValid={emailValid}
           />
           <FormField
             title={"Password"}
@@ -40,7 +42,7 @@ function Login() {
             onChange={(e) => setForm({ ...form, password: e.target.value })}
             inputfieldstyles='bg-primary'
             />
-          <button type="submit"
+          <button type="submit" disabled={!emailValid || form.password === '' || loading}
             className="block mx-auto btn-primary text-primary font-medium px-4 py-2 rounded-2xl w-[100px] my-3">
               Login
           </button>

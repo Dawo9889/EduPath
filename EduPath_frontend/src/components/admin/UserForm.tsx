@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { IoCloseOutline } from "react-icons/io5";
 import User from '../../types/User';
 import FormField from '../FormField';
-import { form } from 'framer-motion/client';
 
 interface userFormProps {
   user: User;
@@ -19,7 +18,10 @@ function UserForm({ user, onSave, onClose }: userFormProps) {
     role: 'student',
   });
 
-  const [inputsValid, setInputsValid] = useState(false);
+  const emailValid = () => {
+    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,5}$/;
+    return emailRegex.test(formData.email);
+  }
 
   useEffect(() => {
     if (user) setFormData(user);
@@ -56,6 +58,7 @@ function UserForm({ user, onSave, onClose }: userFormProps) {
           otherStyles={''}
           fieldName="firstname"
           inputfieldstyles='bg-secondary'
+          inputValid={formData.firstname !== ''}
         />
         <FormField
           title={'Last name'}
@@ -66,6 +69,7 @@ function UserForm({ user, onSave, onClose }: userFormProps) {
           otherStyles={''}
           fieldName="lastname"
           inputfieldstyles='bg-secondary'
+          inputValid={formData.lastname !== ''}
         />
         <FormField
           title={'Email address'}
@@ -76,22 +80,22 @@ function UserForm({ user, onSave, onClose }: userFormProps) {
           otherStyles={''}
           fieldName='email'
           inputfieldstyles='bg-secondary'
+          inputValid={emailValid()}
         />
         <p className='text-lg text-secondary font-medium'>Role</p>
         <select
           name="role"
           className="flex-1 bg-secondary outline-none text-secondary font-regular text-base mt-[-10px]
-          w-full min-h-12 px-4 rounded-2xl appearance-none"
+          w-full min-h-12 px-4 rounded-2xl appearance-none cursor-pointer"
           value={formData.role}
           onChange={handleChange}
-          defaultValue={'student'}
         >
           <option value="student">Student</option>
           <option value="lecturer">Lecturer</option>
           <option value="admin">Admin</option>
         </select>
       </div>
-      <button type="submit" className="btn-primary text-white px-4 py-2 rounded" disabled={formData.firstname === '' || formData.lastname === '' || formData.email === ''}>
+      <button type="submit" className="btn-primary text-white px-4 py-2 rounded" disabled={formData.firstname === '' || formData.lastname === '' || formData.email === '' || !emailValid()}>
         {user.id !== '' ? 'Update User' : 'Add User'}
       </button>
     </form>

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Course from "../types/Course";
-import UserRole from "../types/UserRole";
+import Course from "../../types/Course";
+import UserRole from "../../types/UserRole";
 
 interface Props {
   Courses: Course[];
@@ -24,9 +24,9 @@ function CourseTable({ Courses, onEdit, onDelete }: Props) {
   }
 
   return (
-    <table className="w-full mt-6 rounded-xl shadow-md overflow-hidden">
+    <table className="w-full min-w-[800px] rounded-xl shadow-md overflow-hidden text-primary">
       <thead>
-        <tr className="bg-gray-100 text-left">
+        <tr className="bg-tertiary text-left">
           <th className="p-2">Name</th>
           <th className="p-2">{userRole==='lecturer' ? "Active students" : "Lecturer"}</th>
           <th className="p-2">Actions</th>
@@ -34,28 +34,28 @@ function CourseTable({ Courses, onEdit, onDelete }: Props) {
       </thead>
       <tbody>
         {Courses.map(Course => (
-          <tr key={Course.id} className="border-t">
-            <td className="p-2">{Course.name}</td>
-            <td className="p-2">{userRole==='lecturer' ? Course.students.length : fetchLecturerName(Course.lecturerId)}</td>
-            <td className="p-2 space-x-2">
+          <tr key={Course.id} className="border-t bg-secondary">
+            <td className="p-2 font-medium">{Course.name}</td>
+            <td className="p-2 font-medium">{userRole==='lecturer' ? Course.students.length : fetchLecturerName(Course.lecturerId)}</td>
+            <td className="p-2 space-x-2 font-light">
               <button
-                className="text-blue-600 hover:text-blue-800 hover:underline cursor-pointer"
-                onClick={() => onEdit(Course)}
-              >
-                Edit
-              </button>
-            <button
-                className="text-blue-600 hover:text-blue-800 hover:underline cursor-pointer"
+                className="btn-secondary cursor-pointer w-[30%] px-2 py-1 rounded mr-[3%]"
                 onClick={() => viewCoursePage(Course.id)}
               >
-                View Course
+                View
               </button>
-              <button
-                className="text-red-600 hover:text-red-800 hover:underline cursor-pointer"
-                onClick={() => onDelete(Course.id)}
-              >
-                Delete
-              </button>
+            <button
+                  className="btn-primary text-white w-[30%] px-2 py-1 rounded mr-[3%]"
+                  onClick={() => onEdit(Course)}
+                >
+                  Edit
+                </button>
+                <button
+                  className="btn-danger text-white w-[30%] px-2 py-1 rounded"
+                  onClick={() => onDelete(Course.id)}
+                >
+                  Delete
+                </button>
             </td>
           </tr>
         ))}

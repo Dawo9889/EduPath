@@ -10,7 +10,7 @@ function NavBar() {
   const [isAuthenticated, setIsAuthenticated] = useState(true);                                            // Replace with authentication logic 
   const [username, setUsername] = useState('XY000000@student.polsl.pl');                                   // Replace with user data logic
   const displayUsername = username.length > 11 ? username.toLowerCase().slice(0, 8) + '...' : username;
-  const [userRole, setUserRole] = useState<UserRole | null>('admin');                                   // Replace with user role logic
+  const [userRole, setUserRole] = useState<UserRole | null>('student');                                   // Replace with user role logic
 
   // Get current location
   const isActive = (path: string) => location.pathname.startsWith(path);

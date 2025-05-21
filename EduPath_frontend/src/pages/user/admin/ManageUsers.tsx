@@ -74,7 +74,6 @@ function ManageUsers() {
           animate={{ opacity: 0.4 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          onClick={() => setEditingUser(null)}
           />
           <motion.div
             className="fixed top-0 left-0 w-full h-full flex justify-center items-start z-70"
@@ -82,7 +81,6 @@ function ManageUsers() {
             animate={{ y: '0%', opacity: 1 }}
             exit={{ y: '-100%', opacity: 0 }}
             transition={{ duration: 0.3 }}
-            onClick={() => setEditingUser(null)} // Close on overlay click
           >
             <div
               className="bg-primary rounded-xl shadow-lg mt-20 w-full max-w-xl relative"
