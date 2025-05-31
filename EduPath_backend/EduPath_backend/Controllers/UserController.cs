@@ -1,5 +1,6 @@
 ﻿using EduPath_backend.Application.DTOs.User;
 using EduPath_backend.Application.Services.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,7 @@ namespace EduPath_backend.API.Controllers
 {
     [ApiController]
     [Route("api/user")]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -31,8 +33,8 @@ namespace EduPath_backend.API.Controllers
             return Ok(result);
         }
 
-        // TODO: Add admin auth 
         [HttpPost("create")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserDTO dto)
         {
             var result = await _userService.CreateUserAsync(dto);
@@ -42,6 +44,7 @@ namespace EduPath_backend.API.Controllers
             return BadRequest("Something went wrong");
         }
         [HttpPost("assignUserToCourse")]
+        [Authorize(Roles = "Admin,Lecturer")]
         public async Task<IActionResult> AssignUserToCourse([FromBody] UserCourseDTO userCourseDTO)
         {
             var result = await _userService.AssignUserToCourseAsync(userCourseDTO);
@@ -52,6 +55,7 @@ namespace EduPath_backend.API.Controllers
         }
 
         [HttpPost("complete-registration")]
+        [AllowAnonymous]
         public async Task<IActionResult> CompleteRegistration([FromBody] CompleteRegistrationDTO request)
         {
 
@@ -63,6 +67,7 @@ namespace EduPath_backend.API.Controllers
         }
 
         [HttpPost("login")]
+        [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginDTO model)
         {
             if (!ModelState.IsValid)
@@ -76,6 +81,7 @@ namespace EduPath_backend.API.Controllers
         }
 
         [HttpDelete("deleteUserFromCourse")]
+        [Authorize(Roles = "Admin,Lecturer")]
         public async Task<IActionResult> DeleteUserFromCourse([FromBody] UserCourseDTO userCourseDTO)
         {
             var result = await _userService.DeleteUserFromCourseAsync(userCourseDTO);
