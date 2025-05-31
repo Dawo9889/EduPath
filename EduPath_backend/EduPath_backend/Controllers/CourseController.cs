@@ -66,7 +66,7 @@ namespace EduPath_backend.API.Controllers
 
         //Post
         [HttpPost("create")]
-        [Authorize(Roles = "Admin,Teacher")]
+        [Authorize(Roles = "Admin,Lecturer")]
         public async Task<IActionResult> AddCourse([FromBody] CreateCourseDTO courseDTO)
         {
             if (courseDTO == null)
@@ -119,7 +119,7 @@ namespace EduPath_backend.API.Controllers
 
         // Puts
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin,Teacher")]
+        [Authorize(Roles = "Admin,Lecturer")]
         public async Task<IActionResult> UpdateCourse(Guid id, [FromBody] CreateCourseDTO dto)
         {
             var validationResult = await _createCourseValidator.ValidateAsync(dto);
@@ -146,7 +146,7 @@ namespace EduPath_backend.API.Controllers
         //Deletes
         [HttpDelete("{id}")]
 
-        [Authorize(Roles = "Admin,Teacher")]
+        [Authorize(Roles = "Admin,Lecturer")]
         public async Task<IActionResult> DeleteCourse(Guid id)
         {
             try

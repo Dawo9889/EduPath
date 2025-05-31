@@ -31,18 +31,18 @@ namespace EduPath_backend.Infrastructure.Persistence
             // Seed a student user 
             var studentUser = await SeedStudentUserAsync(userManager);
 
-            // Seed a teacher user (the course owner)
-            var teacherUser = await SeedTeacherUserAsync(userManager);
+            // Seed a Lecturer user (the course owner)
+            var LecturerUser = await SeedLecturerUserAsync(userManager);
 
-            // Seed courses with the teacherUser as owner
-            await SeedCoursesAsync(context, teacherUser.Id);
+            // Seed courses with the LecturerUser as owner
+            await SeedCoursesAsync(context, LecturerUser.Id);
 
             // Seed sample assignments 
             await SeedAssignmentAsync(context);
 
             await SeedAssignmentUsersAsync(context, userManager);
 
-            // Seed multiple users and teachers
+            // Seed multiple users and Lecturers
             await SeedMultipleUsersAsync(userManager, 6);
 
             await SeedCourseUsersAsync(context, userManager);
@@ -51,7 +51,7 @@ namespace EduPath_backend.Infrastructure.Persistence
 
         private static async Task SeedRolesAsync(RoleManager<IdentityRole> roleManager)
         {
-            string[] roles = { "Admin", "Teacher", "Student" };
+            string[] roles = { "Admin", "Lecturer", "Student" };
 
             foreach (var role in roles)
             {
@@ -82,26 +82,26 @@ namespace EduPath_backend.Infrastructure.Persistence
             return admin;
         }
 
-        private static async Task<User> SeedTeacherUserAsync(UserManager<User> userManager)
+        private static async Task<User> SeedLecturerUserAsync(UserManager<User> userManager)
         {
-            string teacherEmail = "teacher@edupath.local";
-            var existing = await userManager.FindByEmailAsync(teacherEmail);
+            string LecturerEmail = "Lecturer@edupath.local";
+            var existing = await userManager.FindByEmailAsync(LecturerEmail);
             if (existing != null)
                 return existing;
 
-            var teacher = new User
+            var Lecturer = new User
             {
-                UserName = teacherEmail,
-                Email = teacherEmail,
+                UserName = LecturerEmail,
+                Email = LecturerEmail,
                 FirstName = "John",
-                LastName = "Teacher",
+                LastName = "Lecturer",
                 EmailConfirmed = true
             };
-            var result = await userManager.CreateAsync(teacher, "Teacher123!");
+            var result = await userManager.CreateAsync(Lecturer, "Lecturer123!");
             if (result.Succeeded)
-                await userManager.AddToRoleAsync(teacher, "Teacher");
+                await userManager.AddToRoleAsync(Lecturer, "Lecturer");
 
-            return teacher;
+            return Lecturer;
         }
 
         private static async Task<User> SeedStudentUserAsync(UserManager<User> userManager)
