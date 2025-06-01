@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "omT66+62xTw=",
+  "dgSpecHash": "nVr/LleOWU4=",
   "success": true,
-  "projectFilePath": "D:\\Studia\\VI\\WiAW\\EduPath_backend\\EduPath_backend\\EduPath_backend.API.csproj",
+  "projectFilePath": "D:\\Studia\\WiA\\EduPath\\EduPath_backend\\EduPath_backend\\EduPath_backend.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\SA\\.nuget\\packages\\automapper\\14.0.0\\automapper.14.0.0.nupkg.sha512",
     "C:\\Users\\SA\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",

@@ -35,7 +35,7 @@ const FormField = ({title, value, isPassword, placeholder, otherStyles, onChange
         {isPassword && (
           <button
             type="button"
-            className="text-secondary ml-2"
+            className="text-secondary ml-2 cursor-pointer"
             onClick={() => setShowPassword(sp => !sp)}
           >
             {showPassword ? <IoMdEyeOff size={24} /> : <IoMdEye size={24} />}

@@ -3,18 +3,20 @@ import { useEffect, useRef, useState } from 'react';
 import UserRole from '../types/UserRole';
 import LogoHorizontal from './LogoHorizontal';
 import ToggleDarkMode from './ToggleDarkMode'
+import { useAuth } from '../contexts/AuthContext';
 
 
 function NavBar() {
 
-  const [isAuthenticated, setIsAuthenticated] = useState(true);                                            // Replace with authentication logic 
-  const [username, setUsername] = useState('XY000000@student.polsl.pl');                                   // Replace with user data logic
-  const displayUsername = username.length > 11 ? username.toLowerCase().slice(0, 8) + '...' : username;
-  const [userRole, setUserRole] = useState<UserRole | null>('student');                                   // Replace with user role logic
+  const { isAuthenticated, username, userRole, logout } = useAuth();
+
+  const displayUsername: string =
+    username && username.length > 11
+      ? username.toLowerCase().slice(0, 8) + '...'
+      : username || '';
 
   // Get current location
   const isActive = (path: string) => location.pathname.startsWith(path);
-
 
   // Dropdown with options depending on user role
   const [openDropdown, setOpenDropdown] = useState(false);
@@ -55,12 +57,6 @@ function NavBar() {
         }
     };
 
-  const logout = () => {
-    // Replace with logout logic
-    setIsAuthenticated(false);
-    setUsername('');
-    setUserRole(null);
-  }
 
   return (
     <div className='fixed p-4 w-full z-45 min-w-[800px]'>

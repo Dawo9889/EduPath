@@ -5347,11 +5347,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Studia\\VI\\WiAW\\EduPath_backend\\EduPath_backend\\EduPath_backend.API.csproj",
+      "projectUniqueName": "D:\\Studia\\WiA\\EduPath\\EduPath_backend\\EduPath_backend\\EduPath_backend.API.csproj",
       "projectName": "EduPath_backend.API",
-      "projectPath": "D:\\Studia\\VI\\WiAW\\EduPath_backend\\EduPath_backend\\EduPath_backend.API.csproj",
+      "projectPath": "D:\\Studia\\WiA\\EduPath\\EduPath_backend\\EduPath_backend\\EduPath_backend.API.csproj",
       "packagesPath": "C:\\Users\\SA\\.nuget\\packages\\",
-      "outputPath": "D:\\Studia\\VI\\WiAW\\EduPath_backend\\EduPath_backend\\obj\\",
+      "outputPath": "D:\\Studia\\WiA\\EduPath\\EduPath_backend\\EduPath_backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\SA\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -5369,11 +5369,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\Studia\\VI\\WiAW\\EduPath_backend\\EduPath_backend.Application\\EduPath_backend.Application.csproj": {
-              "projectPath": "D:\\Studia\\VI\\WiAW\\EduPath_backend\\EduPath_backend.Application\\EduPath_backend.Application.csproj"
+            "D:\\Studia\\WiA\\EduPath\\EduPath_backend\\EduPath_backend.Application\\EduPath_backend.Application.csproj": {
+              "projectPath": "D:\\Studia\\WiA\\EduPath\\EduPath_backend\\EduPath_backend.Application\\EduPath_backend.Application.csproj"
             },
-            "D:\\Studia\\VI\\WiAW\\EduPath_backend\\EduPath_backend.Infrastructure\\EduPath_backend.Infrastructure.csproj": {
-              "projectPath": "D:\\Studia\\VI\\WiAW\\EduPath_backend\\EduPath_backend.Infrastructure\\EduPath_backend.Infrastructure.csproj"
+            "D:\\Studia\\WiA\\EduPath\\EduPath_backend\\EduPath_backend.Infrastructure\\EduPath_backend.Infrastructure.csproj": {
+              "projectPath": "D:\\Studia\\WiA\\EduPath\\EduPath_backend\\EduPath_backend.Infrastructure\\EduPath_backend.Infrastructure.csproj"
             }
           }
         }
@@ -5431,7 +5431,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
