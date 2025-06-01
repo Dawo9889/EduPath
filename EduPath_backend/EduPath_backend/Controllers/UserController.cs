@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace EduPath_backend.API.Controllers
 {
@@ -90,5 +91,32 @@ namespace EduPath_backend.API.Controllers
 
             return BadRequest("Something went wrong while removing this user");
         }
+
+
+        [HttpGet("whoami")]
+        [Authorize]
+        public IActionResult WhoAmI()
+        {
+            var user = HttpContext.User;
+
+            if (user == null || !user.Identity.IsAuthenticated)
+                return Unauthorized();
+
+            var userId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var email = user.FindFirst(ClaimTypes.Email)?.Value;
+            var firstName = user.FindFirst("FirstName")?.Value;
+            var lastName = user.FindFirst("LastName")?.Value;
+            var roles = user.FindAll(ClaimTypes.Role).Select(r => r.Value).ToList();
+
+            return Ok(new
+            {
+                Id = userId,
+                Email = email,
+                FirstName = firstName,
+                LastName = lastName,
+                Roles = roles
+            });
+        }
+
     }
 }

@@ -221,7 +221,9 @@ namespace EduPath_backend.Application.Services.User
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.Id),
                     new Claim(ClaimTypes.Email, user.Email),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new Claim("firstName", user.FirstName),
+                    new Claim("lastName", user.LastName)
                 };
 
             var roles = await _userManager.GetRolesAsync(user); 
