@@ -6,9 +6,11 @@ import ConfirmUserDelete from '../../../components/admin/ConfirmUserDelete';
 import User from '../../../types/User';
 import { AnimatePresence, motion } from 'framer-motion';
 import { IoCloseOutline } from 'react-icons/io5';
+import { fetchUsers } from '../../../api/api';
 
 
 function ManageUsers() {
+
   const [users, setUsers] = useState<User[]>([]);
   const [editingUser, setEditingUser] = useState<User | null>(null);
 
@@ -17,8 +19,32 @@ function ManageUsers() {
 
   // Fetch users on load
   useEffect(() => {
-    
+    const fetchData = async () => {
+      setIsLoading(true);
+
+      try {
+        const fetchedUsers = await fetchUsers();
+        console.log('Fetched users:', fetchedUsers);
+        const normalizedUsers: User[] = fetchedUsers.map((u: any) => ({
+        id: u.userId,
+        firstname: u.firstName,
+        lastname: u.lastName,
+        email: u.email,
+        role: u.role,
+      }));
+        setUsers(normalizedUsers);
+      }
+      catch (error) {
+        console.error('Failed to fetch users:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
+
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleUserSave = (newUser: User) => {
     if (newUser.id) {
@@ -57,11 +83,19 @@ function ManageUsers() {
           Bulk add
       </button>
 
-
-      {users.length === 0 ? (
-        <p className="text-gray-500">No users found. Please add a user.</p>
-      ):
-      <UserTable users={users} onEdit={setEditingUser} onDelete={() => setConfirmDelete(true)} />
+      {isLoading && <p className="text-gray-500">Loading users...</p> }
+      
+      {/* Show users or empty state */}
+      {
+        !isLoading && (
+          <>
+            {users.length === 0 ? (
+              <p className="text-gray-500">No users found. Please add a user.</p>
+            ) : (
+              <UserTable users={users} onEdit={setEditingUser} onDelete={() => setConfirmDelete(true)} />
+            )}
+          </>
+        )
       }
       
       {/* Animated Popup */}  
@@ -152,15 +186,9 @@ function ManageUsers() {
             onClick={() => setConfirmDelete(false)}
           >
             <div
-              className="bg-secondary rounded-xl shadow-lg mt-20 p-6 w-full max-w-xl relative"
+              className="bg-secondary rounded-xl shadow-lg mt-20 w-full max-w-xl"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Close button */}
-                    <IoCloseOutline
-                              className="text-4xl absolute top-2 right-2 cursor-pointer text-gray-600 hover:text-red-500"
-                              onClick={() => setShowCSVModal(false)}
-                            />
-                    <div className="flex flex-col gap-4"></div>
               <ConfirmUserDelete
                 onDelete={() => {
                   setConfirmDelete(false);

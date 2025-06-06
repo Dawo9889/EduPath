@@ -11,10 +11,11 @@ interface FormFieldProps {
   otherStyles: string,
   fieldName?: string,
   inputfieldstyles?: string,
-  inputValid?: boolean | null
+  inputValid?: boolean,
+  disabled?: boolean
 }
 
-const FormField = ({title, value, isPassword, placeholder, otherStyles, onChange, fieldName, inputfieldstyles, inputValid=null}: FormFieldProps) => {
+const FormField = ({title, value, isPassword, placeholder, otherStyles, onChange, fieldName, inputfieldstyles, inputValid, disabled}: FormFieldProps) => {
 
     const [showPassword, setShowPassword] = useState(false);
 
@@ -25,12 +26,13 @@ const FormField = ({title, value, isPassword, placeholder, otherStyles, onChange
          ${inputfieldstyles} ${inputValid === null ? 'border-gray-300' : inputValid === false ? 'border-2 border-red-500' : 'border-2 border-green-500'}
          `}>
         <input
-          className={`flex-1 bg-transparent outline-none text-secondary font-regular text-base placeholder-gray-400`}
+          className={`flex-1 bg-transparent outline-none text-secondary font-regular text-base placeholder-gray-400 disabled:opacity-50`}
           value={value}
           placeholder={placeholder}
           onChange={onChange}
           type={isPassword && !showPassword ? 'password' : 'text'}
           name={fieldName}
+          disabled={disabled}
         />
         {isPassword && (
           <button

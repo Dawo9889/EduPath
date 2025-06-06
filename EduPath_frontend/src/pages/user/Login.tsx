@@ -10,7 +10,6 @@ function Login() {
 
   const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}$/;
   const [emailValid, setEmailValid] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -30,11 +29,10 @@ function Login() {
     if (!emailValid || form.password === '') return;
 
     setLoading(true);
-    setIsSubmitting(true);
 
     try {
       const userData = await loginApi(form.email, form.password); // <-- teraz zwraca {email, role}
-      login(userData.email, userData.role); // <-- wywołujemy login z contextu
+      login(userData.email, userData.role, userData.token); // <-- wywołujemy login z contextu
       setError(null);
       // Redirect to the appropriate dashboard based on user role
       switch (userData.role) {
@@ -54,7 +52,6 @@ function Login() {
       setError(error.message);
     } finally {
       setLoading(false);
-      setIsSubmitting(false);
       setForm({ email: form.email, password: '' });
     }
   };

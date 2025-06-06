@@ -12,6 +12,7 @@ import ManageAccount from "../pages/user/ManageAccount";
 import ManageCourses from "../pages/user/lecturer/ManageCourses";
 import CourseDashboard from "../pages/user/CourseDashboard";
 import AssignmentDetails from "../pages/user/AssignmentDetails";
+import Unauthorized from "../pages/Unauthorized";
 
 
 
@@ -23,6 +24,7 @@ export const routes: RouteObject[] = [
             {path: 'about', element: <About />},
             {path: 'contact', element: <Contact />},
             {path: 'login', element: <Login />},
+            {path: 'unauthorized', element: <Unauthorized />},
             // Authenticated routes
             {path: 'admin/dashboard', element: <AdminDashboard />},
             {path: 'admin/manage-users', element: <ManageUsers />},

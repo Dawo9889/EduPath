@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 
-import UserRole from '../types/UserRole';
 import LogoHorizontal from './LogoHorizontal';
 import ToggleDarkMode from './ToggleDarkMode'
 import { useAuth } from '../contexts/AuthContext';

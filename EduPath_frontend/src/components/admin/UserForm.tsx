@@ -80,7 +80,8 @@ function UserForm({ user, onSave, onClose }: userFormProps) {
           otherStyles={''}
           fieldName='email'
           inputfieldstyles='bg-secondary'
-          inputValid={emailValid()}
+          inputValid={user.id == '' ? null : emailValid()} // Only validate email if adding new user
+          disabled={user.id !== ''} // Disable email field if editing existing user
         />
         <p className='text-lg text-secondary font-medium'>Role</p>
         <select

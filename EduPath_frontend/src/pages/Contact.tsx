@@ -9,7 +9,7 @@ function Contact() {
       <div className="bg-secondary shadow-md rounded-xl p-6 space-y-4">
         <div>
           <h2 className="text-xl font-semibold">Email</h2>
-          <p>support@edupath.com</p>
+          <p>contact@edupath.quest</p>
         </div>
 
         <div>
@@ -30,7 +30,7 @@ function Contact() {
 
       <div className="mt-8">
         <h2 className="text-2xl font-semibold mb-2">Send us a message</h2>
-        <form className="space-y-4" method="mail" action="mailto:contact@edupath.com">
+        <form className="space-y-4" method="mail" action="mailto:contact@edupath.quest">
           <input
             type="text"
             placeholder="Your Name"
