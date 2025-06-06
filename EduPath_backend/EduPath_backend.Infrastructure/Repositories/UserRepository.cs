@@ -68,5 +68,22 @@ namespace EduPath_backend.Infrastructure.Repositories
                 return false;
             }
         }
+
+        public async Task<bool> DeleteUser(string userId)
+        {
+            var users = await _context.Users.ToListAsync();
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (user != null)
+            {
+                _context.Users.Remove(user);
+                var result = await _context.SaveChangesAsync();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
