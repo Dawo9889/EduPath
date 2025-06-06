@@ -92,6 +92,17 @@ namespace EduPath_backend.API.Controllers
             return BadRequest("Something went wrong while removing this user");
         }
 
+        [HttpDelete("deleteUser")]
+        [Authorize(Roles = "Admin,Lecturer")]
+        public async Task<IActionResult> DeleteUser([FromBody] DeleteUserDTO userID)
+        {
+            var result = await _userService.DeleteUserAsync(userID);
+            if (result)
+                return Ok("User removed");
+
+            return BadRequest("Something went wrong while removing this user");
+        }
+
 
         [HttpGet("whoami")]
         [Authorize]

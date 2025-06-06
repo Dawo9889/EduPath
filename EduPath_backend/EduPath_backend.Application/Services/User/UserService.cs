@@ -252,5 +252,19 @@ namespace EduPath_backend.Application.Services.User
             return tokenHandler.WriteToken(token);
         }
 
+        public async Task<bool> DeleteUserAsync(DeleteUserDTO deleteUserDTO)
+        {
+
+            var result = await _userRepository.DeleteUser(deleteUserDTO.UserID);
+
+            if (result)
+            {
+                return true;
+            }
+            else
+            {
+                throw new Exception("User not exist");
+            }
+        }
     }
 }

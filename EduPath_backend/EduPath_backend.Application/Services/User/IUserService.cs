@@ -17,5 +17,6 @@ namespace EduPath_backend.Application.Services.User
         Task<bool> CompleteRegistrationAsync(CompleteRegistrationDTO request);
         Task<List<ListOfUsersDTO>> GetAllUsersAsync();
         Task<List<ListOfUsersDTO>> GetUsersByRoleAsync(string roleName);
+        Task<bool> DeleteUserAsync(DeleteUserDTO deleteUserDTO);
     }
 }
