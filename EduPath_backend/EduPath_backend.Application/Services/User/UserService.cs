@@ -55,6 +55,11 @@ namespace EduPath_backend.Application.Services.User
             }
         }
 
+        public async Task<bool> CheckIfUserExistsAsync(string email)
+        {
+            return await _userRepository.CheckIfUserExistsByMail(email);
+        }
+
         public async Task<bool> CreateUserAsync(CreateUserDTO dto)
         {
             var user = new Domain.Entities.User

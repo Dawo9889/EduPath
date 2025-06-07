@@ -69,6 +69,19 @@ namespace EduPath_backend.Infrastructure.Repositories
             }
         }
 
+        public async Task<bool> CheckIfUserExistsByMail(string email)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == email);
+            if(user != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public async Task<bool> DeleteUser(string userId)
         {
             var users = await _context.Users.ToListAsync();

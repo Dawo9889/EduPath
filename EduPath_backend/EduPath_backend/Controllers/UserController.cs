@@ -38,6 +38,11 @@ namespace EduPath_backend.API.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserDTO dto)
         {
+            var isExist = await _userService.CheckIfUserExistsAsync(dto.Email);
+            if (isExist == true)
+            {
+                return BadRequest("User already exists");
+            }
             var result = await _userService.CreateUserAsync(dto);
             if (result )
                 return Ok("User Created");

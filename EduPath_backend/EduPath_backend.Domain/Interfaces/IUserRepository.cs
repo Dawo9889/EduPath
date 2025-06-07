@@ -14,5 +14,6 @@ namespace EduPath_backend.Domain.Interfaces
         Task <bool> DeleteUser(string userId);
         Task<List<User>> GetListOfAllUsers();
         Task<Dictionary<string, string>> GetUserRolesAsync();
+        Task<bool> CheckIfUserExistsByMail(string email);
     }
 }
