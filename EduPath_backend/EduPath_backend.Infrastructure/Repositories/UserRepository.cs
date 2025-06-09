@@ -102,7 +102,7 @@ namespace EduPath_backend.Infrastructure.Repositories
         public async Task<User> EditUserAsync(User editedUser)
         {
             var existingUser = await _context.Users
-                .FirstOrDefaultAsync(user => user.UserId == editedUser.UserId);
+                .FirstOrDefaultAsync(user => user.Id == editedUser.Id);
 
             if (existingUser != null)
             {

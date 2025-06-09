@@ -220,6 +220,41 @@ namespace EduPath_backend.Application.Services.User
 
             return filteredUsers;
         }
+
+        public async Task<bool> DeleteUserAsync(DeleteUserDTO deleteUserDTO)
+        {
+
+            var result = await _userRepository.DeleteUser(deleteUserDTO.UserID);
+
+            if (result)
+            {
+                return true;
+            }
+            else
+            {
+                throw new Exception("User not exist");
+            }
+        }
+
+        public async Task<EditUserDTO> EditUserAsync(EditUserDTO editedUser)
+        {
+            var editedUserEntity = _mapper.Map<Domain.Entities.User>(editedUser);
+            var updatedUser = await _userRepository.EditUserAsync(editedUserEntity);
+            if (updatedUser == null)
+            {
+                throw new Exception("User not found");
+            }
+            return editedUser;
+        }
+
+
+
+
+
+
+
+
+
         private async Task<string> GenerateJwtToken(Domain.Entities.User user)
         {
             var claims = new List<Claim>
@@ -257,19 +292,6 @@ namespace EduPath_backend.Application.Services.User
             return tokenHandler.WriteToken(token);
         }
 
-        public async Task<bool> DeleteUserAsync(DeleteUserDTO deleteUserDTO)
-        {
 
-            var result = await _userRepository.DeleteUser(deleteUserDTO.UserID);
-
-            if (result)
-            {
-                return true;
-            }
-            else
-            {
-                throw new Exception("User not exist");
-            }
-        }
     }
 }
