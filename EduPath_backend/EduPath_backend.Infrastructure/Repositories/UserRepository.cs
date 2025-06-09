@@ -68,5 +68,25 @@ namespace EduPath_backend.Infrastructure.Repositories
                 return false;
             }
         }
+
+        public async Task<User> EditUserAsync(User editedUser)
+        {
+            var existingUser = await _context.Users
+                .FirstOrDefaultAsync(user => user.UserId == editedUser.UserId);
+
+            if (existingUser != null)
+            {
+
+                existingUser.FirstName = editedUser.FirstName;
+                existingUser.LastName = editedUser.LastName;
+
+                await _context.SaveChangesAsync();
+
+                return existingUser;
+            }
+
+
+            return null;
+        }
     }
 }

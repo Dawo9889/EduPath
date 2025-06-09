@@ -13,5 +13,6 @@ namespace EduPath_backend.Domain.Interfaces
         Task<bool> DeleteUserFromCourse(CourseUser courseUser);
         Task<List<User>> GetListOfAllUsers();
         Task<Dictionary<string, string>> GetUserRolesAsync();
+        Task<User> EditUserAsync(User editedUser);
     }
 }

@@ -31,7 +31,7 @@ namespace EduPath_backend.API.Controllers
             return Ok(result);
         }
 
-        // TODO: Add admin auth 
+
         [HttpPost("create")]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserDTO dto)
         {
