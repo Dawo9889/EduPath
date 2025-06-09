@@ -55,6 +55,11 @@ namespace EduPath_backend.Application.Services.User
             }
         }
 
+        public async Task<bool> CheckIfUserExistsAsync(string email)
+        {
+            return await _userRepository.CheckIfUserExistsByMail(email);
+        }
+
         public async Task<bool> CreateUserAsync(CreateUserDTO dto)
         {
             var user = new Domain.Entities.User
@@ -221,7 +226,9 @@ namespace EduPath_backend.Application.Services.User
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.Id),
                     new Claim(ClaimTypes.Email, user.Email),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new Claim("firstName", user.FirstName),
+                    new Claim("lastName", user.LastName)
                 };
 
             var roles = await _userManager.GetRolesAsync(user); 
@@ -250,5 +257,19 @@ namespace EduPath_backend.Application.Services.User
             return tokenHandler.WriteToken(token);
         }
 
+        public async Task<bool> DeleteUserAsync(DeleteUserDTO deleteUserDTO)
+        {
+
+            var result = await _userRepository.DeleteUser(deleteUserDTO.UserID);
+
+            if (result)
+            {
+                return true;
+            }
+            else
+            {
+                throw new Exception("User not exist");
+            }
+        }
     }
 }

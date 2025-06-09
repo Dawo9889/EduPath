@@ -38,22 +38,22 @@ function CSVImport({ onImport }: Props) {
   };
 
   return (
-    <div className="mb-4">
-      <label className="block font-medium mb-1">Import Users from CSV</label>
+    <div>
+      <label className="block font-medium mb-1 text-primary">Import Users from CSV</label>
       <input
         type="file"
         accept=".csv"
         onChange={handleFileChange}
-        className="mb-2 cursor-pointer font-light"
+        className="mb-2 cursor-pointer font-light text-primary"
       />
       <button
         onClick={handleImport}
         disabled={!file}
-        className="px-4 py-2 rounded font-medium text-[var(--text-100)] bg-[var(--bg-200)] hover:bg-[var(--bg-300)] disabled:opacity-50 disabled:cursor-not-allowed"
+        className="px-4 py-2 rounded font-medium text-primary bg-primary cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90"
       >
         Import
       </button>
-      <p className="text-sm text-gray-500 mt-1">
+      <p className="text-sm text-secondary mt-4">
         CSV must include: firstname, lastname, email (role defaults to student if missing).
       </p>
     </div>

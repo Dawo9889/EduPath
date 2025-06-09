@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { IoCloseOutline } from "react-icons/io5";
 import User from '../../types/User';
 import FormField from '../FormField';
@@ -14,8 +14,6 @@ function ConfirmUserDelete({onDelete, onClose }: confirmUserDeleteProps) {
     confirm: '',
   });
 
-  const [inputsValid, setInputsValid] = useState(false);
-
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -23,27 +21,31 @@ function ConfirmUserDelete({onDelete, onClose }: confirmUserDeleteProps) {
   };
 
   return (
-    <div className="m-4 relative">
-    <form onSubmit={() => onDelete} className="mb-6 space-y-2 relative">
-      <h2 className="text-2xl font-bold mb-4 text-primary">Delete User</h2>
+    <div className="relative p-5">
       {/* Close button */}
       <IoCloseOutline
-                className="text-4xl absolute top-0 right-0 cursor-pointer text-gray-600 hover:text-red-500"
+                className="text-4xl absolute top-3 right-3 cursor-pointer text-gray-600 hover:text-red-500"
                 onClick={onClose}
               />
+    <form onSubmit={() => onDelete} className="mb-2 space-y-2">
+      <h2 className="text-2xl font-bold mb-4 text-primary">Delete User</h2>
+      <p className="text-primary mb-4">
+        Are you sure you want to delete this user? This action cannot be undone. All user data will be lost!
+      </p>
       <div className="flex flex-col gap-4">
         <FormField
-          title={'First name'}
+          title={'Confirm Delete - type "DELETE" below'}
           isPassword={false}
           value={formData.confirm}
           onChange={handleChange}
-          placeholder={''}
+          placeholder={'DELETE'}
           otherStyles={''}
           fieldName="confirm"
-          inputfieldstyles='bg-secondary'
+          inputfieldstyles='bg-primary'
+          inputValid={formData.confirm === 'DELETE' ? true : false}
         />
       </div>
-      <button type="submit" className="btn-primary text-white px-4 py-2 rounded" disabled={formData.confirm === 'DELETE'}>
+      <button type="submit" className="btn-danger text-white px-4 py-2 rounded" disabled={formData.confirm !== 'DELETE'}>
         Delete
       </button>
     </form>

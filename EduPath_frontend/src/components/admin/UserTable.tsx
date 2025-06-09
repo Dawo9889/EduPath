@@ -90,7 +90,7 @@ const paginatedUsers = useMemo(() => {
         </thead>
         <tbody>
           {paginatedUsers.map((user) => (
-            <tr key={user.id} className="border-t bg-secondary">
+            <tr key={user.email} className="border-t bg-secondary">
               <td className="p-2 w-[15%]">{user.firstname}</td>
               <td className="p-2 w-[20%]">{user.lastname}</td>
               <td className="p-2">{user.email}</td>
@@ -98,7 +98,10 @@ const paginatedUsers = useMemo(() => {
               <td className="p-2 w-[18%]">
                 <button
                   className="btn-primary text-white w-[47%] px-2 py-1 rounded mr-[6%]"
-                  onClick={() => onEdit(user)}
+                  onClick={() => {  
+                    onEdit(user)
+                    console.log("Editing user:", user)  
+                  }}
                 >
                   Edit
                 </button>

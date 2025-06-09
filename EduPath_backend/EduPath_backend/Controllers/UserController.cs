@@ -1,13 +1,16 @@
 ﻿using EduPath_backend.Application.DTOs.User;
 using EduPath_backend.Application.Services.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace EduPath_backend.API.Controllers
 {
     [ApiController]
     [Route("api/user")]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -31,10 +34,15 @@ namespace EduPath_backend.API.Controllers
             return Ok(result);
         }
 
-
         [HttpPost("create")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserDTO dto)
         {
+            var isExist = await _userService.CheckIfUserExistsAsync(dto.Email);
+            if (isExist == true)
+            {
+                return BadRequest("User already exists");
+            }
             var result = await _userService.CreateUserAsync(dto);
             if (result )
                 return Ok("User Created");
@@ -42,6 +50,7 @@ namespace EduPath_backend.API.Controllers
             return BadRequest("Something went wrong");
         }
         [HttpPost("assignUserToCourse")]
+        [Authorize(Roles = "Admin,Lecturer")]
         public async Task<IActionResult> AssignUserToCourse([FromBody] UserCourseDTO userCourseDTO)
         {
             var result = await _userService.AssignUserToCourseAsync(userCourseDTO);
@@ -52,6 +61,7 @@ namespace EduPath_backend.API.Controllers
         }
 
         [HttpPost("complete-registration")]
+        [AllowAnonymous]
         public async Task<IActionResult> CompleteRegistration([FromBody] CompleteRegistrationDTO request)
         {
 
@@ -63,6 +73,7 @@ namespace EduPath_backend.API.Controllers
         }
 
         [HttpPost("login")]
+        [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginDTO model)
         {
             if (!ModelState.IsValid)
@@ -76,6 +87,7 @@ namespace EduPath_backend.API.Controllers
         }
 
         [HttpDelete("deleteUserFromCourse")]
+        [Authorize(Roles = "Admin,Lecturer")]
         public async Task<IActionResult> DeleteUserFromCourse([FromBody] UserCourseDTO userCourseDTO)
         {
             var result = await _userService.DeleteUserFromCourseAsync(userCourseDTO);
@@ -84,5 +96,43 @@ namespace EduPath_backend.API.Controllers
 
             return BadRequest("Something went wrong while removing this user");
         }
+
+        [HttpDelete("deleteUser")]
+        [Authorize(Roles = "Admin,Lecturer")]
+        public async Task<IActionResult> DeleteUser([FromBody] DeleteUserDTO userID)
+        {
+            var result = await _userService.DeleteUserAsync(userID);
+            if (result)
+                return Ok("User removed");
+
+            return BadRequest("Something went wrong while removing this user");
+        }
+
+
+        [HttpGet("whoami")]
+        [Authorize]
+        public IActionResult WhoAmI()
+        {
+            var user = HttpContext.User;
+
+            if (user == null || !user.Identity.IsAuthenticated)
+                return Unauthorized();
+
+            var userId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var email = user.FindFirst(ClaimTypes.Email)?.Value;
+            var firstName = user.FindFirst("FirstName")?.Value;
+            var lastName = user.FindFirst("LastName")?.Value;
+            var roles = user.FindAll(ClaimTypes.Role).Select(r => r.Value).ToList();
+
+            return Ok(new
+            {
+                Id = userId,
+                Email = email,
+                FirstName = firstName,
+                LastName = lastName,
+                Roles = roles
+            });
+        }
+
     }
 }

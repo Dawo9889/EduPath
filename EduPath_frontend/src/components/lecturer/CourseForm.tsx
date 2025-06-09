@@ -53,6 +53,7 @@ function CourseForm({ Course, onSave, onClose }: CourseFormProps) {
           otherStyles={''}
           fieldName="name"
           inputfieldstyles='bg-secondary'
+          inputValid={formData.name !== ''}
         />
         <FormField
           title={'Description'}
@@ -65,7 +66,7 @@ function CourseForm({ Course, onSave, onClose }: CourseFormProps) {
           inputfieldstyles='bg-secondary'
         />
       </div>
-      <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
+      <button type="submit" className="btn-primary px-4 py-2 rounded font-medium">
         {Course.id !== '' ? 'Update Course' : 'Add Course'}
       </button>
     </form>

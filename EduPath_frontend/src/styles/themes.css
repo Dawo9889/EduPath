@@ -51,7 +51,10 @@
     @apply bg-[var(--primary-100)] text-[var(--text-100)] hover:bg-[var(--primary-200)] cursor-pointer;
 }
 .btn-primary:disabled {
-    @apply bg-[var(--primary-300)] cursor-not-allowed;
+    @apply bg-[var(--primary-200)] cursor-not-allowed;
+}
+.btn-secondary {
+    @apply bg-[var(--bg-300)] text-[var(--text-100)] hover:bg-[var(--bg-200)] cursor-pointer;
 }
 .btn-danger {
     @apply bg-red-600 text-[var(--text-100)] hover:bg-red-700 cursor-pointer;

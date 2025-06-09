@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import CourseTable from '../../../components/CourseTable';
+import CourseTable from '../../../components/lecturer/CourseTable';
 import CourseForm from '../../../components/lecturer/CourseForm';
 // import CSVImport from '../../../components/admin/CSVImport';
 import Course from '../../../types/Course';
@@ -46,7 +46,7 @@ function ManageCourses() {
         onClick={() =>
           setEditingCourse({ id: '', name: '', description: '', lecturerId: '', students: [] })
         }
-        className="mb-4 px-4 py-2 rounded font-medium text-[var(--text-100)] bg-[var(--bg-200)] hover:bg-[var(--bg-300)]"
+        className="mb-4 px-4 py-2 rounded font-medium cursor-pointer text-[var(--text-100)] bg-[var(--bg-200)] hover:bg-[var(--bg-300)]"
         >
         Add Course
       </button>
@@ -67,7 +67,6 @@ function ManageCourses() {
           animate={{ opacity: 0.4 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          onClick={() => setEditingCourse(null)}
           />
           <motion.div
             className="fixed top-0 left-0 w-full h-full flex justify-center items-start z-50"
@@ -75,7 +74,6 @@ function ManageCourses() {
             animate={{ y: '0%', opacity: 1 }}
             exit={{ y: '-100%', opacity: 0 }}
             transition={{ duration: 0.3 }}
-            onClick={() => setEditingCourse(null)} // Close on overlay click
           >
             <div
               className="bg-primary rounded-xl shadow-lg mt-20 w-full max-w-xl relative"

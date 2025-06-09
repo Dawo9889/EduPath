@@ -11,28 +11,33 @@ interface FormFieldProps {
   otherStyles: string,
   fieldName?: string,
   inputfieldstyles?: string,
+  inputValid?: boolean,
+  disabled?: boolean
 }
 
-const FormField = ({title, value, isPassword, placeholder, otherStyles, onChange, fieldName, inputfieldstyles}: FormFieldProps) => {
+const FormField = ({title, value, isPassword, placeholder, otherStyles, onChange, fieldName, inputfieldstyles, inputValid, disabled}: FormFieldProps) => {
 
     const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className={`space-y-2 ${otherStyles}`}>
       <p className='text-lg text-secondary font-medium mb-1'>{title}</p>
-      <div className={`w-full h-12 px-4 rounded-2xl flex items-center ${inputfieldstyles}`}>
+      <div className={`w-full h-12 px-4 rounded-2xl flex items-center
+         ${inputfieldstyles} ${inputValid === null ? 'border-gray-300' : inputValid === false ? 'border-2 border-red-500' : 'border-2 border-green-500'}
+         `}>
         <input
-          className={`flex-1 bg-transparent outline-none text-secondary font-regular text-base placeholder-gray-400`}
+          className={`flex-1 bg-transparent outline-none text-secondary font-regular text-base placeholder-gray-400 disabled:opacity-50`}
           value={value}
           placeholder={placeholder}
           onChange={onChange}
           type={isPassword && !showPassword ? 'password' : 'text'}
           name={fieldName}
+          disabled={disabled}
         />
         {isPassword && (
           <button
             type="button"
-            className="text-secondary ml-2"
+            className="text-secondary ml-2 cursor-pointer"
             onClick={() => setShowPassword(sp => !sp)}
           >
             {showPassword ? <IoMdEyeOff size={24} /> : <IoMdEye size={24} />}
