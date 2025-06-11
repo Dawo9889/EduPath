@@ -4,23 +4,39 @@ import CourseForm from '../../../components/lecturer/CourseForm';
 // import CSVImport from '../../../components/admin/CSVImport';
 import Course from '../../../types/Course';
 import { AnimatePresence, motion } from 'framer-motion';
+import { fetchCourses } from '../../../api/coursesApi';
 
 
 function ManageCourses() {
   const [courses, setCourses] = useState<Course[]>([]);
   const [editingCourse, setEditingCourse] = useState<Course | null>(null);
 
-  // const [showCSVModal, setShowCSVModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Fetch courses on load
   useEffect(() => {
-    // dummy data, replace with fetched courses
-    const initialCourses = [
-      { id: 'dummy-course-1', name: 'Dummy Course 1', description: 'A dummy course created for testing', lecturerId: '', students: [] },
-      { id: 'dummy-course-2', name: 'Dummy Course 2', description: 'A dummy course created for testing', lecturerId: '', students: [] },
-      { id: 'dummy-course-3', name: 'Dummy Course 3', description: 'A dummy course created for testing', lecturerId: '', students: [] },
-    ];
-    setCourses(initialCourses);
+    const fetchData = async () => {
+      setIsLoading(true);
+
+      try {
+        const fetchedCourses = await fetchCourses();
+        console.log('Fetched courses:', fetchedCourses);
+        const normalizedCourses: Course[] = fetchedCourses.map((c: any) => ({
+          id: c.courseId,
+          name: c.name,
+          description: c.description,
+          lecturerId: '',
+          students: [],
+        }));
+        setCourses(normalizedCourses);
+      } catch (error) {
+        console.error("Failed to fetch courses:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
   const handleCourseSave = (newCourse: Course) => {
@@ -51,10 +67,18 @@ function ManageCourses() {
         Add Course
       </button>
 
-      {courses.length === 0 ? (
-        <p className="text-gray-500">No Courses found. Please add a Course.</p>
-      ):
-      <CourseTable Courses={courses} onEdit={setEditingCourse} onDelete={handleCourseDelete} />
+      {isLoading && <p className="text-gray-500">Loading courses...</p> }
+
+      {
+        !isLoading && (
+          <>
+            {courses.length === 0 ? (
+              <p className='text-gray-500'>No courses found. Please add a course.</p>
+            ) : (
+              <CourseTable Courses={courses} onEdit={setEditingCourse} onDelete={handleCourseDelete} />
+            )}
+          </>
+        )
       }
       
       {/* Animated Popup */}  
