@@ -5,6 +5,8 @@ import Assignment from "../../types/Assignment";
 import AssignmentTable from "../../components/AssignmentTable";
 import { AnimatePresence, motion } from "framer-motion";
 import AssignmentForm from "../../components/lecturer/AssignmentForm";
+import { getCourse, getCourseUsers } from "../../api/coursesApi";
+import { getAssignmentByCourse } from "../../api/assignmentApi";
 
 function CourseDashboard() {
   const { courseId } = useParams<{ courseId: string }>();
@@ -15,22 +17,44 @@ function CourseDashboard() {
 
   const [students, setStudents] = useState<string[]>([]);
 
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
-    // dummy data, replace with fetched course and its assignments
+    const fetchData = async () => {
+      setIsLoading(true);
 
-    console.log(courseId);
+      try {
+        const fetchedCourse = await getCourse(courseId);
+        const fetchedCourseUsers = await getCourseUsers(courseId);
+        const fetchedAssignments = await getAssignmentByCourse(courseId);
 
-    const initialCourse = { id: 'dummy-course-1', name: 'Dummy Course 1', description: 'A dummy course created for testing', lecturerId: '', students: [] };
-    setCourse(initialCourse);
-    
-    const initialAssignments = [
-      { id: 'dummy-assignment-1', name: 'Dummy Assignment 1', content: 'A dummy assignment created for testing.', dateStart: Date.now().toString(), dateEnd: Date.now().toString() }, 
-      { id: 'dummy-assignment-2', name: 'Dummy Assignment 2', content: 'A dummy assignment created for testing.', dateStart: Date.now().toString(), dateEnd: Date.now().toString() }, 
-      { id: 'dummy-assignment-3', name: 'Dummy Assignment 3', content: 'A dummy assignment created for testing.', dateStart: Date.now().toString(), dateEnd: Date.now().toString() }, 
-    ];
-    setAssignments(initialAssignments);
+        const normalizedCourse: Course = {
+          id: fetchedCourse.id,
+          name: fetchedCourse.name,
+          description: fetchedCourse.description,
+          lecturerId: sessionStorage.getItem("userId"),
+          students: fetchedCourseUsers.map((cu) => cu.userId)
+        };
+        const normalizedStudents: string[] = fetchedCourseUsers.map((cu) => `${cu.firstName} ${cu.lastName}`);
+        const normalizedAssignments: Assignment[] = fetchedAssignments.map((a) => ({
+          id: a.assignmentId,
+          name: a.name,
+          content: a.content,
+          dateStart: a.dateStart,
+          dateEnd: a.dateEnd,
+        }));
 
-    setStudents(["Jan Kowalski", "Anna Nowak", "John Doe"]);
+        setCourse(normalizedCourse);
+        setStudents(normalizedStudents);
+        setAssignments(normalizedAssignments);
+      } catch (error) {
+        console.log("Failed to fetch data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
   }, [courseId]);
 
   const handleAssignmentDelete = (id: string) => {
@@ -61,10 +85,18 @@ function CourseDashboard() {
         Add Assignment
       </button>
 
-      {assignments.length === 0 ? (
-        <p className="text-gray-500">No Assignments found. Please add an Assignment.</p>
-      ) : 
-        <AssignmentTable assignments={assignments} courseId={course!.id} onEdit={setEditingAssignment} onDelete={handleAssignmentDelete} />
+      {isLoading && <p className="text-gray-500">Loading assignemnts...</p> }
+
+      {
+        !isLoading && (
+          <>
+            {assignments.length === 0 ? (
+              <p className='text-gray-500'>No courses found. Please add a course.</p>
+            ) : (
+               <AssignmentTable assignments={assignments} courseId={course!.id} onEdit={setEditingAssignment} onDelete={handleAssignmentDelete} />
+            )}
+          </>
+        )
       }
 
       <AnimatePresence>

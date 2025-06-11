@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
 import CourseTable from '../../../components/lecturer/CourseTable';
 import CourseForm from '../../../components/lecturer/CourseForm';
-// import CSVImport from '../../../components/admin/CSVImport';
 import Course from '../../../types/Course';
 import { AnimatePresence, motion } from 'framer-motion';
 import { fetchCourses } from '../../../api/coursesApi';
-
 
 function ManageCourses() {
   const [courses, setCourses] = useState<Course[]>([]);
@@ -25,7 +23,7 @@ function ManageCourses() {
           id: c.courseId,
           name: c.name,
           description: c.description,
-          lecturerId: '',
+          lecturerId: sessionStorage.getItem("userId"),
           students: [],
         }));
         setCourses(normalizedCourses);
