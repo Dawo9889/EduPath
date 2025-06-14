@@ -64,7 +64,7 @@ function AssignmentForm({assignment, onSave, onClose}: Props) {
           inputfieldstyles='bg-secondary'
         />
       </div>
-      <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
+      <button type="submit" className="btn-primary px-4 py-2 rounded font-medium">
         {assignment.id !== '' ? 'Update Assignment' : 'Add Assignment'}
       </button>
     </form>
