@@ -1,22 +1,31 @@
 import axios from "axios";
-import Course from "../types/Course";
-import { handleError } from "./utils";
+import { getAccessToken, handleError } from "./utils";
 
 const COURSE_URL = `${import.meta.env.VITE_API_URL}/course`
 
+export type CourseRequestData = {
+  name: string;
+  description: string;
+  isPublic: boolean;
+  passwordPlainText: string;
+  ownerId: string;
+};
+
+export type CourseResponseData = {
+  courseId: string;
+  name: string;
+  description: string;
+  isPublic: boolean;
+}
+
 export const fetchCourses = async () => {
   try {
-    const token = sessionStorage.getItem("accessToken");
-    if (!token) {
-      throw new Error("No access token found");
-    }
-
-    const response = await axios.get<Course[]>(`${COURSE_URL}/all`, {
+    const token = getAccessToken();
+    const response = await axios.get<CourseResponseData[]>(`${COURSE_URL}/all`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-
     return response.data;
   } catch (error) {
     console.error("Error fetching courses:", error);
@@ -26,17 +35,12 @@ export const fetchCourses = async () => {
 
 export const getCourse = async (id: string) => {
   try {
-    const token = sessionStorage.getItem("accessToken");
-    if (!token) {
-      throw new Error("No access token found");
-    }
-
-    const response = await axios.get<Course>(`${COURSE_URL}/${id}`, {
+    const token = getAccessToken();
+    const response = await axios.get<CourseResponseData>(`${COURSE_URL}/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-
     return response.data;
   } catch (error) {
     console.error("Error fetching course:", error);
@@ -46,20 +50,65 @@ export const getCourse = async (id: string) => {
 
 export const getCourseUsers = async (id: string) => {
   try {
-    const token = sessionStorage.getItem("accessToken");
-    if (!token) {
-      throw new Error("No access token found");
-    }
-
+    const token = getAccessToken();
     const response = await axios.get(`${COURSE_URL}/${id}/users`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-
     return response.data;
   } catch (error) {
     console.error("Error fetching course users:", error);
+    handleError(error);
+  }
+}
+
+export const createCourse = async (courseData: CourseRequestData) => {
+  try {
+    const token = getAccessToken();
+    const response = await axios.post<CourseRequestData>(`${COURSE_URL}/create`, courseData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error creating course:", error);
+    handleError(error);
+  }
+};
+
+export const updateCourse = async (
+  id: string,
+  courseData: Partial<CourseRequestData>
+) => {
+  try {
+    const token = getAccessToken();
+    const response = await axios.put<CourseRequestData>(`${COURSE_URL}/${id}`, courseData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error updating course:", error);
+    handleError(error);
+  }
+};
+
+export const deleteCourse = async (id: string) => {
+  try {
+    const token = getAccessToken();
+    const response = await axios.delete(`${COURSE_URL}/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting course:", error);
     handleError(error);
   }
 }

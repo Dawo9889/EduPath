@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import Course from "../../types/Course";
 import Assignment from "../../types/Assignment";
-import AssignmentTable from "../../components/AssignmentTable";
+import AssignmentTable from "../../components/assignment/AssignmentTable";
 import { AnimatePresence, motion } from "framer-motion";
-import AssignmentForm from "../../components/lecturer/AssignmentForm";
+import AssignmentForm from "../../components/assignment/AssignmentForm";
 import { getCourse, getCourseUsers } from "../../api/coursesApi";
 import { getAssignmentByCourse } from "../../api/assignmentApi";
 
