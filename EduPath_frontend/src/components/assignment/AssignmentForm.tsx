@@ -65,7 +65,7 @@ function AssignmentForm({assignment, onSave, onClose}: Props) {
           inputfieldstyles='bg-secondary'
         />
         <FormDateField 
-          title={"Submission Deadline"}
+          title={"Start Date"}
           value={formData.dateStart}
           onChange={handleChange}
           placeholder={""}

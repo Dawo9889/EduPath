@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import Assignment from "../../types/Assignment";
 import Solution from "../../types/Solution";
 import SolutionTable from "../../components/SolutionTable";
+import { getAssignment } from "../../api/assignmentApi";
 
 function AssignmentDetails() {
   const { assignmentId } = useParams<{ assignmentId: string }>();
@@ -10,12 +11,31 @@ function AssignmentDetails() {
 
   const [solutions, setSolutions] = useState<Solution[]>([]);
 
-  useEffect(() => {
-    // dummy data, replace with fetched assignment and solutions
-    console.log(assignmentId);
+  const [isLoading, setIsLoading] = useState(true);
 
-    const initialAssignment = { id: 'dummy-assignment-1', name: 'Dummy Assignment 1', content: 'A dummy assignment created for testing.', dateStart: Date.now().toString(), dateEnd: Date.now().toString()};
-    setAssignment(initialAssignment);
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+
+      try {
+        const fetchedAssignment = await getAssignment(assignmentId!);
+
+        const normalizedAssignment: Assignment = {
+          id: fetchedAssignment!.assignmentId,
+          name: fetchedAssignment!.name,
+          content: fetchedAssignment!.content,
+          dateStart: fetchedAssignment!.dateStart,
+          dateEnd: fetchedAssignment!.dateEnd
+        };
+        setAssignment(normalizedAssignment);
+      } catch (error) {
+        console.log("Failed to fetch data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchData();
 
     const initialSolutions = [
       { id: 'dummy-solution-1', studentName: 'Jan Kowalski', filePath: 'placeholder', submissionDate: Date.now().toString() },

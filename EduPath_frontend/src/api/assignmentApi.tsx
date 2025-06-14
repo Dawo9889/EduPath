@@ -76,6 +76,24 @@ export const getAssignmentByUser = async (userId: string) => {
   }
 };
 
+export const getAssignment = async (id: string) => {
+  try {
+    const token = getAccessToken();
+    const response = await axios.get<AssignmentResponseData>(
+      `${ASSIGNMENT_URL}/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error getting assignment:", error);
+    handleError(error);
+  }
+}
+
 export const createAssignment = async (
   assignmentData: AssignmentRequestData
 ) => {
