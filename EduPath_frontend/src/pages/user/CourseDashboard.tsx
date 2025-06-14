@@ -113,7 +113,7 @@ function CourseDashboard() {
   return (
     <div className="p-6 max-w-4xl mx-auto">
       <h1 className="text-3xl font-bold mb-4 text-primary">{course?.name}</h1>
-      <p>{course?.description}</p>
+      <p className="text-primary">{course?.description}</p>
 
       <h2 className="text-2xl font-bold mb-4 mt-4 text-primary">Assignments</h2>
       <button // should be visible only for the lecturer
@@ -186,7 +186,7 @@ function CourseDashboard() {
 
       <h2 className="text-2xl font-bold mb-4 mt-4 text-primary">Students</h2>
       {students.map((student) => (
-        <div>{student}</div>
+        <div className="text-primary">{student}</div>
       ))}
     </div>
   );

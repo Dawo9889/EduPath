@@ -37,26 +37,26 @@ function AssignmentDetails() {
 
     fetchData();
 
-    const initialSolutions = [
-      { id: 'dummy-solution-1', studentName: 'Jan Kowalski', filePath: 'placeholder', submissionDate: Date.now().toString() },
-      { id: 'dummy-solution-2', studentName: 'Jan Kowalski', filePath: 'placeholder', submissionDate: Date.now().toString() },
-      { id: 'dummy-solution-3', studentName: 'Jan Kowalski', filePath: 'placeholder', submissionDate: Date.now().toString() },
-    ];
-    setSolutions(initialSolutions);
+    // const initialSolutions = [
+    //   { id: 'dummy-solution-1', studentName: 'Jan Kowalski', filePath: 'placeholder', submissionDate: Date.now().toString() },
+    //   { id: 'dummy-solution-2', studentName: 'Jan Kowalski', filePath: 'placeholder', submissionDate: Date.now().toString() },
+    //   { id: 'dummy-solution-3', studentName: 'Jan Kowalski', filePath: 'placeholder', submissionDate: Date.now().toString() },
+    // ];
+    // setSolutions(initialSolutions);
   }, [assignmentId]);
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
       <h1 className="text-3xl font-bold mb-4 text-primary">{ assignment?.name }</h1>
-      <p>{ assignment?.content }</p>
-
+      <p className="text-primary">{ assignment?.content }</p>
+{/* 
       <h2 className="text-2xl font-bold mb-4 mt-4 text-primary">Solutions</h2>
 
       {solutions.length === 0 ? (
         <p className="text-gray-500">No Solutions submitted yet.</p>
       ) : 
         <SolutionTable solutions={solutions} />
-      }
+      } */}
     </div>  
   )
 }
