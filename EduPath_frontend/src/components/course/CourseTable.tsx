@@ -28,7 +28,7 @@ function CourseTable({ Courses, onEdit, onDelete }: Props) {
       <thead>
         <tr className="bg-tertiary text-left">
           <th className="p-2">Name</th>
-          <th className="p-2">{userRole==='lecturer' ? "Active students" : "Lecturer"}</th>
+          {/* <th className="p-2">{userRole==='lecturer' ? "Active students" : "Lecturer"}</th> */}
           <th className="p-2">Actions</th>
         </tr>
       </thead>
@@ -36,7 +36,7 @@ function CourseTable({ Courses, onEdit, onDelete }: Props) {
         {Courses.map(Course => (
           <tr key={Course.id} className="border-t bg-secondary">
             <td className="p-2 font-medium">{Course.name}</td>
-            <td className="p-2 font-medium">{userRole==='lecturer' ? Course.students.length : fetchLecturerName(Course.lecturerId)}</td>
+            {/* <td className="p-2 font-medium">{userRole==='lecturer' ? Course.students.length : fetchLecturerName(Course.lecturerId)}</td> */}
             <td className="p-2 space-x-2 font-light">
               <button
                 className="btn-secondary cursor-pointer w-[30%] px-2 py-1 rounded mr-[3%]"

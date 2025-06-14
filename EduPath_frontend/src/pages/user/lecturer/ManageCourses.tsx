@@ -20,26 +20,28 @@ function ManageCourses() {
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchData = async () => {
-      setIsLoading(true);
+    setIsLoading(true);
 
-      try {
-        const userData = await whoami();
-        const fetchedCourses = await fetchCourses();
-        console.log("Fetched courses:", fetchedCourses);
-        const normalizedCourses: Course[] = fetchedCourses!.map((c: CourseResponseData) => ({
+    try {
+      const userData = await whoami();
+      const fetchedCourses = await fetchCourses();
+      console.log("Fetched courses:", fetchedCourses);
+      const normalizedCourses: Course[] = fetchedCourses!.map(
+        (c: CourseResponseData) => ({
           id: c.courseId,
           name: c.name,
           description: c.description,
           lecturerId: userData.id, // TODO: is this correct?
           students: [],
-        }));
-        setCourses(normalizedCourses);
-      } catch (error) {
-        console.error("Failed to fetch courses:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+        })
+      );
+      setCourses(normalizedCourses);
+    } catch (error) {
+      console.error("Failed to fetch courses:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   // Fetch courses on load
   useEffect(() => {

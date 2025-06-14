@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import FormField from "../../components/FormField"
+import FormTextField from "../../components/form/FormTextField"
 import { loginApi } from "../../api/api";
 import { useAuth } from "../../contexts/AuthContext";
 
@@ -61,7 +61,7 @@ function Login() {
       <div className="flex flex-col items-center h-50vh bg-secondary rounded-xl shadow-lg mt-20 w-full relative">
         <h2 className="pt-2 text-2xl font-bold mb-4 text-primary">Login</h2>
         <form>
-          <FormField
+          <FormTextField
             title={"Email address"}
             isPassword={false}
             value={form.email}
@@ -71,7 +71,7 @@ function Login() {
             inputfieldstyles='bg-primary'
             inputValid={emailValid}
           />
-          <FormField
+          <FormTextField
             title={"Password"}
             isPassword={true}
             value={form.password}

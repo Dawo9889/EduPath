@@ -25,7 +25,7 @@ function AssignmentTable({assignments, courseId, onEdit, onDelete}: Props) {
         {assignments.map(assignment => (
           <tr key={assignment.id} className="border-t bg-secondary">
             <td className="p-2 font-medium">{assignment.name}</td>
-            <td className="p-2 font-medium">{assignment.dateEnd}</td>
+            <td className="p-2 font-medium">{new Date(assignment.dateEnd).toLocaleDateString()}</td>
             <td className="p-2 space-x-2 font-light">
               <button
                 className="btn-secondary cursor-pointer w-[30%] px-2 py-1 rounded mr-[3%]"

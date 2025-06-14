@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { IoCloseOutline } from "react-icons/io5";
 import Course from '../../types/Course';
-import FormField from '../FormField';
+import FormTextField from '../form/FormTextField';
 
 interface CourseFormProps {
   Course: Course;
@@ -44,7 +44,7 @@ function CourseForm({ Course, onSave, onClose }: CourseFormProps) {
                 onClick={onClose}
               />
       <div className="flex flex-col gap-4">
-        <FormField
+        <FormTextField
           title={'Name'}
           isPassword={false}
           value={formData.name}
@@ -55,7 +55,7 @@ function CourseForm({ Course, onSave, onClose }: CourseFormProps) {
           inputfieldstyles='bg-secondary'
           inputValid={formData.name !== ''}
         />
-        <FormField
+        <FormTextField
           title={'Description'}
           isPassword={false}
           value={formData.description}

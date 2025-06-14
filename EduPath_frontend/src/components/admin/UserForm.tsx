@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { IoCloseOutline } from "react-icons/io5";
 import User from '../../types/User';
-import FormField from '../FormField';
+import FormTextField from '../form/FormTextField';
 
 interface userFormProps {
   user: User;
@@ -49,7 +49,7 @@ function UserForm({ user, onSave, onClose }: userFormProps) {
                 onClick={onClose}
               />
       <div className="flex flex-col gap-4">
-        <FormField
+        <FormTextField
           title={'First name'}
           isPassword={false}
           value={formData.firstname}
@@ -60,7 +60,7 @@ function UserForm({ user, onSave, onClose }: userFormProps) {
           inputfieldstyles='bg-secondary'
           inputValid={formData.firstname !== ''}
         />
-        <FormField
+        <FormTextField
           title={'Last name'}
           isPassword={false}
           value={formData.lastname}
@@ -71,7 +71,7 @@ function UserForm({ user, onSave, onClose }: userFormProps) {
           inputfieldstyles='bg-secondary'
           inputValid={formData.lastname !== ''}
         />
-        <FormField
+        <FormTextField
           title={'Email address'}
           isPassword={false}
           value={formData.email}

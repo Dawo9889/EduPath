@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { IoMdEye } from "react-icons/io";
 import { IoMdEyeOff } from "react-icons/io";
 
-interface FormFieldProps {
+interface FormTextFieldProps {
   title: string,
   isPassword: boolean,
   value: string,
@@ -15,7 +15,7 @@ interface FormFieldProps {
   disabled?: boolean
 }
 
-const FormField = ({title, value, isPassword, placeholder, otherStyles, onChange, fieldName, inputfieldstyles, inputValid, disabled}: FormFieldProps) => {
+const FormTextField = ({title, value, isPassword, placeholder, otherStyles, onChange, fieldName, inputfieldstyles, inputValid, disabled}: FormTextFieldProps) => {
 
     const [showPassword, setShowPassword] = useState(false);
 
@@ -48,4 +48,4 @@ const FormField = ({title, value, isPassword, placeholder, otherStyles, onChange
   );
 };
 
-export default FormField
+export default FormTextField
