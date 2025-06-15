@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Course from "../../types/Course";
-import Assignment from "../../types/Assignment";
-import AssignmentTable from "../../components/assignment/AssignmentTable";
+import Course from "../../../types/Course";
+import Assignment from "../../../types/Assignment";
+import AssignmentTable from "../../../components/assignment/AssignmentTable";
 import { AnimatePresence, motion } from "framer-motion";
-import AssignmentForm from "../../components/assignment/AssignmentForm";
-import { getCourse, getCourseUsers } from "../../api/coursesApi";
+import AssignmentForm from "../../../components/assignment/AssignmentForm";
+import { getCourse, getCourseUsers } from "../../../api/coursesApi";
 import {
   AssignmentRequestData,
   createAssignment,
   deleteAssignment,
   getAssignmentByCourse,
   updateAssignment,
-} from "../../api/assignmentApi";
-import { useAuth } from "../../contexts/AuthContext";
+} from "../../../api/assignmentApi";
+import { useAuth } from "../../../contexts/AuthContext";
 
 function CourseDashboard() {
   const { courseId } = useParams<{ courseId: string }>();
@@ -42,7 +42,7 @@ function CourseDashboard() {
         id: fetchedCourse!.courseId,
         name: fetchedCourse!.name,
         description: fetchedCourse!.description,
-        // lecturerId: userData.id,
+        ownerName: fetchedCourse!.ownerName,
         students: fetchedCourseUsers.map((cu: { userId: string }) => cu.userId),
       };
       const normalizedStudents: string[] = fetchedCourseUsers.map(
@@ -115,6 +115,7 @@ function CourseDashboard() {
   return (
     <div className="p-6 max-w-4xl mx-auto">
       <h1 className="text-3xl font-bold mb-4 text-primary">{course?.name}</h1>
+      <p className="text-primary">{course?.ownerName}</p>
       <p className="text-primary">{course?.description}</p>
 
       <h2 className="text-2xl font-bold mb-4 mt-4 text-primary">Assignments</h2>

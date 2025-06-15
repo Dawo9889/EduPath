@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Assignment from "../../types/Assignment";
-import Solution from "../../types/Solution";
-import SolutionTable from "../../components/SolutionTable";
-import { getAssignment } from "../../api/assignmentApi";
+import Assignment from "../../../types/Assignment";
+// import Solution from "../../../types/Solution";
+import { getAssignment } from "../../../api/assignmentApi";
 
 function AssignmentDetails() {
   const { assignmentId } = useParams<{ assignmentId: string }>();
   const [assignment, setAssignment] = useState<Assignment>();
 
-  const [solutions, setSolutions] = useState<Solution[]>([]);
+  // const [solutions, setSolutions] = useState<Solution[]>([]);
 
   const [isLoading, setIsLoading] = useState(true);
 

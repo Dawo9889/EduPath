@@ -9,12 +9,6 @@ interface Props {
 }
 
 function CourseTable({ courses: courses, onEdit, onDelete, onEnroll }: Props) {
-  const fetchLecturerName = () => {
-    // Fetch lecturer name from the server or state management
-    // This is a placeholder, replace with actual fetching logic
-    return "John Doe"; // Replace with actual lecturer name
-  };
-
   const authInfo = useAuth();
 
   const viewCoursePage = (courseId: string) => {
@@ -40,7 +34,7 @@ function CourseTable({ courses: courses, onEdit, onDelete, onEnroll }: Props) {
             <td className="p-2 font-medium">
               {authInfo.userRole === "lecturer"
                 ? course.students.length
-                : fetchLecturerName()}
+                : course.ownerName}
             </td>
             {authInfo.userRole === "lecturer" ? (
               <td className="p-2 space-x-2 font-light">

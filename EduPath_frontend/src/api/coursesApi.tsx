@@ -16,6 +16,7 @@ export type CourseResponseData = {
   name: string;
   description: string;
   isPublic: boolean;
+  ownerName: string;
 };
 
 export const fetchCourses = async () => {

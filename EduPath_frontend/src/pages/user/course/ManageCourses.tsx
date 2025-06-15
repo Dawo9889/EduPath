@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import CourseTable from "../../components/course/CourseTable";
-import CourseForm from "../../components/course/CourseForm";
-import Course from "../../types/Course";
+import CourseTable from "../../../components/course/CourseTable";
+import CourseForm from "../../../components/course/CourseForm";
+import Course from "../../../types/Course";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   deleteCourse,
@@ -11,8 +11,8 @@ import {
   createCourse,
   CourseResponseData,
   getCourseUsers,
-} from "../../api/coursesApi";
-import { useAuth } from "../../contexts/AuthContext";
+} from "../../../api/coursesApi";
+import { useAuth } from "../../../contexts/AuthContext";
 
 function ManageCourses() {
   const [courses, setCourses] = useState<Course[]>([]);
@@ -28,14 +28,14 @@ function ManageCourses() {
     try {
       const fetchedCourses = await fetchCourses();
       console.log("Fetched courses:", fetchedCourses);
-      const coursesWithStudents = await Promise.all(
+      const coursesWithStudents: Course[] = await Promise.all(
         fetchedCourses!.map(async (c: CourseResponseData) => {
           const users = await getCourseUsers(c.courseId);
           return {
             id: c.courseId,
             name: c.name,
             description: c.description,
-            // lecturerId: authInfo.userId!, // Uncomment if needed
+            ownerName: c.ownerName,
             students: users.map((user: { userId: string }) => user.userId),
           };
         })
@@ -100,7 +100,7 @@ function ManageCourses() {
               id: "",
               name: "",
               description: "",
-              // lecturerId: "",
+              ownerName: "",
               students: [],
             })
           }

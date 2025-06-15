@@ -4,13 +4,13 @@ import Contact from "../pages/Contact";
 import Login from "../pages/user/Login";
 import About from "../pages/About";
 import AdminDashboard from "../pages/user/admin/AdminDashboard";
-import LecturerDashboard from "../pages/user/lecturer/LecturerDashboard";
-import StudentDashboard from "../pages/user/student/StudentDashboard";
+import LecturerDashboard from "../pages/user/dashboards/LecturerDashboard";
+import StudentDashboard from "../pages/user/dashboards/StudentDashboard";
 import ManageUsers from "../pages/user/admin/ManageUsers";
 import ManageAccount from "../pages/user/ManageAccount";
-import ManageCourses from "../pages/user/ManageCourses";
-import CourseDashboard from "../pages/user/CourseDashboard";
-import AssignmentDetails from "../pages/user/AssignmentDetails";
+import ManageCourses from "../pages/user/course/ManageCourses";
+import CourseDashboard from "../pages/user/course/CourseDashboard";
+import AssignmentDetails from "../pages/user/course/AssignmentDetails";
 import Unauthorized from "../pages/Unauthorized";
 
 export const routes: RouteObject[] = [

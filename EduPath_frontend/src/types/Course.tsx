@@ -2,7 +2,7 @@ interface Course {
     id: string;
     name: string;
     description: string;
-    // lecturerId: string;
+    ownerName: string;
     students: string[]; // Array of student IDs
 }
 export default Course;
