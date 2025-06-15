@@ -5,12 +5,13 @@ interface Props {
   users: User[];
   onEdit: (user: User) => void;
   onDelete: (id: string) => void;
+  isImport?: boolean
 }
 
 type SortKey = keyof User;
 type SortOrder = "asc" | "desc";
 
-function UserTable({ users, onEdit, onDelete }: Props) {
+function UserTable({ users, onEdit, onDelete, isImport }: Props) {
   const [sortKey, setSortKey] = useState<SortKey>("firstname");
   const [sortOrder, setSortOrder] = useState<SortOrder>("asc");
   const [rowsPerPage, setRowsPerPage] = useState<number>(25);
@@ -103,7 +104,7 @@ const paginatedUsers = useMemo(() => {
                     console.log("Editing user:", user)  
                   }}
                 >
-                  Edit
+                  {isImport ? "Import" : "Edit"}
                 </button>
                 <button
                   className="btn-danger text-white w-[47%] px-2 py-1 rounded"
