@@ -18,7 +18,8 @@ namespace EduPath_backend.Application.Mappings
             CreateMap<CreateCourseDTO, Course>()
                 .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => src.PasswordPlainText));
 
-            CreateMap<Course, ListCourseDTO>();
+            CreateMap<Course, ListCourseDTO>()
+                .ForMember(dest => dest.ownerName, opt => opt.MapFrom(src => ((User)src.Owner).FirstName + " " + ((User)src.Owner).LastName));
 
             CreateMap<Course, CourseDetailsDTO>();
 
