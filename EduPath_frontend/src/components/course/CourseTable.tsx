@@ -19,7 +19,7 @@ function CourseTable({ courses: courses, onEdit, onDelete, onEnroll }: Props) {
 
   const viewCoursePage = (courseId: string) => {
     // Redirect to the course page
-    window.location.href = `/student/course/${courseId}`;
+    window.location.href = `/${authInfo.userRole}/course/${courseId}`;
   };
 
   return (

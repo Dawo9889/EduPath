@@ -1,15 +1,18 @@
-import Assignment from "../../types/Assignment"
+import { useAuth } from "../../contexts/AuthContext";
+import Assignment from "../../types/Assignment";
 
 interface Props {
   assignments: Assignment[];
   courseId: string;
-  onEdit: (assignment: Assignment) => void;
-  onDelete: (id: string) => void;
+  onEdit?: (assignment: Assignment) => void;
+  onDelete?: (id: string) => void;
 }
 
-function AssignmentTable({assignments, courseId, onEdit, onDelete}: Props) {
+function AssignmentTable({ assignments, courseId, onEdit, onDelete }: Props) {
+  const authInfo = useAuth();
+
   const viewAssignmentPage = (assignmentId: string) => {
-    window.location.href = `/lecturer/course/${courseId}/assignment/${assignmentId}`;
+    window.location.href = `/${authInfo.userRole}/course/${courseId}/assignment/${assignmentId}`;
   };
 
   return (
@@ -22,30 +25,43 @@ function AssignmentTable({assignments, courseId, onEdit, onDelete}: Props) {
         </tr>
       </thead>
       <tbody>
-        {assignments.map(assignment => (
+        {assignments.map((assignment) => (
           <tr key={assignment.id} className="border-t bg-secondary">
             <td className="p-2 font-medium">{assignment.name}</td>
-            <td className="p-2 font-medium">{new Date(assignment.dateEnd).toLocaleDateString()}</td>
-            <td className="p-2 space-x-2 font-light">
-              <button
-                className="btn-secondary cursor-pointer w-[30%] px-2 py-1 rounded mr-[3%]"
-                onClick={() => viewAssignmentPage(assignment.id)}
-              >
-                View
-              </button>
-            <button
+            <td className="p-2 font-medium">
+              {new Date(assignment.dateEnd).toLocaleDateString()}
+            </td>
+            {authInfo.userRole === "lecturer" ? (
+              <td className="p-2 space-x-2 font-light">
+                <button
+                  className="btn-secondary cursor-pointer w-[30%] px-2 py-1 rounded mr-[3%]"
+                  onClick={() => viewAssignmentPage(assignment.id)}
+                >
+                  View
+                </button>
+                <button
                   className="btn-primary text-white w-[30%] px-2 py-1 rounded mr-[3%]"
-                  onClick={() => onEdit(assignment)}
+                  onClick={() => onEdit!(assignment)}
                 >
                   Edit
                 </button>
                 <button
                   className="btn-danger text-white w-[30%] px-2 py-1 rounded"
-                  onClick={() => onDelete(assignment.id)}
+                  onClick={() => onDelete!(assignment.id)}
                 >
                   Delete
                 </button>
-            </td>
+              </td>
+            ) : (
+              <td className="p-2 space-x-2 font-light">
+                <button
+                  className="btn-secondary cursor-pointer w-[30%] px-2 py-1 rounded mr-[3%]"
+                  onClick={() => viewAssignmentPage(assignment.id)}
+                >
+                  View
+                </button>
+              </td>
+            )}
           </tr>
         ))}
       </tbody>

@@ -13,7 +13,7 @@ import {
   getAssignmentByCourse,
   updateAssignment,
 } from "../../api/assignmentApi";
-import { whoami } from "../../api/api";
+import { useAuth } from "../../contexts/AuthContext";
 
 function CourseDashboard() {
   const { courseId } = useParams<{ courseId: string }>();
@@ -28,11 +28,12 @@ function CourseDashboard() {
 
   const [isLoading, setIsLoading] = useState(true);
 
+  const authInfo = useAuth();
+
   const fetchData = async () => {
     setIsLoading(true);
 
     try {
-      const userData = await whoami();
       const fetchedCourse = await getCourse(courseId!);
       const fetchedCourseUsers = await getCourseUsers(courseId!);
       const fetchedAssignments = await getAssignmentByCourse(courseId!);
@@ -41,11 +42,12 @@ function CourseDashboard() {
         id: fetchedCourse!.courseId,
         name: fetchedCourse!.name,
         description: fetchedCourse!.description,
-        lecturerId: userData.id,
-        students: fetchedCourseUsers.map((cu) => cu.userId),
+        // lecturerId: userData.id,
+        students: fetchedCourseUsers.map((cu: { userId: string }) => cu.userId),
       };
       const normalizedStudents: string[] = fetchedCourseUsers.map(
-        (cu) => `${cu.firstName} ${cu.lastName}`
+        (cu: { firstName: string; lastName: string }) =>
+          `${cu.firstName} ${cu.lastName}`
       );
       const normalizedAssignments: Assignment[] = fetchedAssignments!.map(
         (a) => ({
@@ -69,7 +71,7 @@ function CourseDashboard() {
 
   useEffect(() => {
     fetchData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleAssignmentDelete = (id: string) => {
@@ -116,20 +118,22 @@ function CourseDashboard() {
       <p className="text-primary">{course?.description}</p>
 
       <h2 className="text-2xl font-bold mb-4 mt-4 text-primary">Assignments</h2>
-      <button // should be visible only for the lecturer
-        onClick={() =>
-          setEditingAssignment({
-            id: "",
-            name: "",
-            content: "",
-            dateStart: "",
-            dateEnd: "",
-          })
-        }
-        className="mb-4 px-4 py-2 rounded font-medium text-[var(--text-100)] bg-[var(--bg-200)] hover:bg-[var(--bg-300)]"
-      >
-        Add Assignment
-      </button>
+      {authInfo.userId === "lecturer" && (
+        <button // should be visible only for the lecturer
+          onClick={() =>
+            setEditingAssignment({
+              id: "",
+              name: "",
+              content: "",
+              dateStart: "",
+              dateEnd: "",
+            })
+          }
+          className="mb-4 px-4 py-2 rounded font-medium text-[var(--text-100)] bg-[var(--bg-200)] hover:bg-[var(--bg-300)]"
+        >
+          Add Assignment
+        </button>
+      )}
 
       {isLoading && <p className="text-gray-500">Loading assignemnts...</p>}
 
@@ -151,7 +155,7 @@ function CourseDashboard() {
       )}
 
       <AnimatePresence>
-        {editingAssignment && (
+        {editingAssignment && authInfo.userRole === "lecturer" && (
           <>
             <motion.div
               className="fixed inset-0 bg-black"

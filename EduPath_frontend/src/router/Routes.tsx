@@ -6,7 +6,6 @@ import About from "../pages/About";
 import AdminDashboard from "../pages/user/admin/AdminDashboard";
 import LecturerDashboard from "../pages/user/lecturer/LecturerDashboard";
 import StudentDashboard from "../pages/user/student/StudentDashboard";
-import Enroll from "../pages/user/student/Enroll";
 import ManageUsers from "../pages/user/admin/ManageUsers";
 import ManageAccount from "../pages/user/ManageAccount";
 import ManageCourses from "../pages/user/lecturer/ManageCourses";
@@ -35,7 +34,8 @@ export const routes: RouteObject[] = [
             {path: 'lecturer/course/:courseId/assignment/:assignmentId', element: <AssignmentDetails />},
             {path: 'student/dashboard', element: <StudentDashboard />},
             {path: 'student/courses', element: <MyCourses />},
-            {path: 'student/enroll', element: <Enroll />},
+            {path: 'student/course/:courseId', element: <CourseDashboard />},
+            {path: 'student/course/:courseId/assignment/:assignmentId', element: <AssignmentDetails />},
             {path: 'settings', element: <ManageAccount />},
             {path: '*', element: <Navigate replace to='/not-found' />}
         ]
