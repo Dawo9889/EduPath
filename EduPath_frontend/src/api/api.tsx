@@ -11,6 +11,7 @@ export const loginApi = async (email: string, password: string): Promise<{
   email: string;
   role: UserRole;
   token: string;
+  id: string;
 }> => {
   try {
     const response = await axios.post(LOGIN_URL, { email, password });
@@ -25,19 +26,22 @@ export const loginApi = async (email: string, password: string): Promise<{
   return {
     email: userData.email,
     role: 'admin' as UserRole,
-    token: response.data.accessToken
+    token: response.data.accessToken,
+    id: userData.id
   };
 } else if (lowerRoles.includes("lecturer")) {
   return {
     email: userData.email,
     role: 'lecturer' as UserRole,
-    token: response.data.accessToken
+    token: response.data.accessToken,
+    id: userData.id
   };
 } else if (lowerRoles.includes("student")) {
   return {
     email: userData.email,
     role: 'student' as UserRole,
-    token: response.data.accessToken
+    token: response.data.accessToken,
+    id: userData.id
   };
 } else {
   throw new Error("Unrecognized role");

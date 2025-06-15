@@ -13,6 +13,7 @@ import ManageCourses from "../pages/user/lecturer/ManageCourses";
 import CourseDashboard from "../pages/user/CourseDashboard";
 import AssignmentDetails from "../pages/user/AssignmentDetails";
 import Unauthorized from "../pages/Unauthorized";
+import MyCourses from "../pages/user/student/MyCourses";
 
 
 
@@ -33,6 +34,7 @@ export const routes: RouteObject[] = [
             {path: 'lecturer/course/:courseId', element: <CourseDashboard />},
             {path: 'lecturer/course/:courseId/assignment/:assignmentId', element: <AssignmentDetails />},
             {path: 'student/dashboard', element: <StudentDashboard />},
+            {path: 'student/courses', element: <MyCourses />},
             {path: 'student/enroll', element: <Enroll />},
             {path: 'settings', element: <ManageAccount />},
             {path: '*', element: <Navigate replace to='/not-found' />}

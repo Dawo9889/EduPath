@@ -10,8 +10,9 @@ import {
   updateCourse,
   createCourse,
   CourseResponseData,
+  getCourseUsers,
 } from "../../../api/coursesApi";
-import { whoami } from "../../../api/api";
+import { useAuth } from "../../../contexts/AuthContext";
 
 function ManageCourses() {
   const [courses, setCourses] = useState<Course[]>([]);
@@ -19,23 +20,27 @@ function ManageCourses() {
 
   const [isLoading, setIsLoading] = useState(true);
 
+  const authInfo = useAuth();
+
   const fetchData = async () => {
     setIsLoading(true);
 
     try {
-      const userData = await whoami();
       const fetchedCourses = await fetchCourses();
       console.log("Fetched courses:", fetchedCourses);
-      const normalizedCourses: Course[] = fetchedCourses!.map(
-        (c: CourseResponseData) => ({
-          id: c.courseId,
-          name: c.name,
-          description: c.description,
-          lecturerId: userData.id, // TODO: is this correct?
-          students: [],
+      const coursesWithStudents = await Promise.all(
+        fetchedCourses!.map(async (c: CourseResponseData) => {
+          const users = await getCourseUsers(c.courseId);
+          return {
+            id: c.courseId,
+            name: c.name,
+            description: c.description,
+            // lecturerId: authInfo.userId!, // Uncomment if needed
+            students: users.map((user: { userId: string }) => user.userId),
+          };
         })
       );
-      setCourses(normalizedCourses);
+      setCourses(coursesWithStudents);
     } catch (error) {
       console.error("Failed to fetch courses:", error);
     } finally {
@@ -49,14 +54,12 @@ function ManageCourses() {
   }, []);
 
   const handleCourseSave = async (newCourse: Course) => {
-    const userData = await whoami();
-
     const courseData: CourseRequestData = {
       name: newCourse.name,
       description: newCourse.description,
       isPublic: true, // Default value, adjust as needed
       passwordPlainText: "", // Default value, adjust as needed
-      ownerId: userData.id,
+      ownerId: authInfo.userId!,
     };
 
     try {
@@ -96,7 +99,7 @@ function ManageCourses() {
             id: "",
             name: "",
             description: "",
-            lecturerId: "",
+            // lecturerId: "",
             students: [],
           })
         }
@@ -115,7 +118,7 @@ function ManageCourses() {
             </p>
           ) : (
             <CourseTable
-              Courses={courses}
+              courses={courses}
               onEdit={setEditingCourse}
               onDelete={handleCourseDelete}
             />

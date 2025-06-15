@@ -5,7 +5,8 @@ type AuthContextType = {
   isAuthenticated: boolean;
   username: string | null;
   userRole: UserRole | null;
-  login: (email: string, role: UserRole, token: string) => void;
+  userId: string | null;
+  login: (email: string, role: UserRole, token: string, id: string) => void;
   logout: () => void;
 };
 
@@ -13,6 +14,7 @@ const AuthContext = createContext<AuthContextType>({
   isAuthenticated: false,
   username: '',
   userRole: null,
+  userId: '',
   login: () => {},
   logout: () => {},
 });
@@ -20,6 +22,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [username, setUsername] = useState('');
   const [userRole, setUserRole] = useState<UserRole | null>(null);
+  const [userId, setUserId] = useState('');
 
   useEffect(() => {
     const token = sessionStorage.getItem('accessToken');
@@ -32,6 +35,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setIsAuthenticated(true);
       setUsername(userData.email);
       setUserRole(userData.role);
+      setUserId(userData.id);
       console.log(userData.role)
     } catch (err) {
       console.error('Invalid user data in sessionStorage:', err);
@@ -40,28 +44,31 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }
 }, []);
 
-  const login = (email: string, role: UserRole, token: string) => {
+  const login = (email: string, role: UserRole, token: string, id: string) => {
     setIsAuthenticated(true);
     setUsername(email);
     setUserRole(role);
+    setUserId(id);
     sessionStorage.setItem('accessToken', token);
-    sessionStorage.setItem('user', JSON.stringify({ email, role }));
+    sessionStorage.setItem('user', JSON.stringify({ email, role, id }));
   };
 
   const logout = () => {
     setIsAuthenticated(false);
     setUsername('');
     setUserRole(null);
+    setUserId('');
     sessionStorage.removeItem('accessToken');
     sessionStorage.removeItem('user');
     window.location.href = '/login';
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, username, userRole, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, username, userRole, userId, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => useContext(AuthContext);

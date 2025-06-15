@@ -32,7 +32,7 @@ function Login() {
 
     try {
       const userData = await loginApi(form.email, form.password); // <-- teraz zwraca {email, role}
-      login(userData.email, userData.role, userData.token); // <-- wywołujemy login z contextu
+      login(userData.email, userData.role, userData.token, userData.id); // <-- wywołujemy login z contextu
       setError(null);
       // Redirect to the appropriate dashboard based on user role
       switch (userData.role) {
