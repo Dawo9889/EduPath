@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import CourseTable from "../../../components/course/CourseTable";
-import CourseForm from "../../../components/course/CourseForm";
-import Course from "../../../types/Course";
+import CourseTable from "../../components/course/CourseTable";
+import CourseForm from "../../components/course/CourseForm";
+import Course from "../../types/Course";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   deleteCourse,
@@ -11,8 +11,8 @@ import {
   createCourse,
   CourseResponseData,
   getCourseUsers,
-} from "../../../api/coursesApi";
-import { useAuth } from "../../../contexts/AuthContext";
+} from "../../api/coursesApi";
+import { useAuth } from "../../contexts/AuthContext";
 
 function ManageCourses() {
   const [courses, setCourses] = useState<Course[]>([]);
@@ -93,20 +93,22 @@ function ManageCourses() {
   return (
     <div className="p-6 max-w-4xl mx-auto">
       <h1 className="text-3xl font-bold mb-4 text-primary">Manage Courses</h1>
-      <button
-        onClick={() =>
-          setEditingCourse({
-            id: "",
-            name: "",
-            description: "",
-            // lecturerId: "",
-            students: [],
-          })
-        }
-        className="mb-4 px-4 py-2 rounded font-medium cursor-pointer text-[var(--text-100)] bg-[var(--bg-200)] hover:bg-[var(--bg-300)]"
-      >
-        Add Course
-      </button>
+      {authInfo.userRole === "lecturer" && (
+        <button
+          onClick={() =>
+            setEditingCourse({
+              id: "",
+              name: "",
+              description: "",
+              // lecturerId: "",
+              students: [],
+            })
+          }
+          className="mb-4 px-4 py-2 rounded font-medium cursor-pointer text-[var(--text-100)] bg-[var(--bg-200)] hover:bg-[var(--bg-300)]"
+        >
+          Add Course
+        </button>
+      )}
 
       {isLoading && <p className="text-gray-500">Loading courses...</p>}
 
@@ -128,7 +130,7 @@ function ManageCourses() {
 
       {/* Animated Popup */}
       <AnimatePresence>
-        {editingCourse && (
+        {editingCourse && authInfo.userRole === "lecturer" && (
           <>
             <motion.div
               className="fixed inset-0 bg-black"

@@ -118,7 +118,7 @@ function CourseDashboard() {
       <p className="text-primary">{course?.description}</p>
 
       <h2 className="text-2xl font-bold mb-4 mt-4 text-primary">Assignments</h2>
-      {authInfo.userId === "lecturer" && (
+      {authInfo.userRole === "lecturer" && (
         <button // should be visible only for the lecturer
           onClick={() =>
             setEditingAssignment({
