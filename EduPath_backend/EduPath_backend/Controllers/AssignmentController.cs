@@ -42,6 +42,13 @@ namespace EduPath_backend.API.Controllers
             return assingmentsByUser;
         }
 
+        [HttpGet("{assignmentId}")]
+        public async Task<ListAssingmentDTO> GetAssignmentById(Guid assignmentId) 
+        {
+            var assignment = await _assignmentService.GetAssignmentByAssignmentId(assignmentId);
+            return assignment;
+        }
+
         [HttpPost("create")]
 
         public async Task<IActionResult> AddAssignment([FromBody] CreateAssignmentDTO assignmentDTO)

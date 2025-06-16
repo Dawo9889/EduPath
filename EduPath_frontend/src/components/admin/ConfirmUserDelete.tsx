@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { IoCloseOutline } from "react-icons/io5";
 import User from '../../types/User';
-import FormField from '../FormField';
+import FormTextField from '../form/FormTextField';
 
 interface ConfirmUserDeleteProps {
   onDelete: (user: User) => void;
@@ -42,7 +42,7 @@ function ConfirmUserDelete({ onDelete, onClose, user }: ConfirmUserDeleteProps) 
           Are you sure you want to delete this user? This action cannot be undone. All user data will be lost!
         </p>
         <div className="flex flex-col gap-4">
-          <FormField
+          <FormTextField
             title={'Confirm Delete - type "DELETE" below'}
             isPassword={false}
             value={formData.confirm}

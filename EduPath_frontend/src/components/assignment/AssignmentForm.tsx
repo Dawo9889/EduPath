@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import Assignment from "../../types/Assignment";
 import { IoCloseOutline } from "react-icons/io5";
-import FormField from "../FormField";
+import FormTextField from "../form/FormTextField";
+import FormDateField from "../form/FormDateField";
 
 interface Props {
   assignment: Assignment;
@@ -43,7 +44,7 @@ function AssignmentForm({assignment, onSave, onClose}: Props) {
                 onClick={onClose}
               />
       <div className="flex flex-col gap-4">
-        <FormField
+        <FormTextField
           title={'Name'}
           isPassword={false}
           value={formData.name}
@@ -53,7 +54,7 @@ function AssignmentForm({assignment, onSave, onClose}: Props) {
           fieldName="name"
           inputfieldstyles='bg-secondary'
         />
-        <FormField
+        <FormTextField
           title={'Content'}
           isPassword={false}
           value={formData.content}
@@ -63,8 +64,26 @@ function AssignmentForm({assignment, onSave, onClose}: Props) {
           fieldName="content"
           inputfieldstyles='bg-secondary'
         />
+        <FormDateField 
+          title={"Start Date"}
+          value={formData.dateStart}
+          onChange={handleChange}
+          placeholder={""}
+          otherStyles={""}
+          fieldName="dateStart"
+          inputfieldstyles="bg-secondary"
+        />
+        <FormDateField 
+          title={"Submission Deadline"}
+          value={formData.dateEnd}
+          onChange={handleChange}
+          placeholder={""}
+          otherStyles={""}
+          fieldName="dateEnd"
+          inputfieldstyles="bg-secondary"
+        />
       </div>
-      <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
+      <button type="submit" className="btn-primary px-4 py-2 rounded font-medium">
         {assignment.id !== '' ? 'Update Assignment' : 'Add Assignment'}
       </button>
     </form>

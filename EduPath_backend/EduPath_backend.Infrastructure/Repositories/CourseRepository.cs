@@ -38,7 +38,7 @@ namespace EduPath_backend.Infrastructure.Repositories
 
         public async Task<List<Course>> GetAvailableCoursesAsync()
         {
-            return await _context.Courses.ToListAsync();
+            return await _context.Courses.Include(c => c.Owner).ToListAsync();
         }
 
         public async Task<Course> GetCourseByIdAsync(Guid id)
