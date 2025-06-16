@@ -1,5 +1,6 @@
 import Course from "../../types/Course";
 import { useAuth } from "../../contexts/AuthContext";
+import { IoLockClosed, IoLockOpen } from "react-icons/io5";
 
 interface Props {
   courses: Course[];
@@ -30,7 +31,13 @@ function CourseTable({ courses: courses, onEdit, onDelete, onEnroll }: Props) {
       <tbody>
         {courses.map((course) => (
           <tr key={course.id} className="border-t bg-secondary">
-            <td className="p-2 font-medium">{course.name}</td>
+            <td className="p-2 font-medium">
+              {course.isPublic ? (
+                <IoLockOpen className="text-3xl text-gray-600 inline pr-2 pr-2" />
+              ) : (
+                <IoLockClosed className="text-3xl text-gray-600 inline pr-2 pr-2" />
+              )}{course.name}
+            </td>
             <td className="p-2 font-medium">
               {authInfo.userRole === "lecturer"
                 ? course.students.length

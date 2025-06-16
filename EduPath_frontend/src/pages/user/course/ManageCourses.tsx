@@ -35,6 +35,7 @@ function ManageCourses() {
             id: c.courseId,
             name: c.name,
             description: c.description,
+            isPublic: c.isPublic,
             ownerName: c.ownerName,
             students: users.map((user: { userId: string }) => user.userId),
           };
@@ -100,6 +101,7 @@ function ManageCourses() {
               id: "",
               name: "",
               description: "",
+              isPublic: true,
               ownerName: "",
               students: [],
             })

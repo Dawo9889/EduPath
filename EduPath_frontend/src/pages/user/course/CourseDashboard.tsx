@@ -42,6 +42,7 @@ function CourseDashboard() {
         id: fetchedCourse!.courseId,
         name: fetchedCourse!.name,
         description: fetchedCourse!.description,
+        isPublic: fetchedCourse!.isPublic,
         ownerName: fetchedCourse!.ownerName,
         students: fetchedCourseUsers.map((cu: { userId: string }) => cu.userId),
       };
