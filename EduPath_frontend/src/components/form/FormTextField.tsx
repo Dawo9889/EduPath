@@ -11,11 +11,11 @@ interface FormTextFieldProps {
   otherStyles: string,
   fieldName?: string,
   inputfieldstyles?: string,
-  inputValid?: boolean,
+  inputValid?: boolean | null,
   disabled?: boolean
 }
 
-const FormTextField = ({title, value, isPassword, placeholder, otherStyles, onChange, fieldName, inputfieldstyles, inputValid, disabled}: FormTextFieldProps) => {
+const FormTextField = ({title, value, isPassword, placeholder, otherStyles, onChange, fieldName, inputfieldstyles, inputValid = null, disabled}: FormTextFieldProps) => {
 
     const [showPassword, setShowPassword] = useState(false);
 

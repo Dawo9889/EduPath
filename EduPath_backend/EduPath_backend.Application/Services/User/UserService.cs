@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EduPath_backend.Application.DTOs.User;
+using EduPath_backend.Application.Services.Email;
 using EduPath_backend.Domain.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -25,14 +26,21 @@ namespace EduPath_backend.Application.Services.User
         private readonly IConfiguration _configuration;
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
+        private readonly IEmailService _emailService;
 
-        public UserService(UserManager<Domain.Entities.User> userManager, RoleManager<IdentityRole> roleManager, IUserRepository userRepository, IMapper mapper, IConfiguration configuration)
+        public UserService(UserManager<Domain.Entities.User> userManager,
+            RoleManager<IdentityRole> roleManager,
+            IUserRepository userRepository,
+            IMapper mapper,
+            IConfiguration configuration,
+            IEmailService emailService)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _userRepository = userRepository;
             _mapper = mapper;
             _configuration = configuration;
+            _emailService = emailService;
         }
 
         public async Task<bool> AssignUserToCourseAsync(UserCourseDTO userCourseDTO)
@@ -87,7 +95,9 @@ namespace EduPath_backend.Application.Services.User
             var passwordResetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
             var emailConfirmToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
-            var resetLink = $"https://twoja-apka/reset-password?userId={user.Id}" +
+            var domain = _configuration["Domain"];
+
+            var resetLink = $"{domain}/reset-password?userId={user.Id}" +
                             $"&resetToken={passwordResetToken}" +
                             $"&emailToken={emailConfirmToken}";
             // Tymczasowy log:
@@ -95,6 +105,18 @@ namespace EduPath_backend.Application.Services.User
             Console.WriteLine("Password Reset Tokne: " + passwordResetToken);
             Console.WriteLine("Email Confirm Token: " + emailConfirmToken);
             Console.WriteLine("RESET LINK: " + resetLink);
+
+            var emailBody = $@"
+            <h2>Witaj {user.FirstName}!</h2>
+            <p>Twoje konto zostało utworzone.</p>
+            <p>Możesz ustawić hasło klikając w link poniżej:</p>
+            <p><a href='{resetLink}'>Ustaw hasło</a></p>
+            ";
+
+            await _emailService.SendEmailAsync(user.Email, "Aktywacja konta – EduPath", emailBody);
+
+
+
             return true;
         }
 
@@ -220,6 +242,41 @@ namespace EduPath_backend.Application.Services.User
 
             return filteredUsers;
         }
+
+        public async Task<bool> DeleteUserAsync(DeleteUserDTO deleteUserDTO)
+        {
+
+            var result = await _userRepository.DeleteUser(deleteUserDTO.UserID);
+
+            if (result)
+            {
+                return true;
+            }
+            else
+            {
+                throw new Exception("User not exist");
+            }
+        }
+
+        public async Task<EditUserDTO> EditUserAsync(EditUserDTO editedUser)
+        {
+            var editedUserEntity = _mapper.Map<Domain.Entities.User>(editedUser);
+            var updatedUser = await _userRepository.EditUserAsync(editedUserEntity);
+            if (updatedUser == null)
+            {
+                throw new Exception("User not found");
+            }
+            return editedUser;
+        }
+
+
+
+
+
+
+
+
+
         private async Task<string> GenerateJwtToken(Domain.Entities.User user)
         {
             var claims = new List<Claim>
@@ -257,19 +314,6 @@ namespace EduPath_backend.Application.Services.User
             return tokenHandler.WriteToken(token);
         }
 
-        public async Task<bool> DeleteUserAsync(DeleteUserDTO deleteUserDTO)
-        {
 
-            var result = await _userRepository.DeleteUser(deleteUserDTO.UserID);
-
-            if (result)
-            {
-                return true;
-            }
-            else
-            {
-                throw new Exception("User not exist");
-            }
-        }
     }
 }

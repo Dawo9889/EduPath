@@ -7,9 +7,10 @@ interface userFormProps {
   user: User;
   onSave: (user: User) => void;
   onClose?: () => void;
+  isSaving: boolean
 }
 
-function UserForm({ user, onSave, onClose }: userFormProps) {
+function UserForm({ user, onSave, onClose, isSaving }: userFormProps) {
   const [formData, setFormData] = useState<User>({
     id: '',
     firstname: '',
@@ -77,27 +78,30 @@ function UserForm({ user, onSave, onClose }: userFormProps) {
           value={formData.email}
           onChange={handleChange}
           placeholder={'Email address'}
-          otherStyles={''}
+          otherStyles={``}
           fieldName='email'
-          inputfieldstyles='bg-secondary'
-          inputValid={user.id == '' ? null : emailValid()} // Only validate email if adding new user
-          disabled={user.id !== ''} // Disable email field if editing existing user
+          inputfieldstyles={`bg-secondary`}
+          inputValid={user.id == '' ? emailValid() : null}
+          disabled={user.id !== ''}
         />
         <p className='text-lg text-secondary font-medium'>Role</p>
         <select
           name="role"
           className="flex-1 bg-secondary outline-none text-secondary font-regular text-base mt-[-10px]
-          w-full min-h-12 px-4 rounded-2xl appearance-none cursor-pointer"
+          w-full min-h-12 px-4 rounded-2xl appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-default"
           value={formData.role}
           onChange={handleChange}
+          disabled={user.id !== ''}
         >
           <option value="student">Student</option>
           <option value="lecturer">Lecturer</option>
           <option value="admin">Admin</option>
         </select>
       </div>
-      <button type="submit" className="btn-primary text-white px-4 py-2 rounded" disabled={formData.firstname === '' || formData.lastname === '' || formData.email === '' || !emailValid()}>
-        {user.id !== '' ? 'Update User' : 'Add User'}
+      <button type="submit"
+       className="btn-primary text-white px-4 py-2 rounded"
+       disabled={(formData.firstname === '' || formData.lastname === '' || formData.email === '' || !emailValid()) || isSaving}>
+        {isSaving ? 'Saving...' : user.id !== '' ? 'Update User' : 'Add User'}
       </button>
     </form>
     </div>

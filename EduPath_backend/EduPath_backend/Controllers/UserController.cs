@@ -44,7 +44,7 @@ namespace EduPath_backend.API.Controllers
                 return BadRequest("User already exists");
             }
             var result = await _userService.CreateUserAsync(dto);
-            if (result )
+            if (result)
                 return Ok("User Created");
 
             return BadRequest("Something went wrong");
@@ -133,6 +133,19 @@ namespace EduPath_backend.API.Controllers
                 Roles = roles
             });
         }
+
+        [HttpPut("edit-user")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> EditUser([FromBody] EditUserDTO dto)
+        {
+            var result = await _userService.EditUserAsync(dto);
+
+            if (result == null)
+                return NotFound();
+
+            return Ok(result);
+        }
+
 
     }
 }

@@ -21,6 +21,9 @@ namespace EduPath_backend.Application.Mappings
                 .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => ((User)src).FirstName))
                 .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => ((User)src).LastName))
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => ((User)src).Email));
+
+
+            CreateMap<EditUserDTO, User>();
         }
     }
 }
