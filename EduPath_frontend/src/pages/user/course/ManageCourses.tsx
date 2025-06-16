@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import CourseTable from "../../../components/course/CourseTable";
-import CourseForm from "../../../components/course/CourseForm";
+import CourseForm, { CourseFormData } from "../../../components/course/CourseForm";
 import Course from "../../../types/Course";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -54,12 +54,12 @@ function ManageCourses() {
     fetchData();
   }, []);
 
-  const handleCourseSave = async (newCourse: Course) => {
+  const handleCourseSave = async (formData: CourseFormData, newCourse: Course) => {
     const courseData: CourseRequestData = {
-      name: newCourse.name,
-      description: newCourse.description,
-      isPublic: true, // Default value, adjust as needed
-      passwordPlainText: "", // Default value, adjust as needed
+      name: formData.name,
+      description: formData.description,
+      isPublic: formData.password === "",
+      passwordPlainText: formData.password,
       ownerId: authInfo.userId!,
     };
 
