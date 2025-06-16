@@ -14,6 +14,8 @@ import {
   updateAssignment,
 } from "../../../api/assignmentApi";
 import { useAuth } from "../../../contexts/AuthContext";
+import AddUserForm, { AddUserFormData } from "../../../components/course/AddUserForm";
+import { addUserToCourse } from "../../../api/userApi";
 
 function CourseDashboard() {
   const { courseId } = useParams<{ courseId: string }>();
@@ -25,6 +27,10 @@ function CourseDashboard() {
   );
 
   const [students, setStudents] = useState<string[]>([]);
+  const [addingStudent, setAddingStudent] = useState<{
+    userId: string;
+    courseId: string;
+  } | null>(null);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -113,6 +119,17 @@ function CourseDashboard() {
     }
   };
 
+  const handleAddUser = async (formData: AddUserFormData) => {
+    try {
+      await addUserToCourse(formData.courseId, formData.userId);
+      await fetchData();
+    } catch (error) {
+      console.error("Failed to add user to course:", error);
+    } finally {
+      setAddingStudent(null);
+    }
+  };
+
   return (
     <div className="p-6 max-w-4xl mx-auto">
       <h1 className="text-3xl font-bold mb-4 text-primary">{course?.name}</h1>
@@ -121,7 +138,7 @@ function CourseDashboard() {
 
       <h2 className="text-2xl font-bold mb-4 mt-4 text-primary">Assignments</h2>
       {authInfo.userRole === "lecturer" && (
-        <button // should be visible only for the lecturer
+        <button
           onClick={() =>
             setEditingAssignment({
               id: "",
@@ -191,9 +208,56 @@ function CourseDashboard() {
       </AnimatePresence>
 
       <h2 className="text-2xl font-bold mb-4 mt-4 text-primary">Students</h2>
+      {authInfo.userRole === "lecturer" && (
+        <button
+          onClick={() =>
+            setAddingStudent({
+              userId: "",
+              courseId: "",
+            })
+          }
+          className="mb-4 px-4 py-2 rounded font-medium text-[var(--text-100)] bg-[var(--bg-200)] hover:bg-[var(--bg-300)]"
+        >
+          Add User to Course
+        </button>
+      )}
       {students.map((student) => (
         <div className="text-primary">{student}</div>
       ))}
+
+      <AnimatePresence>
+        {addingStudent && authInfo.userRole === "lecturer" && (
+          <>
+            <motion.div
+              className="fixed inset-0 bg-black"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.4 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={() => setAddingStudent(null)}
+            />
+            <motion.div
+              className="fixed top-0 left-0 w-full h-full flex justify-center items-start z-50"
+              initial={{ y: "-100%", opacity: 0 }}
+              animate={{ y: "0%", opacity: 1 }}
+              exit={{ y: "-100%", opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={() => setAddingStudent(null)} // Close on overlay click
+            >
+              <div
+                className="bg-primary rounded-xl shadow-lg mt-20 w-full max-w-xl relative"
+                onClick={(e) => e.stopPropagation()} // Prevent click from closing modal
+              >
+               <AddUserForm
+                  course={course!}
+                  onSave={handleAddUser}
+                  onClose={() => setAddingStudent(null)}
+               /> 
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
