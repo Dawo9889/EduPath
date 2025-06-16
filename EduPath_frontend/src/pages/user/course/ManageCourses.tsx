@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import CourseTable from "../../../components/course/CourseTable";
-import CourseForm, { CourseFormData } from "../../../components/course/CourseForm";
+import CourseForm, {
+  CourseFormData,
+} from "../../../components/course/CourseForm";
 import Course from "../../../types/Course";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -11,12 +13,15 @@ import {
   createCourse,
   CourseResponseData,
   getCourseUsers,
+  enrollCourse,
 } from "../../../api/coursesApi";
 import { useAuth } from "../../../contexts/AuthContext";
+import EnrollForm, { EnrollFormData } from "../../../components/course/EnrollForm";
 
 function ManageCourses() {
   const [courses, setCourses] = useState<Course[]>([]);
   const [editingCourse, setEditingCourse] = useState<Course | null>(null);
+  const [enrollingCourse, setEnrollingCourse] = useState<Course | null>(null);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -54,7 +59,10 @@ function ManageCourses() {
     fetchData();
   }, []);
 
-  const handleCourseSave = async (formData: CourseFormData, newCourse: Course) => {
+  const handleCourseSave = async (
+    formData: CourseFormData,
+    newCourse: Course
+  ) => {
     const courseData: CourseRequestData = {
       name: formData.name,
       description: formData.description,
@@ -91,6 +99,19 @@ function ManageCourses() {
     }
   };
 
+  const handleCourseEnroll = async (
+    formData: EnrollFormData,
+  ) => {
+    try {
+      enrollCourse(formData.id, formData.password);
+      fetchData();
+    } catch (error) {
+      console.error("Failed to enroll course:", error);
+    } finally {
+      setEnrollingCourse(null);
+    }
+  };
+
   return (
     <div className="p-6 max-w-4xl mx-auto">
       <h1 className="text-3xl font-bold mb-4 text-primary">Manage Courses</h1>
@@ -123,6 +144,7 @@ function ManageCourses() {
           ) : (
             <CourseTable
               courses={courses}
+              onEnroll={setEnrollingCourse}
               onEdit={setEditingCourse}
               onDelete={handleCourseDelete}
             />
@@ -156,6 +178,38 @@ function ManageCourses() {
                   Course={editingCourse}
                   onSave={handleCourseSave}
                   onClose={() => setEditingCourse(null)}
+                />
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {enrollingCourse && authInfo.userRole === "student" && (
+          <>
+            <motion.div
+              className="fixed inset-0 bg-black"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.4 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            />
+            <motion.div
+              className="fixed top-0 left-0 w-full h-full flex justify-center items-start z-50"
+              initial={{ y: "-100%", opacity: 0 }}
+              animate={{ y: "0%", opacity: 1 }}
+              exit={{ y: "-100%", opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div
+                className="bg-primary rounded-xl shadow-lg mt-20 w-full max-w-xl relative"
+                onClick={(e) => e.stopPropagation()} // Prevent click from closing modal
+              >
+                <EnrollForm
+                  course={enrollingCourse}
+                  onSave={handleCourseEnroll}
+                  onClose={() => setEnrollingCourse(null)}
                 />
               </div>
             </motion.div>

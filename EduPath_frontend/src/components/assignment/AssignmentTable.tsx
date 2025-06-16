@@ -4,8 +4,8 @@ import Assignment from "../../types/Assignment";
 interface Props {
   assignments: Assignment[];
   courseId: string;
-  onEdit?: (assignment: Assignment) => void;
-  onDelete?: (id: string) => void;
+  onEdit: (assignment: Assignment) => void;
+  onDelete: (id: string) => void;
 }
 
 function AssignmentTable({ assignments, courseId, onEdit, onDelete }: Props) {
@@ -41,13 +41,13 @@ function AssignmentTable({ assignments, courseId, onEdit, onDelete }: Props) {
                 </button>
                 <button
                   className="btn-primary text-white w-[30%] px-2 py-1 rounded mr-[3%]"
-                  onClick={() => onEdit!(assignment)}
+                  onClick={() => onEdit(assignment)}
                 >
                   Edit
                 </button>
                 <button
                   className="btn-danger text-white w-[30%] px-2 py-1 rounded"
-                  onClick={() => onDelete!(assignment.id)}
+                  onClick={() => onDelete(assignment.id)}
                 >
                   Delete
                 </button>

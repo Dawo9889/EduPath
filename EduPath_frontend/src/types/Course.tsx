@@ -4,6 +4,6 @@ interface Course {
     description: string;
     isPublic: boolean;
     ownerName: string;
-    students: string[]; // Array of student IDs
+    students: string[];
 }
 export default Course;

@@ -90,12 +90,12 @@ export const createCourse = async (courseData: CourseRequestData) => {
   }
 };
 
-export const enrollCourse = async (id: string) => {
+export const enrollCourse = async (courseId: string, password: string) => {
   try {
     const token = getAccessToken();
     const response = await axios.post(
-      `${COURSE_URL}/${id}/join`,
-      { password: "" }, // TODO: handle passwords for courses
+      `${COURSE_URL}/${courseId}/join`,
+      { password: password },
       {
         headers: {
           Authorization: `Bearer ${token}`,

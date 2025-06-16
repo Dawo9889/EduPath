@@ -4,9 +4,9 @@ import { IoLockClosed, IoLockOpen } from "react-icons/io5";
 
 interface Props {
   courses: Course[];
-  onEdit?: (Course: Course) => void;
-  onDelete?: (id: string) => void;
-  onEnroll?: (id: string) => void;
+  onEdit: (Course: Course) => void;
+  onDelete: (id: string) => void;
+  onEnroll: (course: Course) => void;
 }
 
 function CourseTable({ courses: courses, onEdit, onDelete, onEnroll }: Props) {
@@ -53,13 +53,13 @@ function CourseTable({ courses: courses, onEdit, onDelete, onEnroll }: Props) {
                 </button>
                 <button
                   className="btn-primary text-white w-[30%] px-2 py-1 rounded mr-[3%]"
-                  onClick={() => onEdit!(course)}
+                  onClick={() => onEdit(course)}
                 >
                   Edit
                 </button>
                 <button
                   className="btn-danger text-white w-[30%] px-2 py-1 rounded"
-                  onClick={() => onDelete!(course.id)}
+                  onClick={() => onDelete(course.id)}
                 >
                   Delete
                 </button>
@@ -76,7 +76,7 @@ function CourseTable({ courses: courses, onEdit, onDelete, onEnroll }: Props) {
                 ) : (
                   <button
                     className="btn-primary text-white w-[60%] px-2 py-1 rounded mr-[3%]"
-                    onClick={() => onEnroll!(course.id)}
+                    onClick={() => onEnroll(course)}
                   >
                     Enroll
                   </button>
