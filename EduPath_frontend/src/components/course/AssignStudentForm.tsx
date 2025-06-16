@@ -3,19 +3,19 @@ import { IoCloseOutline } from "react-icons/io5";
 import FormTextField from "../form/FormTextField";
 import Course from "../../types/Course";
 
-export interface AddUserFormData {
+export interface AssignStudentFormData {
   userId: string;
   courseId: string;
 }
 
-interface AddUserFormProps {
+interface AssignStudentProps {
   course: Course;
-  onSave: (formData: AddUserFormData) => void;
+  onSave: (formData: AssignStudentFormData) => void;
   onClose?: () => void;
 }
 
-function AddUserForm({ course, onSave, onClose }: AddUserFormProps) {
-  const [formData, setFormData] = useState<AddUserFormData>({
+function AssignStudentForm({ course, onSave, onClose }: AssignStudentProps) {
+  const [formData, setFormData] = useState<AssignStudentFormData>({
     userId: "",
     courseId: course.id,
   });
@@ -68,4 +68,4 @@ function AddUserForm({ course, onSave, onClose }: AddUserFormProps) {
   );
 }
 
-export default AddUserForm;
+export default AssignStudentForm;

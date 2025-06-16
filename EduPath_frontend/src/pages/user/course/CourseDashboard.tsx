@@ -14,7 +14,7 @@ import {
   updateAssignment,
 } from "../../../api/assignmentApi";
 import { useAuth } from "../../../contexts/AuthContext";
-import AddUserForm, { AddUserFormData } from "../../../components/course/AddUserForm";
+import AssignStudentForm, { AssignStudentFormData } from "../../../components/course/AssignStudentForm";
 import { addUserToCourse } from "../../../api/userApi";
 
 function CourseDashboard() {
@@ -119,7 +119,7 @@ function CourseDashboard() {
     }
   };
 
-  const handleAddUser = async (formData: AddUserFormData) => {
+  const handleAddUser = async (formData: AssignStudentFormData) => {
     try {
       await addUserToCourse(formData.courseId, formData.userId);
       await fetchData();
@@ -248,7 +248,7 @@ function CourseDashboard() {
                 className="bg-primary rounded-xl shadow-lg mt-20 w-full max-w-xl relative"
                 onClick={(e) => e.stopPropagation()} // Prevent click from closing modal
               >
-               <AddUserForm
+               <AssignStudentForm
                   course={course!}
                   onSave={handleAddUser}
                   onClose={() => setAddingStudent(null)}
