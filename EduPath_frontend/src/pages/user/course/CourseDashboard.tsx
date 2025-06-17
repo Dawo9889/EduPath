@@ -14,8 +14,17 @@ import {
   updateAssignment,
 } from "../../../api/assignmentApi";
 import { useAuth } from "../../../contexts/AuthContext";
-import AssignStudentForm, { AssignStudentFormData } from "../../../components/course/AssignStudentForm";
-import { addUserToCourse } from "../../../api/userApi";
+import AssignStudentForm, {
+  AssignStudentFormData,
+} from "../../../components/course/AssignStudentForm";
+import {
+  addUserToCourse,
+  removeUserFromCourse,
+  UserResponseData,
+} from "../../../api/userApi";
+import Student from "../../../types/Student";
+import StudentTable from "../../../components/StudentTable";
+import ConfirmOperation from "../../../components/ConfirmOperation";
 
 function CourseDashboard() {
   const { courseId } = useParams<{ courseId: string }>();
@@ -26,9 +35,13 @@ function CourseDashboard() {
     null
   );
 
-  const [students, setStudents] = useState<string[]>([]);
+  const [students, setStudents] = useState<Student[]>([]);
   const [addingStudent, setAddingStudent] = useState<{
     userId: string;
+    courseId: string;
+  } | null>(null);
+  const [removingStudent, setRemovingStudent] = useState<{
+    studentId: string;
     courseId: string;
   } | null>(null);
 
@@ -50,11 +63,13 @@ function CourseDashboard() {
         description: fetchedCourse!.description,
         isPublic: fetchedCourse!.isPublic,
         ownerName: fetchedCourse!.ownerName,
-        students: fetchedCourseUsers.map((cu: { userId: string }) => cu.userId),
+        students: fetchedCourseUsers!.map((cu: UserResponseData) => cu.userId),
       };
-      const normalizedStudents: string[] = fetchedCourseUsers.map(
-        (cu: { firstName: string; lastName: string }) =>
-          `${cu.firstName} ${cu.lastName}`
+      const normalizedStudents: Student[] = fetchedCourseUsers!.map(
+        (cu: UserResponseData) => ({
+          fullName: `${cu.firstName} ${cu.lastName}`,
+          id: cu.userId,
+        })
       );
       const normalizedAssignments: Assignment[] = fetchedAssignments!.map(
         (a) => ({
@@ -127,6 +142,26 @@ function CourseDashboard() {
       console.error("Failed to add user to course:", error);
     } finally {
       setAddingStudent(null);
+    }
+  };
+
+  const handleRemoveUser = async (studentId: string, courseId: string) => {
+    try {
+      await removeUserFromCourse(courseId, studentId);
+    } catch (error) {
+      console.error("Failed to remove student from course:", error);
+    }
+  };
+
+  // Handler for confirming student removal
+  const handleConfirmRemoveStudent = async () => {
+    if (removingStudent) {
+      await handleRemoveUser(
+        removingStudent.studentId,
+        removingStudent.courseId
+      );
+      setRemovingStudent(null);
+      await fetchData();
     }
   };
 
@@ -221,9 +256,6 @@ function CourseDashboard() {
           Add User to Course
         </button>
       )}
-      {students.map((student) => (
-        <div className="text-primary">{student}</div>
-      ))}
 
       <AnimatePresence>
         {addingStudent && authInfo.userRole === "lecturer" && (
@@ -248,16 +280,73 @@ function CourseDashboard() {
                 className="bg-primary rounded-xl shadow-lg mt-20 w-full max-w-xl relative"
                 onClick={(e) => e.stopPropagation()} // Prevent click from closing modal
               >
-               <AssignStudentForm
+                <AssignStudentForm
                   course={course!}
                   onSave={handleAddUser}
                   onClose={() => setAddingStudent(null)}
-               /> 
+                />
               </div>
             </motion.div>
           </>
         )}
       </AnimatePresence>
+
+      <AnimatePresence>
+        {removingStudent && authInfo.userRole === "lecturer" && (
+          <>
+            <motion.div
+              className="fixed inset-0 bg-black"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.4 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={() => setRemovingStudent(null)}
+            />
+            <motion.div
+              className="fixed top-0 left-0 w-full h-full flex justify-center items-start z-50"
+              initial={{ y: "-100%", opacity: 0 }}
+              animate={{ y: "0%", opacity: 1 }}
+              exit={{ y: "-100%", opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={() => setRemovingStudent(null)}
+            >
+              <div
+                className="bg-primary rounded-xl shadow-lg mt-20 w-full max-w-xl relative"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <ConfirmOperation
+                  message={
+                    "Are you sure you want to remove this student from the course?"
+                  }
+                  onConfirm={handleConfirmRemoveStudent}
+                  onClose={() => setRemovingStudent(null)}
+                />
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      {isLoading && <p className="text-gray-500">Loading students...</p>}
+
+      {!isLoading && (
+        <>
+          {students.length === 0 ? (
+            <p className="text-gray-500">
+              No students found. There are no students assigned to this course
+              yet.
+            </p>
+          ) : (
+            <StudentTable
+              students={students}
+              course={course!}
+              onRemove={(studentId, courseId) =>
+                setRemovingStudent({ studentId, courseId })
+              }
+            />
+          )}
+        </>
+      )}
     </div>
   );
 }

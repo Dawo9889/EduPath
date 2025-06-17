@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getAccessToken, handleError } from "./utils";
+import { UserResponseData } from "./userApi";
 
 const COURSE_URL = `${import.meta.env.VITE_API_URL}/course`;
 
@@ -58,7 +59,7 @@ export const getCourse = async (id: string) => {
 export const getCourseUsers = async (id: string) => {
   try {
     const token = getAccessToken();
-    const response = await axios.get(`${COURSE_URL}/${id}/users`, {
+    const response = await axios.get<UserResponseData[]>(`${COURSE_URL}/${id}/users`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
