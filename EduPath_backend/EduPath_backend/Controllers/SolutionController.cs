@@ -1,6 +1,7 @@
 ﻿using EduPath_backend.Application.DTOs.Solution;
 using EduPath_backend.Application.Services.Solution;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 
 namespace EduPath_backend.API.Controllers
@@ -28,6 +29,26 @@ namespace EduPath_backend.API.Controllers
         {
             var solutionsByUser = await _solutionService.GetSolutionsByUser(userId);
             return solutionsByUser;
+        }
+
+        [HttpGet("download/{solutionId}")]
+        public async Task<PhysicalFileResult> DownloadSolution(Guid solutionId)
+        {
+            var solutionDTO = await _solutionService.GetSolution(solutionId);
+
+            //if (solutionDTO == null || !System.IO.Path.Exists(solutionDTO.Filepath))
+            //{
+            //    return NotFound();
+            //}
+
+            var provider = new FileExtensionContentTypeProvider();
+            if (!provider.TryGetContentType(solutionDTO.Filepath, out var contentType))
+            {
+                contentType = "application/octet-stream"; // Default fallback
+            }
+
+            var fileName = Path.GetFileName(solutionDTO.Filepath);
+            return PhysicalFile(solutionDTO.Filepath, contentType, fileName);
         }
 
         [HttpPost("upload-solution")]
