@@ -3,6 +3,7 @@ using EduPath_backend.Application.Services.Solution;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
+using System.IO.Compression;
 
 namespace EduPath_backend.API.Controllers
 {
@@ -32,14 +33,14 @@ namespace EduPath_backend.API.Controllers
         }
 
         [HttpGet("download/{solutionId}")]
-        public async Task<PhysicalFileResult> DownloadSolution(Guid solutionId)
+        public async Task<IActionResult> DownloadSolution(Guid solutionId)
         {
             var solutionDTO = await _solutionService.GetSolution(solutionId);
 
-            //if (solutionDTO == null || !System.IO.Path.Exists(solutionDTO.Filepath))
-            //{
-            //    return NotFound();
-            //}
+            if (solutionDTO == null || !System.IO.Path.Exists(solutionDTO.Filepath))
+            {
+                return NotFound();
+            }
 
             var provider = new FileExtensionContentTypeProvider();
             if (!provider.TryGetContentType(solutionDTO.Filepath, out var contentType))
@@ -50,6 +51,43 @@ namespace EduPath_backend.API.Controllers
             var fileName = Path.GetFileName(solutionDTO.Filepath);
             return PhysicalFile(solutionDTO.Filepath, contentType, fileName);
         }
+
+        [HttpGet("download-by-assignment/{assignmentId}")]
+        public async Task<IActionResult> DownloadAllSolutions(Guid assignmentId)
+        {
+            var solutions = await _solutionService.GetSolutionsByAssignment(assignmentId);
+
+            if (solutions == null || solutions.Count == 0)
+                return NotFound("No solutions found for this assignment.");
+
+            var tempZipFilePath = Path.GetTempFileName();
+            var zipFileName = $"assignment_{assignmentId}_solutions.zip";
+
+            try
+            {
+                using (var zipArchive = ZipFile.Open(tempZipFilePath, ZipArchiveMode.Update))
+                {
+                    foreach (var solution in solutions)
+                    {
+                        if (!System.IO.File.Exists(solution.Filepath))
+                            continue;
+
+                        var entryName = Path.GetFileName(solution.Filepath);
+                        zipArchive.CreateEntryFromFile(solution.Filepath, entryName);
+                    }
+                }
+
+                var contentType = "application/zip";
+                var fileBytes = await System.IO.File.ReadAllBytesAsync(tempZipFilePath);
+                return File(fileBytes, contentType, zipFileName);
+            }
+            finally
+            {
+                if (System.IO.File.Exists(tempZipFilePath))
+                    System.IO.File.Delete(tempZipFilePath);
+            }
+        }
+
 
         [HttpPost("upload-solution")]
         public async Task<IActionResult> UploadSolution([FromForm] CreateSolutionDTO solutionDTO)
