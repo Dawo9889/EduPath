@@ -74,53 +74,6 @@ namespace EduPath_backend.API.Controllers
             return Ok("Assignment created successfully.");
         }
 
-        [HttpPost("upload-assignment")]
-        public async Task<IActionResult> UploadAssignment([FromForm] UploadAssignmentUserDTO assignmentUserDTO)
-        {
-            var allowedExtensions = new[] { ".pdf", ".docx", ".txt", ".zip" };
-            var maxFileSize = 10 * 1024 * 1024; //10MB
-
-            var fileExtension = Path.GetExtension(assignmentUserDTO.File.FileName).ToLowerInvariant();
-
-            if (!allowedExtensions.Contains(fileExtension))
-            {
-                return BadRequest("Unsupported file type. Allowed: .pdf, .docx, .txt, .zip");
-            }
-
-            if (assignmentUserDTO.File.Length > maxFileSize)
-                return BadRequest("File size exceeds the 10 MB limit.");
-
-            var basePath = Environment.GetEnvironmentVariable("COURSES_BASE_PATH")
-                ?? Path.Combine(Directory.GetCurrentDirectory(), "courses_files");
-
-            var targetDirectory = Path.Combine(basePath, assignmentUserDTO.CourseId,assignmentUserDTO.AssignmentId.ToString(), assignmentUserDTO.UserId);
-            assignmentUserDTO.Filename = Path.Combine(targetDirectory, assignmentUserDTO.File.FileName.ToString());
-
-            if (!Directory.Exists(targetDirectory))
-                Directory.CreateDirectory(targetDirectory);
-
-            var fileName = Path.GetFileName(assignmentUserDTO.Filename);
-            var fullPath = Path.Combine(targetDirectory, fileName);
-
-            if (System.IO.File.Exists(fullPath))
-            {
-                return Conflict("A file with the same name already exists.");
-            }
-
-            using (var stream = new FileStream(fullPath, FileMode.Create))
-            {
-                await assignmentUserDTO.File.CopyToAsync(stream);
-            }
-
-            assignmentUserDTO.DateSubmitted = DateTime.UtcNow;
-            
-            var result = await _assignmentService.UploadAssignmentAsync(assignmentUserDTO);
-            if (result)
-                return Ok("File was successfully uploaded");
-
-            return BadRequest("Something went wrong while uploading file");
-        }
-
         [HttpPut("update/{AssignmentId}")]
         public async Task<IActionResult> UpdateAssignment(Guid AssignmentId, [FromBody] CreateAssignmentDTO updateAssignmentDTO)
         {

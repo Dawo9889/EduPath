@@ -111,27 +111,5 @@ namespace EduPath_backend.Application.Services.Assignment
             var result = await _assignmentRepository.DeleteAssignment(AssignmentId);
             return result;
         }
-
-        public async Task<bool> UploadAssignmentAsync(UploadAssignmentUserDTO uploadAssignmentUserDTO)
-        {
-            var assignmentUser = new AssignmentUser
-            {
-                AssignmentId = uploadAssignmentUserDTO.AssignmentId,
-                UserId = uploadAssignmentUserDTO.UserId,
-                DateSubmitted = uploadAssignmentUserDTO.DateSubmitted,
-                Filepath = Path.Combine(_coursesBasePath, uploadAssignmentUserDTO.CourseId,(uploadAssignmentUserDTO.AssignmentId).ToString(),uploadAssignmentUserDTO.UserId,uploadAssignmentUserDTO.Filename)
-            };
-
-            var result = await _assignmentRepository.UploadAssignment(assignmentUser);
-
-            if (result)
-            {
-                return true;
-            }
-            else
-            {
-                throw new Exception("Sth went wrong");
-            }
-        }
     }
 }
