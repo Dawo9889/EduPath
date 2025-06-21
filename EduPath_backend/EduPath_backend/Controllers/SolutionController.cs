@@ -1,5 +1,6 @@
 ﻿using EduPath_backend.Application.DTOs.Solution;
 using EduPath_backend.Application.Services.Solution;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ namespace EduPath_backend.API.Controllers
 {
     [Route("api/solution")]
     [ApiController]
+    [Authorize]
     public class SolutionController : ControllerBase
     {
         private readonly ISolutionService _solutionService;
@@ -19,6 +21,7 @@ namespace EduPath_backend.API.Controllers
         }
 
         [HttpGet("by-assignment/{assignmentId}")]
+        [Authorize(Roles = "Admin,Lecturer")]
         public async Task<List<SolutionDetailsDTO>> GetSolutionsByAssignment(Guid assignmentId)
         {
             var solutionsByAssignment = await _solutionService.GetSolutionsByAssignment(assignmentId);
@@ -53,6 +56,7 @@ namespace EduPath_backend.API.Controllers
         }
 
         [HttpGet("download-by-assignment/{assignmentId}")]
+        [Authorize(Roles = "Admin,Lecturer")]
         public async Task<IActionResult> DownloadAllSolutions(Guid assignmentId)
         {
             var solutions = await _solutionService.GetSolutionsByAssignment(assignmentId);
