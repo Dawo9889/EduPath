@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Assignment from "../../../types/Assignment";
 import { getAssignment } from "../../../api/assignmentApi";
 import { useAuth } from "../../../contexts/AuthContext";
@@ -19,7 +19,8 @@ function AssignmentDetails() {
 
   const [isLoading, setIsLoading] = useState(true);
 
-  const authInfo = useAuth();
+  const { userRole, userId, authReady, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
 
   const fetchData = async () => {
     setIsLoading(true);
@@ -27,8 +28,8 @@ function AssignmentDetails() {
     try {
       const fetchedAssignment = await getAssignment(assignmentId!);
       const fetchedSolutions =
-        authInfo.userRole === "student"
-          ? await fetchSolutionsByUser(authInfo.userId!).then(
+        userRole === "student"
+          ? await fetchSolutionsByUser(userId!).then(
               (res: SolutionResponseData[] | undefined) =>
                 (res ?? []).filter((s) => s.assignmentId === assignmentId)
             )
@@ -58,9 +59,12 @@ function AssignmentDetails() {
   };
 
   useEffect(() => {
+    if (!authReady) return;
+
+    if (!isAuthenticated) navigate("/unauthorized");
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [authReady, isAuthenticated, navigate]);
 
   const handleDownload = async (solutionId: string) => {
     console.log(solutionId);
@@ -74,12 +78,12 @@ function AssignmentDetails() {
       <p className="text-primary">{assignment?.content}</p>
 
       <h2 className="text-2xl font-bold mb-4 mt-4 text-primary">Solutions</h2>
-      {authInfo.userRole === "lecturer" && (
+      {userRole === "lecturer" && (
         <button className="mb-4 px-4 py-2 rounded font-medium text-[var(--text-100)] bg-[var(--bg-200)] hover:bg-[var(--bg-300)]">
           Download All Solutions
         </button>
       )}
-      {authInfo.userRole === "student" && (
+      {userRole === "student" && (
         <button className="mb-4 px-4 py-2 rounded font-medium text-[var(--text-100)] bg-[var(--bg-200)] hover:bg-[var(--bg-300)]">
           Submit Solution
         </button>
@@ -94,10 +98,7 @@ function AssignmentDetails() {
               No solutions were found. No solutions were submitted yet.
             </p>
           ) : (
-            <SolutionTable 
-              solutions={solutions}
-              onDownload={handleDownload}
-            />
+            <SolutionTable solutions={solutions} onDownload={handleDownload} />
           )}
         </>
       )}

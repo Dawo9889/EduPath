@@ -16,7 +16,10 @@ import {
   enrollCourse,
 } from "../../../api/coursesApi";
 import { useAuth } from "../../../contexts/AuthContext";
-import EnrollForm, { EnrollFormData } from "../../../components/course/EnrollForm";
+import EnrollForm, {
+  EnrollFormData,
+} from "../../../components/course/EnrollForm";
+import { useNavigate } from "react-router-dom";
 
 function ManageCourses() {
   const [courses, setCourses] = useState<Course[]>([]);
@@ -25,7 +28,8 @@ function ManageCourses() {
 
   const [isLoading, setIsLoading] = useState(true);
 
-  const authInfo = useAuth();
+  const { userRole, userId, authReady, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
 
   const fetchData = async () => {
     setIsLoading(true);
@@ -42,7 +46,7 @@ function ManageCourses() {
             description: c.description,
             isPublic: c.isPublic,
             ownerName: c.ownerName,
-            students: users.map((user: { userId: string }) => user.userId),
+            students: users!.map((user: { userId: string }) => user.userId),
           };
         })
       );
@@ -56,8 +60,11 @@ function ManageCourses() {
 
   // Fetch courses on load
   useEffect(() => {
+    if (!authReady) return;
+
+    if (!isAuthenticated) navigate("/unauthorized");
     fetchData();
-  }, []);
+  }, [authReady, isAuthenticated, navigate]);
 
   const handleCourseSave = async (
     formData: CourseFormData,
@@ -68,7 +75,7 @@ function ManageCourses() {
       description: formData.description,
       isPublic: formData.password === "",
       passwordPlainText: formData.password,
-      ownerId: authInfo.userId!,
+      ownerId: userId!,
     };
 
     try {
@@ -99,9 +106,7 @@ function ManageCourses() {
     }
   };
 
-  const handleCourseEnroll = async (
-    formData: EnrollFormData,
-  ) => {
+  const handleCourseEnroll = async (formData: EnrollFormData) => {
     try {
       enrollCourse(formData.id, formData.password);
       fetchData();
@@ -115,7 +120,7 @@ function ManageCourses() {
   return (
     <div className="p-6 max-w-4xl mx-auto">
       <h1 className="text-3xl font-bold mb-4 text-primary">Manage Courses</h1>
-      {authInfo.userRole === "lecturer" && (
+      {userRole === "lecturer" && (
         <button
           onClick={() =>
             setEditingCourse({
@@ -154,7 +159,7 @@ function ManageCourses() {
 
       {/* Animated Popup */}
       <AnimatePresence>
-        {editingCourse && authInfo.userRole === "lecturer" && (
+        {editingCourse && userRole === "lecturer" && (
           <>
             <motion.div
               className="fixed inset-0 bg-black"
@@ -186,7 +191,7 @@ function ManageCourses() {
       </AnimatePresence>
 
       <AnimatePresence>
-        {enrollingCourse && authInfo.userRole === "student" && (
+        {enrollingCourse && userRole === "student" && (
           <>
             <motion.div
               className="fixed inset-0 bg-black"

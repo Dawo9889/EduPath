@@ -10,13 +10,13 @@ function SolutionTable({
   solutions,
   onDownload,
 }: SolutionTableProps) {
-  const authInfo = useAuth();
+  const { userRole } = useAuth();
 
   return (
     <table className="w-full min-w-[800px] rounded-xl shadow-md overflow-hidden text-primary">
       <thead>
         <tr className="bg-tertiary text-left">
-          {authInfo.userRole === "lecturer" && <th className="p-2">Student</th>}
+          {userRole === "lecturer" && <th className="p-2">Student</th>}
           <th className="p-2">Submission Date</th>
           <th className="p-2">Actions</th>
         </tr>
@@ -24,7 +24,7 @@ function SolutionTable({
       <tbody>
         {solutions.map((solution) => (
           <tr key={solution.id} className="border-t bg-secondary">
-            {authInfo.userRole === "lecturer" && (
+            {userRole === "lecturer" && (
               <td className="font-medium">{solution.studentName}</td>
             )}
             <td className="p-2 font-medium">{solution.submissionDate}</td>

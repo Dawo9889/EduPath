@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Course from "../../../types/Course";
 import Assignment from "../../../types/Assignment";
 import AssignmentTable from "../../../components/assignment/AssignmentTable";
@@ -47,7 +47,8 @@ function CourseDashboard() {
 
   const [isLoading, setIsLoading] = useState(true);
 
-  const authInfo = useAuth();
+  const { userRole, authReady, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
 
   const fetchData = async () => {
     setIsLoading(true);
@@ -92,9 +93,12 @@ function CourseDashboard() {
   };
 
   useEffect(() => {
+    if (!authReady) return;
+
+    if (!isAuthenticated) navigate("/unauthorized");
     fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authReady, isAuthenticated, navigate]);
 
   const handleAssignmentDelete = (id: string) => {
     try {
@@ -172,7 +176,7 @@ function CourseDashboard() {
       <p className="text-primary">{course?.description}</p>
 
       <h2 className="text-2xl font-bold mb-4 mt-4 text-primary">Assignments</h2>
-      {authInfo.userRole === "lecturer" && (
+      {userRole === "lecturer" && (
         <button
           onClick={() =>
             setEditingAssignment({
@@ -209,7 +213,7 @@ function CourseDashboard() {
       )}
 
       <AnimatePresence>
-        {editingAssignment && authInfo.userRole === "lecturer" && (
+        {editingAssignment && userRole === "lecturer" && (
           <>
             <motion.div
               className="fixed inset-0 bg-black"
@@ -243,7 +247,7 @@ function CourseDashboard() {
       </AnimatePresence>
 
       <h2 className="text-2xl font-bold mb-4 mt-4 text-primary">Students</h2>
-      {authInfo.userRole === "lecturer" && (
+      {userRole === "lecturer" && (
         <button
           onClick={() =>
             setAddingStudent({
@@ -258,7 +262,7 @@ function CourseDashboard() {
       )}
 
       <AnimatePresence>
-        {addingStudent && authInfo.userRole === "lecturer" && (
+        {addingStudent && userRole === "lecturer" && (
           <>
             <motion.div
               className="fixed inset-0 bg-black"
@@ -292,7 +296,7 @@ function CourseDashboard() {
       </AnimatePresence>
 
       <AnimatePresence>
-        {removingStudent && authInfo.userRole === "lecturer" && (
+        {removingStudent && userRole === "lecturer" && (
           <>
             <motion.div
               className="fixed inset-0 bg-black"
