@@ -1,6 +1,6 @@
-import { useAuth } from "../contexts/AuthContext";
-import Course from "../types/Course";
-import Student from "../types/Student";
+import { useAuth } from "../../contexts/AuthContext";
+import Course from "../../types/Course";
+import Student from "../../types/Student";
 
 interface StudentTableProps {
   students: Student[];

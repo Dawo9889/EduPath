@@ -23,7 +23,7 @@ import {
   UserResponseData,
 } from "../../../api/userApi";
 import Student from "../../../types/Student";
-import StudentTable from "../../../components/StudentTable";
+import StudentTable from "../../../components/course/StudentTable";
 import ConfirmOperation from "../../../components/ConfirmOperation";
 
 function CourseDashboard() {
