@@ -11,6 +11,15 @@ export type SolutionResponseData = {
   dateSubmitted: string;
 };
 
+export type SolutionRequestData = {
+  assignmentId: string;
+  courseId: string;
+  userId: string;
+  filename: string;
+  file: File;
+  dateSubmitted: Date;
+};
+
 export const fetchSolutionsByAssignment = async (assignmentId: string) => {
   try {
     const token = getAccessToken();
@@ -106,3 +115,31 @@ export const parseFileResponse = async (response: AxiosResponse) => {
   return {
     blobUrl, filename};
 }
+
+export const uploadSolution = async (solutionData: SolutionRequestData) => {
+  try {
+    const data = new FormData();
+
+    data.append("assignmentId", solutionData.assignmentId);
+    data.append("courseId", solutionData.courseId);
+    data.append("userId", solutionData.userId);
+    data.append("filename", solutionData.filename);
+    data.append("file", solutionData.file);
+    data.append("dateSubmitted", solutionData.dateSubmitted.toDateString());
+
+    const token = getAccessToken();
+    const response = await axios.post<SolutionRequestData>(
+      `${SOLUTION_URL}/upload-solution`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form"
+        }
+      }
+    );
+    return response;
+  } catch (error) {
+    console.log("Error uploading solution:", error);
+    handleError(error);
+  }
+};
+

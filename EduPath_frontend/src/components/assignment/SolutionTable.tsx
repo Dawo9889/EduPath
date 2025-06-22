@@ -25,7 +25,7 @@ function SolutionTable({
             <td className="p-2 font-medium">{new Date(solution.submissionDate).toLocaleDateString()}</td>
             <td className="p-2 space-x-2 font-light">
               <button
-                className="btn-primary text-white w-[100%] px-2 py-1 rounded"
+                className="btn-primary text-white w-[50%] px-2 py-1 rounded"
                 onClick={() => onDownload(solution.id)}
               >
                 Download

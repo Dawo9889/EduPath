@@ -9,25 +9,34 @@ import {
   fetchSolutionsByAssignment,
   fetchSolutionsByUser,
   parseFileResponse,
+  SolutionRequestData,
   SolutionResponseData,
+  uploadSolution,
 } from "../../../api/solutionsApi";
 import Solution from "../../../types/Solution";
-import SolutionTable from "../../../components/course/SolutionTable";
+import SolutionTable from "../../../components/assignment/SolutionTable";
 import { getCourseUsers } from "../../../api/coursesApi";
 import { UserResponseData } from "../../../api/userApi";
+import { AnimatePresence, motion } from "framer-motion";
+import UploadFileForm, { UploadFileFormData } from "../../../components/assignment/FileUploadForm";
 
 function AssignmentDetails() {
-  const { courseId, assignmentId } = useParams<{ courseId: string, assignmentId: string }>();
+  const { courseId, assignmentId } = useParams<{
+    courseId: string;
+    assignmentId: string;
+  }>();
   const [assignment, setAssignment] = useState<Assignment>();
 
   const [solutions, setSolutions] = useState<Solution[]>([]);
+  const [uploadingSolution, setUploadingSolution] = useState(false);
 
   const [isLoading, setIsLoading] = useState(true);
 
   const { userRole, userId, authReady, isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
-  const getFullName = (user: UserResponseData) => `${user.firstName} ${user.lastName}`;
+  const getFullName = (user: UserResponseData) =>
+    `${user.firstName} ${user.lastName}`;
 
   const fetchData = async () => {
     setIsLoading(true);
@@ -52,7 +61,9 @@ function AssignmentDetails() {
       };
       const normalizedSolutions: Solution[] = fetchedSolutions!.map((s) => ({
         id: s.id,
-        studentName: getFullName(fetchedCourseUsers!.find((cu) => cu.userId === s.userId)!),
+        studentName: getFullName(
+          fetchedCourseUsers!.find((cu) => cu.userId === s.userId)!
+        ),
         filePath: s.filepath,
         submissionDate: s.dateSubmitted,
       }));
@@ -95,6 +106,28 @@ function AssignmentDetails() {
     downloadFile(blobUrl, filename);
   };
 
+  const handleSolutionUpload = async (formData: UploadFileFormData) => {
+    if (!formData.file) throw "File missing";
+
+    const solutionData: SolutionRequestData = {
+      assignmentId: assignmentId!,
+      courseId: courseId!,
+      userId: userId!,
+      filename: formData.file.name,
+      file: formData.file,
+      dateSubmitted: new Date(Date.now())
+    };
+
+    try {
+      await uploadSolution(solutionData);
+      await fetchData();
+    } catch (error) {
+      console.error("Failed to upload solution:", error);
+    } finally {
+      setUploadingSolution(false);
+    }
+  }
+
   return (
     <div className="p-6 max-w-4xl mx-auto">
       <h1 className="text-3xl font-bold mb-4 text-primary">
@@ -112,10 +145,47 @@ function AssignmentDetails() {
         </button>
       )}
       {userRole === "student" && (
-        <button className="mb-4 px-4 py-2 rounded font-medium text-[var(--text-100)] bg-[var(--bg-200)] hover:bg-[var(--bg-300)]">
+        <button
+          className="mb-4 px-4 py-2 rounded font-medium text-[var(--text-100)] bg-[var(--bg-200)] hover:bg-[var(--bg-300)]"
+          onClick={() => setUploadingSolution(true)}
+        >
           Submit Solution
         </button>
       )}
+
+      <AnimatePresence>
+        {uploadingSolution && userRole === "student" && (
+          <>
+            <motion.div
+              className="fixed inset-0 bg-black"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.4 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={() => setUploadingSolution(false)}
+            />
+            <motion.div
+              className="fixed top-0 left-0 w-full h-full flex justify-center items-start z-50"
+              initial={{ y: "-100%", opacity: 0 }}
+              animate={{ y: "0%", opacity: 1 }}
+              exit={{ y: "-100%", opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={() => setUploadingSolution(false)}
+            >
+              <div
+                className="bg-primary rounded-xl shadow-lg mt-20 w-full max-w-xl relative"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <UploadFileForm
+                  message={`Submit your solution for ${assignment!.name}`}
+                  onSave={handleSolutionUpload}
+                  onClose={() => setUploadingSolution(false)}
+                />
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
       {isLoading && <p className="text-gray-500">Loading solutions...</p>}
 

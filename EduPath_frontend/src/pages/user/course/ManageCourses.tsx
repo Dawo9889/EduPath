@@ -108,8 +108,8 @@ function ManageCourses() {
 
   const handleCourseEnroll = async (formData: EnrollFormData) => {
     try {
-      enrollCourse(formData.id, formData.password);
-      fetchData();
+      await enrollCourse(formData.id, formData.password);
+      await fetchData();
     } catch (error) {
       console.error("Failed to enroll course:", error);
     } finally {
