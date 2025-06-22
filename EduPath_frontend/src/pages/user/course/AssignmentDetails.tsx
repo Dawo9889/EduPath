@@ -13,9 +13,11 @@ import {
 } from "../../../api/solutionsApi";
 import Solution from "../../../types/Solution";
 import SolutionTable from "../../../components/course/SolutionTable";
+import { getCourseUsers } from "../../../api/coursesApi";
+import { UserResponseData } from "../../../api/userApi";
 
 function AssignmentDetails() {
-  const { assignmentId } = useParams<{ assignmentId: string }>();
+  const { courseId, assignmentId } = useParams<{ courseId: string, assignmentId: string }>();
   const [assignment, setAssignment] = useState<Assignment>();
 
   const [solutions, setSolutions] = useState<Solution[]>([]);
@@ -24,6 +26,8 @@ function AssignmentDetails() {
 
   const { userRole, userId, authReady, isAuthenticated } = useAuth();
   const navigate = useNavigate();
+
+  const getFullName = (user: UserResponseData) => `${user.firstName} ${user.lastName}`;
 
   const fetchData = async () => {
     setIsLoading(true);
@@ -37,6 +41,7 @@ function AssignmentDetails() {
                 (res ?? []).filter((s) => s.assignmentId === assignmentId)
             )
           : await fetchSolutionsByAssignment(assignmentId!);
+      const fetchedCourseUsers = await getCourseUsers(courseId!);
 
       const normalizedAssignment: Assignment = {
         id: fetchedAssignment!.assignmentId,
@@ -47,7 +52,7 @@ function AssignmentDetails() {
       };
       const normalizedSolutions: Solution[] = fetchedSolutions!.map((s) => ({
         id: s.id,
-        studentName: s.userId,
+        studentName: getFullName(fetchedCourseUsers!.find((cu) => cu.userId === s.userId)!),
         filePath: s.filepath,
         submissionDate: s.dateSubmitted,
       }));
