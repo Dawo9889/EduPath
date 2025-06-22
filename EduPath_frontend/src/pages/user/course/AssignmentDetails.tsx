@@ -4,8 +4,11 @@ import Assignment from "../../../types/Assignment";
 import { getAssignment } from "../../../api/assignmentApi";
 import { useAuth } from "../../../contexts/AuthContext";
 import {
+  downloadAllSolutionsByAssignment,
+  downloadSolution,
   fetchSolutionsByAssignment,
   fetchSolutionsByUser,
+  parseFileResponse,
   SolutionResponseData,
 } from "../../../api/solutionsApi";
 import Solution from "../../../types/Solution";
@@ -66,8 +69,25 @@ function AssignmentDetails() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authReady, isAuthenticated, navigate]);
 
+  const downloadFile = (blobUrl: string, filename: string) => {
+    const link = document.createElement("a");
+    link.href = blobUrl;
+    link.setAttribute("download", filename);
+    document.body.appendChild(link);
+    link.click();
+    link.parentNode?.removeChild(link);
+  };
+
   const handleDownload = async (solutionId: string) => {
-    console.log(solutionId);
+    const responseData = await downloadSolution(solutionId);
+    const { blobUrl, filename } = await parseFileResponse(responseData!);
+    downloadFile(blobUrl, filename);
+  };
+
+  const handleBulkDownload = async () => {
+    const responseData = await downloadAllSolutionsByAssignment(assignment!.id);
+    const { blobUrl, filename } = await parseFileResponse(responseData!);
+    downloadFile(blobUrl, filename);
   };
 
   return (
@@ -79,7 +99,10 @@ function AssignmentDetails() {
 
       <h2 className="text-2xl font-bold mb-4 mt-4 text-primary">Solutions</h2>
       {userRole === "lecturer" && (
-        <button className="mb-4 px-4 py-2 rounded font-medium text-[var(--text-100)] bg-[var(--bg-200)] hover:bg-[var(--bg-300)]">
+        <button
+          className="mb-4 px-4 py-2 rounded font-medium text-[var(--text-100)] bg-[var(--bg-200)] hover:bg-[var(--bg-300)]"
+          onClick={handleBulkDownload}
+        >
           Download All Solutions
         </button>
       )}
