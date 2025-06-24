@@ -9,10 +9,10 @@ interface Props {
 }
 
 function AssignmentTable({ assignments, courseId, onEdit, onDelete }: Props) {
-  const authInfo = useAuth();
+  const { userRole } = useAuth();
 
   const viewAssignmentPage = (assignmentId: string) => {
-    window.location.href = `/${authInfo.userRole}/course/${courseId}/assignment/${assignmentId}`;
+    window.location.href = `/${userRole}/course/${courseId}/assignment/${assignmentId}`;
   };
 
   return (
@@ -31,7 +31,7 @@ function AssignmentTable({ assignments, courseId, onEdit, onDelete }: Props) {
             <td className="p-2 font-medium">
               {new Date(assignment.dateEnd).toLocaleDateString()}
             </td>
-            {authInfo.userRole === "lecturer" ? (
+            {userRole === "lecturer" ? (
               <td className="p-2 space-x-2 font-light">
                 <button
                   className="btn-secondary cursor-pointer w-[30%] px-2 py-1 rounded mr-[3%]"

@@ -10,11 +10,11 @@ interface Props {
 }
 
 function CourseTable({ courses: courses, onEdit, onDelete, onEnroll }: Props) {
-  const authInfo = useAuth();
+  const { userId, userRole } = useAuth();
 
   const viewCoursePage = (courseId: string) => {
     // Redirect to the course page
-    window.location.href = `/${authInfo.userRole}/course/${courseId}`;
+    window.location.href = `/${userRole}/course/${courseId}`;
   };
 
   return (
@@ -23,7 +23,7 @@ function CourseTable({ courses: courses, onEdit, onDelete, onEnroll }: Props) {
         <tr className="bg-tertiary text-left">
           <th className="p-2">Name</th>
           <th className="p-2">
-            {authInfo.userRole === "lecturer" ? "Active students" : "Lecturer"}
+            {userRole === "lecturer" ? "Active students" : "Lecturer"}
           </th>
           <th className="p-2">Actions</th>
         </tr>
@@ -39,11 +39,11 @@ function CourseTable({ courses: courses, onEdit, onDelete, onEnroll }: Props) {
               )}{course.name}
             </td>
             <td className="p-2 font-medium">
-              {authInfo.userRole === "lecturer"
+              {userRole === "lecturer"
                 ? course.students.length
                 : course.ownerName}
             </td>
-            {authInfo.userRole === "lecturer" ? (
+            {userRole === "lecturer" ? (
               <td className="p-2 space-x-2 font-light">
                 <button
                   className="btn-secondary cursor-pointer w-[30%] px-2 py-1 rounded mr-[3%]"
@@ -66,7 +66,7 @@ function CourseTable({ courses: courses, onEdit, onDelete, onEnroll }: Props) {
               </td>
             ) : (
               <td className="p-2 space-x-2 font-light">
-                {course.students.includes(authInfo.userId!) ? (
+                {course.students.includes(userId!) ? (
                   <button
                     className="btn-secondary cursor-pointer w-[60%] px-2 py-1 rounded mr-[3%]"
                     onClick={() => viewCoursePage(course.id)}

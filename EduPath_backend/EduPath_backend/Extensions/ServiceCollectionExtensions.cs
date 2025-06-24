@@ -8,12 +8,12 @@ using System.Text;
 
 
 namespace EduPath_backend.API.Extensions
+
 {
     public static class ServiceCollectionExtensions
     {
         public static void AddPresentation(this WebApplicationBuilder builder)
         {
-            builder.Services.AddControllers();
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowAllOrigins",
@@ -21,9 +21,12 @@ namespace EduPath_backend.API.Extensions
                     {
                         builder.AllowAnyOrigin()
                                .AllowAnyHeader()
-                               .AllowAnyMethod();
+                               .AllowAnyMethod()
+                               .WithExposedHeaders("content-disposition");
                     });
             });
+            builder.Services.AddControllers();
+
             // Swagger/OpenAPI konfiguracja
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
