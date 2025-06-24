@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IoDocumentText } from "react-icons/io5";
+import { IoCloseOutline, IoDocumentText } from "react-icons/io5";
 
 interface DragAndDropFieldProps {
   onDrop: (e: React.DragEvent<HTMLDivElement>) => void;
@@ -12,7 +12,9 @@ const DragAndDropField = ({ onDrop }: DragAndDropFieldProps) => {
     e.preventDefault();
     setFile(e.dataTransfer.items[0].getAsFile() ?? undefined);
 
-    if (file !== undefined) onDrop(e);
+    if (e.dataTransfer.items[0].getAsFile() !== undefined) {
+      onDrop(e);
+    }
   };
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -33,7 +35,13 @@ const DragAndDropField = ({ onDrop }: DragAndDropFieldProps) => {
           ) : (
             <div className="flex">
               <div className="flex flex-col items-center">
-                <IoDocumentText className="text-4xl text-primary" />
+                <div className="relative">
+                  <IoCloseOutline
+                    className="text-xl absolute top-0 right-0 cursor-pointer text-gray-600 hover:text-red-500"
+                    onClick={() => setFile(undefined)}
+                  />
+                  <IoDocumentText className="text-4xl text-primary mx-4" />
+                </div>
                 <span className="text-primary">{file.name}</span>
               </div>
             </div>

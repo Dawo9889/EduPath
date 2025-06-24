@@ -18,22 +18,46 @@ function UploadFileForm({ message, onSave, onClose }: UploadFileForm) {
     file: undefined,
   });
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const [selectedFileName, setSelectedFileName] = useState<string>("...");
+  const allowedFileTypes = [
+    { mimeType: "application/msword", extension: ".doc" },
+    {
+      mimeType:
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      extension: ".docx",
+    },
+    { mimeType: "application/pdf", extension: ".pdf" },
+    { mimeType: "text/plain", extension: ".txt" },
+    { mimeType: "application/zip", extension: ".zip" },
+    { mimeType: "application/x-zip-compressed", extension: ".zip" },
+  ];
+
+  const handleFileChange = (file: File) => {
+    if (!allowedFileTypes.map((af) => af.mimeType).includes(file.type)) {
+      setSelectedFileName("The selected file type is not allowed!");
+      return;
+    };
+    setFormData({ file });
+    setSelectedFileName(file.name);
+  };
+
+  const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const file = e.target.files![0];
-    setFormData({ file });
+    handleFileChange(file);
   };
 
   const handleFileDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     const file = e.dataTransfer.items[0].getAsFile() ?? undefined;
-    setFormData({ file });
+    if (file !== undefined) handleFileChange(file);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSave(formData);
     setFormData({ file: undefined });
+    setSelectedFileName("...");
   };
 
   return (
@@ -45,9 +69,18 @@ function UploadFileForm({ message, onSave, onClose }: UploadFileForm) {
           onClick={onClose}
         />
         <div className="flex flex-col gap-4">
+          <div className="p-2 text-primary">
+            Allowed file extensions:{" "}
+            {Array.from(
+              new Set(allowedFileTypes.map((af) => af.extension))
+            ).join(", ")}
+          </div>
+          <div className="p-2 text-primary">
+            Selected file: {selectedFileName}
+          </div>
           <FormFileField
-            title={"File"}
-            onChange={handleFileChange}
+            title={""}
+            onChange={handleFileInput}
             otherStyles=""
             fieldName="file"
             inputFieldStyles=""
