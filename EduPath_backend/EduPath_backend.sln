@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EduPath_backend.API", "EduPath_backend\EduPath_backend.API.csproj", "{09EF5406-2723-4408-B099-D0861BAEBAC3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduPath_backend.Application", "EduPath_backend.Application\EduPath_backend.Application.csproj", "{14EF540D-685C-4292-85CE-52F53ADA3CC4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduPath_backend.Domain", "EduPath_backend.Domain\EduPath_backend.Domain.csproj", "{21872431-D82C-410B-A8C9-8EB9291502E5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduPath_backend.Infrastructure", "EduPath_backend.Infrastructure\EduPath_backend.Infrastructure.csproj", "{1CAE063C-AEAC-4D7B-B1A2-6955AC194B1F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduPath_backend.API", "EduPath_backend.API\EduPath_backend.API.csproj", "{8D1DEB4B-37F7-00BC-D41A-A977EBED9109}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{09EF5406-2723-4408-B099-D0861BAEBAC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{09EF5406-2723-4408-B099-D0861BAEBAC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{09EF5406-2723-4408-B099-D0861BAEBAC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{09EF5406-2723-4408-B099-D0861BAEBAC3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{14EF540D-685C-4292-85CE-52F53ADA3CC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{14EF540D-685C-4292-85CE-52F53ADA3CC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14EF540D-685C-4292-85CE-52F53ADA3CC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{1CAE063C-AEAC-4D7B-B1A2-6955AC194B1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CAE063C-AEAC-4D7B-B1A2-6955AC194B1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CAE063C-AEAC-4D7B-B1A2-6955AC194B1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D1DEB4B-37F7-00BC-D41A-A977EBED9109}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D1DEB4B-37F7-00BC-D41A-A977EBED9109}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D1DEB4B-37F7-00BC-D41A-A977EBED9109}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D1DEB4B-37F7-00BC-D41A-A977EBED9109}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

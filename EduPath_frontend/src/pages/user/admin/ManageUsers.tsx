@@ -105,7 +105,7 @@ const handleUserSave = async (newUser: User) => {
 
   const handleImportOneUser = async (newUser: User) => {
   try {
-    const response = await createUser(newUser);
+    // const response = await createUser(newUser);
 
     setImportedUsers(prev => prev.filter(user => user.id !== newUser.id));
     setUsers(prev => [...prev, newUser]);
