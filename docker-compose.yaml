@@ -7,8 +7,10 @@ services:
       - db
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - COURSES_BASE_PATH=/app/courses_files
     volumes:
       - ./EduPath_backend/Edupath_backend.API/appsettings.json:/app/appsettings.json
+      - ./EduPath_backend/courses_files:/app/courses_files
 
   db:
     image: mcr.microsoft.com/mssql/server:2022-latest

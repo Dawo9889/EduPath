@@ -139,26 +139,24 @@ namespace EduPath_backend.Application.Services.User
                 throw new Exception("User was not assigned to this course");
             }
         }
-        public async Task<bool> CompleteRegistrationAsync(CompleteRegistrationDTO request)
+        public async Task<string?> CompleteRegistrationAsync(CompleteRegistrationDTO request)
         {
             var user = await _userManager.FindByIdAsync(request.UserId);
             if (user == null)
-                return false;
+                return "User not found.";
 
             var confirmResult = await _userManager.ConfirmEmailAsync(user, request.EmailToken);
             if (!confirmResult.Succeeded)
-                return false;
+                return "Invalid or expired email confirmation token.";
 
             var resetResult = await _userManager.ResetPasswordAsync(user, request.ResetToken, request.NewPassword);
             if (!resetResult.Succeeded)
-                return false;
-
-
+                return "Password reset failed. " + string.Join(", ", resetResult.Errors.Select(e => e.Description));
 
             user.MustChangePassword = false;
             await _userManager.UpdateAsync(user);
 
-            return true;
+            return null; // success
         }
 
         public async Task<(bool Success, LoginResponseDTO Response, string ErrorMessage)> LoginAsync(LoginDTO request)

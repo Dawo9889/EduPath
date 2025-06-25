@@ -4,6 +4,7 @@ using EduPath_backend.Application.DTOs.User;
 using EduPath_backend.Application.Services.Assignment;
 using EduPath_backend.Domain.Entities;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,7 @@ namespace EduPath_backend.API.Controllers
 {
     [Route("api/assingment")]
     [ApiController]
+    [Authorize]
     public class AssignmentController : ControllerBase
     {
         private readonly IAssignmentService _assignmentService;
