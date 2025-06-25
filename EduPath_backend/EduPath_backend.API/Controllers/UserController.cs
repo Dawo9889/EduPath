@@ -64,11 +64,12 @@ namespace EduPath_backend.API.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> CompleteRegistration([FromBody] CompleteRegistrationDTO request)
         {
-            var error = await _userService.CompleteRegistrationAsync(request);
-            if (error == null)
-                return Ok("Password changed and email confirmed.");
 
-            return BadRequest(new { error }); // zwraca { "error": "..." }
+
+            var result = await _userService.CompleteRegistrationAsync(request);
+            if (result)
+                return Ok("Password changed and email confirmed.");
+            return BadRequest("Failed to complete registration.");
         }
 
         [HttpPost("login")]

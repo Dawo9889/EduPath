@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getAccessToken, handleError } from "./utils";
+import { use } from "react";
 
 export interface UserResponseData {
   userId: string;
@@ -48,5 +49,38 @@ export const removeUserFromCourse = async (
   } catch (error) {
     console.error("Error joining course:", error);
     handleError(error);
+  }
+};
+
+export const completeRegistration = async (
+  userId: string,
+  resetToken: string,
+  emailToken: string,
+  newPassword: string
+) => {
+  try {
+    console.log("Sending data:", { userId, resetToken, emailToken, newPassword });
+
+    const response = await axios.post(
+      `${USER_URL}/complete-registration`,
+      { 
+        UserId: userId,
+        ResetToken: resetToken,
+        EmailToken: emailToken,
+        NewPassword: newPassword
+       },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    console.log("Registration response:", response.data);
+    return response.data;
+  } catch (error: any) {
+    console.error("Error completing registration:", error);
+    console.error("Server response:", error.response?.data);
+    throw error; // <- rzuć dalej, żeby móc go pokazać użytkownikowi
   }
 };
