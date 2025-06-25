@@ -15,6 +15,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace EduPath_backend.Application.Services.User
 {
@@ -95,15 +96,18 @@ namespace EduPath_backend.Application.Services.User
             var passwordResetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
             var emailConfirmToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
+            var encodedResetToken = Uri.EscapeDataString(passwordResetToken);
+            var encodedEmailToken = Uri.EscapeDataString(emailConfirmToken);
+
             var domain = _configuration["Domain"];
 
             var resetLink = $"{domain}/reset-password?userId={user.Id}" +
-                            $"&resetToken={passwordResetToken}" +
-                            $"&emailToken={emailConfirmToken}";
+                            $"&resetToken={encodedResetToken}" +
+                            $"&emailToken={encodedEmailToken}";
             // Tymczasowy log:
             Console.WriteLine("UserId: " + user.Id);
-            Console.WriteLine("Password Reset Tokne: " + passwordResetToken);
-            Console.WriteLine("Email Confirm Token: " + emailConfirmToken);
+            Console.WriteLine("Password Reset Tokne: " + encodedResetToken);
+            Console.WriteLine("Email Confirm Token: " + encodedEmailToken);
             Console.WriteLine("RESET LINK: " + resetLink);
 
             var emailBody = $@"
@@ -141,15 +145,19 @@ namespace EduPath_backend.Application.Services.User
         }
         public async Task<string?> CompleteRegistrationAsync(CompleteRegistrationDTO request)
         {
+            var decodedEmailToken = Uri.UnescapeDataString(request.EmailToken);
+            var decodedResetToken = Uri.UnescapeDataString(request.ResetToken);
+
+
             var user = await _userManager.FindByIdAsync(request.UserId);
             if (user == null)
                 return "User not found.";
 
-            var confirmResult = await _userManager.ConfirmEmailAsync(user, request.EmailToken);
+            var confirmResult = await _userManager.ConfirmEmailAsync(user, decodedEmailToken);
             if (!confirmResult.Succeeded)
                 return "Invalid or expired email confirmation token.";
 
-            var resetResult = await _userManager.ResetPasswordAsync(user, request.ResetToken, request.NewPassword);
+            var resetResult = await _userManager.ResetPasswordAsync(user, decodedResetToken, request.NewPassword);
             if (!resetResult.Succeeded)
                 return "Password reset failed. " + string.Join(", ", resetResult.Errors.Select(e => e.Description));
 
