@@ -11,6 +11,9 @@ function ResetPassword() {
     response.then(res => {
       console.log('Password reset successful:', res);
       // Handle success (e.g., redirect to login page)
+      setTimeout(() => {
+        window.location.href = '/login';
+      }, 2000);
     }).catch(err => {
       console.error('Error resetting password:', err);
       // Handle error (e.g., show error message)

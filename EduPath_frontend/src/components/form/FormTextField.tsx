@@ -40,7 +40,7 @@ const FormTextField = ({title, value, isPassword, placeholder, otherStyles, onCh
             className="text-secondary ml-2 cursor-pointer"
             onClick={() => setShowPassword(sp => !sp)}
           >
-            {showPassword ? <IoMdEyeOff size={24} /> : <IoMdEye size={24} />}
+            {!showPassword ? <IoMdEyeOff size={24} /> : <IoMdEye size={24} />}
           </button>
         )}
       </div>
