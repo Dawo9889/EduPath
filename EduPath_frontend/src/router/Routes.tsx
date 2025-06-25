@@ -12,6 +12,7 @@ import ManageCourses from "../pages/user/course/ManageCourses";
 import CourseDashboard from "../pages/user/course/CourseDashboard";
 import AssignmentDetails from "../pages/user/course/AssignmentDetails";
 import Unauthorized from "../pages/Unauthorized";
+import ResetPassword from "../pages/user/ResetPassword";
 
 export const routes: RouteObject[] = [
   {
@@ -40,6 +41,7 @@ export const routes: RouteObject[] = [
         element: <AssignmentDetails />,
       },
       { path: "settings", element: <ManageAccount /> },
+      { path: "reset-password", element: <ResetPassword /> },
       { path: "*", element: <Navigate replace to="/not-found" /> },
     ],
   },
