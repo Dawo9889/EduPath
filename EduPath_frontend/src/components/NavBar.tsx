@@ -35,21 +35,15 @@ function NavBar() {
         switch (userRole) {
             case 'admin':
                 return [
-                  { label: 'Dashboard', path: '/admin/dashboard' },
                   { label: 'Manage Users', path: '/admin/manage-users' },
-                  { label: 'Account Settings', path: '/settings' },
                 ];
               case 'lecturer':
                 return [
-                  { label: 'Dashboard', path: '/lecturer/dashboard' },
                   { label: 'Manage Courses', path: '/lecturer/manage-courses' },
-                  { label: 'Account Settings', path: '/settings' },
                 ];
               case 'student':
                 return [
-                  { label: 'Dashboard', path: '/student/dashboard' },
                   { label: 'My Courses', path: '/student/courses' },
-                  { label: 'Account Settings', path: '/settings' },
                 ];
         default:
             return [];

@@ -37,17 +37,18 @@ function Login() {
       // Redirect to the appropriate dashboard based on user role
       switch (userData.role) {
         case 'admin':
-          navigate('/admin/dashboard');
+          navigate('/admin/manage-users');
           break;
         case 'lecturer':
-          navigate('/lecturer/dashboard');
+          navigate('/lecturer/manage-courses');
           break;
         case 'student':
-          navigate('/student/dashboard');
+          navigate('/student/courses');
           break;
         default:
           navigate('/');
       }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       setError(error.message);
     } finally {
