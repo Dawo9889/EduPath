@@ -1,5 +1,6 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, use } from "react";
 import User from "../../types/User";
+import { useAuth } from "../../contexts/AuthContext";
 
 interface Props {
   users: User[];
@@ -12,6 +13,8 @@ type SortKey = keyof User;
 type SortOrder = "asc" | "desc";
 
 function UserTable({ users, onEdit, onDelete, isImport }: Props) {
+  const { userId } = useAuth(); 
+
   const [sortKey, setSortKey] = useState<SortKey>("firstname");
   const [sortOrder, setSortOrder] = useState<SortOrder>("asc");
   const [rowsPerPage, setRowsPerPage] = useState<number>(25);
@@ -103,12 +106,14 @@ const paginatedUsers = useMemo(() => {
                     onEdit(user)
                     console.log("Editing user:", user)  
                   }}
+                  disabled={user.id === userId}
                 >
                   {isImport ? "Import" : "Edit"}
                 </button>
                 <button
                   className="btn-danger text-white w-[47%] px-2 py-1 rounded"
                   onClick={() => onDelete(user.id)}
+                  disabled={user.id == userId}
                 >
                   Delete
                 </button>
