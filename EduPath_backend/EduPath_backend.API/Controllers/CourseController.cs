@@ -64,6 +64,21 @@ namespace EduPath_backend.API.Controllers
             return Ok(courses);
         }
 
+
+        [HttpGet("owner/{ownerId}")]
+        [Authorize(Roles = "Admin,Lecturer")]
+        public async Task<IActionResult> GetCoursesByOwnerId(string ownerId)
+        {
+            var courses = await _courseService.GetCoursesByOwnerIdAsync(ownerId);
+
+            if (courses == null || !courses.Any())
+            {
+                return NotFound($"No courses found for owner with ID: {ownerId}");
+            }
+
+            return Ok(courses);
+        }
+
         //Post
         [HttpPost("create")]
         [Authorize(Roles = "Admin,Lecturer")]

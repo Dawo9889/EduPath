@@ -124,5 +124,13 @@ namespace EduPath_backend.Infrastructure.Repositories
 
             return course.CourseUsers.Any(cu => cu.UserId == userId.ToString());
         }
+
+
+        public async Task<List<Course>> GetCoursesByOwnerIdAsync(string ownerId)
+        {
+            return await _context.Courses
+                .Where(c => c.OwnerId == ownerId)
+                .ToListAsync();
+        }
     }
 }

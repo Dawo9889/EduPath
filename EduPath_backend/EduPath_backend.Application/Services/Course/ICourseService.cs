@@ -21,5 +21,6 @@ namespace EduPath_backend.Application.Services.Course
         Task <List<ListCourseDTO>> GetCoursesByUserIdAsync(string userId);
 
         Task<bool> DeleteCourseAsync(Guid courseId, string userId);
+        Task<List<ListCourseDTO>> GetCoursesByOwnerIdAsync(string ownerId);
     }
 }

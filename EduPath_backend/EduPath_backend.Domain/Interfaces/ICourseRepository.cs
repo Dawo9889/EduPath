@@ -28,5 +28,7 @@ namespace EduPath_backend.Domain.Interfaces
         Task<bool> DeleteCourseAsync(Guid courseId);
 
         Task<bool> IsCourseOwnerAsync(Guid courseId, string userId);
+        Task<List<Course>> GetCoursesByOwnerIdAsync(string ownerId);
+
     }
 }

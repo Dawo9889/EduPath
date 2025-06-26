@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { IoCloseOutline } from "react-icons/io5";
+// import { IoCloseOutline } from "react-icons/io5";
 import FormTextField from './form/FormTextField';
 
 interface ResetPasswordFormProps {
-  onClose?: () => void;
+  // onClose?: () => void;
   onReset: (data: {
     userId: string;
     resetToken: string;
@@ -14,7 +14,7 @@ interface ResetPasswordFormProps {
   isResetting: boolean;
 }
 
-export default function ResetPasswordForm({ onClose, onReset, isResetting }: ResetPasswordFormProps) {
+export default function ResetPasswordForm({ onReset, isResetting }: ResetPasswordFormProps) { //Remobved onclose
   const [searchParams] = useSearchParams();
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
