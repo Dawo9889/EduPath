@@ -38,6 +38,25 @@ export const fetchCourses = async () => {
   }
 };
 
+export const fetchLecturersCourses = async (ownerId: string) => {
+  try {
+    const token = getAccessToken();
+    const response = await axios.get<CourseResponseData[]>(
+      `${COURSE_URL}/owner/${ownerId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching courses:", error);
+    handleError(error);
+  }
+};
+
+
 export const getCourse = async (id: string) => {
   try {
     const token = getAccessToken();

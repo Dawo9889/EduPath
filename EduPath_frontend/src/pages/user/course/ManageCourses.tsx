@@ -8,6 +8,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import {
   deleteCourse,
   fetchCourses,
+  fetchLecturersCourses,
   CourseRequestData,
   updateCourse,
   createCourse,
@@ -32,13 +33,28 @@ function ManageCourses() {
   const navigate = useNavigate();
 
   const fetchData = async () => {
+    if (!authReady || !isAuthenticated || !userRole) return;
+
     setIsLoading(true);
 
     try {
-      const fetchedCourses = await fetchCourses();
-      console.log("Fetched courses:", fetchedCourses);
+      let fetchedCourses: CourseResponseData[] = [];
+
+      if (userRole === "lecturer") {
+        if (userId) {
+          const lecturerCourses = await fetchLecturersCourses(userId);
+          fetchedCourses = lecturerCourses ?? [];
+        }
+      } else if (userRole === "student") {
+        const studentCourses = await fetchCourses();
+        fetchedCourses = studentCourses ?? [];
+      } else {
+        console.warn("Unsupported role:", userRole);
+        return;
+      }
+
       const coursesWithStudents: Course[] = await Promise.all(
-        fetchedCourses!.map(async (c: CourseResponseData) => {
+        fetchedCourses.map(async (c) => {
           const users = await getCourseUsers(c.courseId);
           return {
             id: c.courseId,
@@ -46,10 +62,11 @@ function ManageCourses() {
             description: c.description,
             isPublic: c.isPublic,
             ownerName: c.ownerName,
-            students: users!.map((user: { userId: string }) => user.userId),
+            students: users?.map((user: { userId: string }) => user.userId) || [],
           };
         })
       );
+
       setCourses(coursesWithStudents);
     } catch (error) {
       console.error("Failed to fetch courses:", error);
@@ -57,6 +74,8 @@ function ManageCourses() {
       setIsLoading(false);
     }
   };
+
+
 
   // Fetch courses on load
   useEffect(() => {
