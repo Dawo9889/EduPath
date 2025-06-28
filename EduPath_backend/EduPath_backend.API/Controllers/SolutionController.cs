@@ -139,5 +139,24 @@ namespace EduPath_backend.API.Controllers
 
             return BadRequest("Something went wrong while uploading file");
         }
+
+        [HttpPost("grade/{solutionId}")]
+        [Authorize(Roles = "Lecturer")]
+        public async Task<IActionResult> GradeSolution(Guid solutionId, int grade)
+        {
+            if (grade < 2 || grade > 5)
+            {
+                return BadRequest("Grade has to be an integer between 2 and 5.");
+            }
+            try
+            {
+                await _solutionService.GradeSolution(solutionId, grade);
+                return NoContent();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+        }
     }
 }

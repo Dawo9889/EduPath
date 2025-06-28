@@ -13,5 +13,6 @@ namespace EduPath_backend.Domain.Interfaces
         Task<List<AssignmentUser>> GetSolutionsByUser(string userId);
         Task<AssignmentUser> GetSolution(Guid assignmentId);
         Task<bool> CreateSolution(AssignmentUser assignmentUser);
+        Task<bool> GradeSolution(Guid assignmentUserId, int grade);
     }
 }

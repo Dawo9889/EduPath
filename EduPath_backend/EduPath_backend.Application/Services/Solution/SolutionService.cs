@@ -68,5 +68,18 @@ namespace EduPath_backend.Application.Services.Solution
                 throw new Exception("Sth went wrong");
             }
         }
+
+        public async Task<bool> GradeSolution(Guid solutionId, int grade)
+        {
+            var result = await _solutionRepository.GradeSolution(solutionId, grade);
+            if (result)
+            {
+                return true;
+            }
+            else
+            {
+                throw new Exception("Sth went wrong");
+            }
+        }
     }
 }
