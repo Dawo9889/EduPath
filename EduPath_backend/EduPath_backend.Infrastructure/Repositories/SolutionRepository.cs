@@ -55,6 +55,13 @@ namespace EduPath_backend.Infrastructure.Repositories
             return result > 0;
         }
 
-
+        public async Task<bool> GradeSolution(Guid assignmentUserId, int grade)
+        {
+            var solution = await _context.AssignmentUsers.FindAsync(assignmentUserId);
+            if (solution == null) { return false; }
+            solution.Grade = grade;
+            var result = await _context.SaveChangesAsync();
+            return result > 0;
+        }
     }
 }

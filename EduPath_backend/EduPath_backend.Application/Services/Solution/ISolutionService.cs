@@ -13,5 +13,6 @@ namespace EduPath_backend.Application.Services.Solution
         Task<List<SolutionDetailsDTO>> GetSolutionsByUser(string userId);
         Task<SolutionDetailsDTO> GetSolution(Guid solutionId);
         Task<bool> CreateSolution(CreateSolutionDTO uploadSolutionDTO);
+        Task<bool> GradeSolution(Guid solutionId, int grade);
     }
 }

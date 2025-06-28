@@ -9,6 +9,7 @@ export type SolutionResponseData = {
   userId: string;
   filepath: string;
   dateSubmitted: string;
+  grade: string;
 };
 
 export type SolutionRequestData = {
@@ -143,3 +144,19 @@ export const uploadSolution = async (solutionData: SolutionRequestData) => {
   }
 };
 
+export const gradeSolution = async (solutionId: string, grade: number) => {
+  try {
+    const token = getAccessToken();
+    const response = await axios.post(
+      `${SOLUTION_URL}/grade/${solutionId}`, { grade: grade }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+    return response;
+  } catch (error) {
+    console.log("Error grading solution:", error);
+    handleError(error);
+  }
+};

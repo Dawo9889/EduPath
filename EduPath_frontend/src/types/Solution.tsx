@@ -3,6 +3,7 @@ interface Solution {
   studentName: string;
   filePath: string;
   submissionDate: string;
+  grade: number | undefined;
 }
 
 export default Solution;

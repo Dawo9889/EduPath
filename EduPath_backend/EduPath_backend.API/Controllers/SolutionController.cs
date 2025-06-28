@@ -15,7 +15,7 @@ namespace EduPath_backend.API.Controllers
     {
         private readonly ISolutionService _solutionService;
 
-        public SolutionController(ISolutionService solutionService)
+        public SolutionController(ISolutionService solutionService) 
         {
             _solutionService = solutionService;
         }
@@ -138,6 +138,26 @@ namespace EduPath_backend.API.Controllers
                 return Ok("File was successfully uploaded");
 
             return BadRequest("Something went wrong while uploading file");
+        }
+
+        [HttpPost("grade/{solutionId}")]
+        [Authorize(Roles = "Lecturer")]
+        public async Task<IActionResult> GradeSolution(Guid solutionId, [FromBody] GradeSolutionDTO gradeSolutionDTO)
+        {
+            int grade = gradeSolutionDTO.Grade;
+            if (grade < 2 || grade > 5)
+            {
+                return BadRequest("Grade has to be an integer between 2 and 5.");
+            }
+            try
+            {
+                await _solutionService.GradeSolution(solutionId, grade);
+                return NoContent();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
         }
     }
 }
