@@ -42,8 +42,8 @@ namespace EduPath_backend.Infrastructure.Persistence
 
             await SeedAssignmentUsersAsync(context, userManager);
 
-            // Seed multiple users and Lecturers
-            await SeedMultipleUsersAsync(userManager, 6);
+            //// Seed multiple users and Lecturers
+            //await SeedMultipleUsersAsync(userManager, 6);
 
             await SeedCourseUsersAsync(context, userManager);
 
@@ -62,7 +62,7 @@ namespace EduPath_backend.Infrastructure.Persistence
 
         private static async Task<User> SeedAdminUserAsync(UserManager<User> userManager)
         {
-            string adminEmail = "admin@edupath.local";
+            string adminEmail = "admin@edupath.quest";
             var existing = await userManager.FindByEmailAsync(adminEmail);
             if (existing != null)
                 return existing;
@@ -84,7 +84,7 @@ namespace EduPath_backend.Infrastructure.Persistence
 
         private static async Task<User> SeedLecturerUserAsync(UserManager<User> userManager)
         {
-            string LecturerEmail = "Lecturer@edupath.local";
+            string LecturerEmail = "lecturer@edupath.quest";
             var existing = await userManager.FindByEmailAsync(LecturerEmail);
             if (existing != null)
                 return existing;
@@ -106,8 +106,8 @@ namespace EduPath_backend.Infrastructure.Persistence
 
         private static async Task<User> SeedStudentUserAsync(UserManager<User> userManager)
         {
-            string studentEmail = "student@edupath.local";
-            string studentPassword = "Admin123!";
+            string studentEmail = "student@edupath.quest";
+            string studentPassword = "Student123!";
 
             var existingUser = await userManager.FindByEmailAsync(studentEmail);
             if (existingUser != null)
@@ -117,8 +117,8 @@ namespace EduPath_backend.Infrastructure.Persistence
             {
                 UserName = studentEmail,
                 Email = studentEmail,
-                FirstName = "System",
-                LastName = "Administrator",
+                FirstName = "Jacek",
+                LastName = "Student",
                 EmailConfirmed = true
             };
             var result = await userManager.CreateAsync(student, studentPassword);
@@ -128,28 +128,28 @@ namespace EduPath_backend.Infrastructure.Persistence
             return student;
         }
 
-        private static async Task SeedMultipleUsersAsync(UserManager<User> userManager, int userCount)
-        {
-            for (int i = 1; i <= userCount; i++)
-            {
-                string studentEmail = $"student{i}@edupath.local";
-                var student = await userManager.FindByEmailAsync(studentEmail);
-                if (student == null)
-                {
-                    student = new User
-                    {
-                        UserName = studentEmail,
-                        Email = studentEmail,
-                        FirstName = $"Student{i}",
-                        LastName = "Johnson",
-                        EmailConfirmed = true
-                    };
-                    var result = await userManager.CreateAsync(student, "Student123!");
-                    if (result.Succeeded)
-                        await userManager.AddToRoleAsync(student, "Student");
-                }
-            }
-        }
+        //private static async Task SeedMultipleUsersAsync(UserManager<User> userManager, int userCount)
+        //{
+        //    for (int i = 1; i <= userCount; i++)
+        //    {
+        //        string studentEmail = $"student{i}@edupath.local";
+        //        var student = await userManager.FindByEmailAsync(studentEmail);
+        //        if (student == null)
+        //        {
+        //            student = new User
+        //            {
+        //                UserName = studentEmail,
+        //                Email = studentEmail,
+        //                FirstName = $"Student{i}",
+        //                LastName = "Johnson",
+        //                EmailConfirmed = true
+        //            };
+        //            var result = await userManager.CreateAsync(student, "Student123!");
+        //            if (result.Succeeded)
+        //                await userManager.AddToRoleAsync(student, "Student");
+        //        }
+        //    }
+        //}
 
 
         private static async Task SeedAssignmentAsync(ApplicationDbContext context)

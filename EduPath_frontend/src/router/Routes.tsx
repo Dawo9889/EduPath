@@ -9,12 +9,15 @@ import CourseDashboard from "../pages/user/course/CourseDashboard";
 import AssignmentDetails from "../pages/user/course/AssignmentDetails";
 import Unauthorized from "../pages/Unauthorized";
 import ResetPassword from "../pages/user/ResetPassword";
+import UnderConstruction from "../pages/UnderConstruction";
+import Home from "../pages/Home";
 
 export const routes: RouteObject[] = [
   {
     path: "/",
     element: <App />,
     children: [
+      { path: "", element: <Home /> },
       { path: "about", element: <About /> },
       { path: "contact", element: <Contact /> },
       { path: "login", element: <Login /> },
@@ -34,6 +37,7 @@ export const routes: RouteObject[] = [
         element: <AssignmentDetails />,
       },
       { path: "reset-password", element: <ResetPassword /> },
+      { path: "under-construction", element: <UnderConstruction /> },
       { path: "*", element: <Navigate replace to="/not-found" /> },
     ],
   },
