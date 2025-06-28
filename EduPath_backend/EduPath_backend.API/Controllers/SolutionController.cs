@@ -15,7 +15,7 @@ namespace EduPath_backend.API.Controllers
     {
         private readonly ISolutionService _solutionService;
 
-        public SolutionController(ISolutionService solutionService)
+        public SolutionController(ISolutionService solutionService) 
         {
             _solutionService = solutionService;
         }
@@ -142,8 +142,9 @@ namespace EduPath_backend.API.Controllers
 
         [HttpPost("grade/{solutionId}")]
         [Authorize(Roles = "Lecturer")]
-        public async Task<IActionResult> GradeSolution(Guid solutionId, int grade)
+        public async Task<IActionResult> GradeSolution(Guid solutionId, [FromBody] GradeSolutionDTO gradeSolutionDTO)
         {
+            int grade = gradeSolutionDTO.Grade;
             if (grade < 2 || grade > 5)
             {
                 return BadRequest("Grade has to be an integer between 2 and 5.");

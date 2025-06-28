@@ -8,6 +8,7 @@ import {
   downloadSolution,
   fetchSolutionsByAssignment,
   fetchSolutionsByUser,
+  gradeSolution,
   parseFileResponse,
   SolutionRequestData,
   SolutionResponseData,
@@ -18,7 +19,10 @@ import SolutionTable from "../../../components/assignment/SolutionTable";
 import { getCourseUsers } from "../../../api/coursesApi";
 import { UserResponseData } from "../../../api/userApi";
 import { AnimatePresence, motion } from "framer-motion";
-import UploadFileForm, { UploadFileFormData } from "../../../components/assignment/FileUploadForm";
+import UploadFileForm, {
+  UploadFileFormData,
+} from "../../../components/assignment/FileUploadForm";
+import GradeForm, { GradeFormData } from "../../../components/assignment/GradeForm";
 
 function AssignmentDetails() {
   const { courseId, assignmentId } = useParams<{
@@ -29,6 +33,10 @@ function AssignmentDetails() {
 
   const [solutions, setSolutions] = useState<Solution[]>([]);
   const [uploadingSolution, setUploadingSolution] = useState(false);
+  const [gradingSolution, setGradingSolution] = useState<{
+    solutionId: string;
+    grade: number;
+  } | null>(null);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -66,6 +74,7 @@ function AssignmentDetails() {
         ),
         filePath: s.filepath,
         submissionDate: s.dateSubmitted,
+        grade: Number(s.grade)
       }));
 
       setAssignment(normalizedAssignment);
@@ -115,7 +124,7 @@ function AssignmentDetails() {
       userId: userId!,
       filename: formData.file.name,
       file: formData.file,
-      dateSubmitted: new Date(Date.now())
+      dateSubmitted: new Date(Date.now()),
     };
 
     try {
@@ -126,7 +135,18 @@ function AssignmentDetails() {
     } finally {
       setUploadingSolution(false);
     }
-  }
+  };
+
+  const handleSolutionGrade = async (formData: GradeFormData) => {
+    try {
+      await gradeSolution(formData.solutionId, Number(formData.grade));
+      await fetchData();
+    } catch (error) {
+      console.error("Failed to grade solution:", error);
+    } finally {
+      setGradingSolution(null);
+    }
+  };
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
@@ -187,6 +207,40 @@ function AssignmentDetails() {
         )}
       </AnimatePresence>
 
+      <AnimatePresence>
+        {gradingSolution && userRole === "lecturer" && (
+          <>
+            <motion.div
+              className="fixed inset-0 bg-black"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.4 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={() => setGradingSolution(null)}
+            />
+            <motion.div
+              className="fixed top-0 left-0 w-full h-full flex justify-center items-start z-50"
+              initial={{ y: "-100%", opacity: 0 }}
+              animate={{ y: "0%", opacity: 1 }}
+              exit={{ y: "-100%", opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={() => setGradingSolution(null)}
+            >
+              <div
+                className="bg-primary rounded-xl shadow-lg mt-20 w-full max-w-xl relative"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <GradeForm
+                  solution={solutions.find((s) => s.id === gradingSolution.solutionId!)!}
+                  onSave={handleSolutionGrade}
+                  onClose={() => setGradingSolution(null)}
+                />
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
       {isLoading && <p className="text-gray-500">Loading solutions...</p>}
 
       {!isLoading && (
@@ -196,7 +250,13 @@ function AssignmentDetails() {
               No solutions were found. No solutions were submitted yet.
             </p>
           ) : (
-            <SolutionTable solutions={solutions} onDownload={handleDownload} />
+            <SolutionTable
+              solutions={solutions}
+              onDownload={handleDownload}
+              onGrade={(solutionId) =>
+                setGradingSolution({ solutionId, grade: 0 })
+              }
+            />
           )}
         </>
       )}

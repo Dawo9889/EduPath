@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,5 +14,6 @@ namespace EduPath_backend.Application.DTOs.Solution
         public string UserId { get; set; }
         public string Filepath { get; set; }
         public DateTime DateSubmitted { get; set; }
+        public int Grade { get; set; }
     }
 }
