@@ -23,7 +23,7 @@ namespace EduPath_backend.Application.Services.Email
         public Task SendEmailAsync(string to, string subject, string body)
         {
             Console.WriteLine($"Smtp Password: {_smtpPassword}");
-            var fromEmail = "edu-path@cupid.pics";
+            var fromEmail = "edu-path@edupath.quest";
             var mailMessage = new MailMessage(fromEmail, to, subject, body)
             {
                 IsBodyHtml = true
