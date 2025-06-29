@@ -101,7 +101,7 @@ namespace EduPath_backend.Application.Services.User
 
             var domain = _configuration["Domain"];
 
-            var resetLink = $"{domain}reset-password?userId={user.Id}" +
+            var resetLink = $"{domain}/reset-password?userId={user.Id}" +
                             $"&resetToken={encodedResetToken}" +
                             $"&emailToken={encodedEmailToken}";
             // Tymczasowy log:
