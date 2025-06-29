@@ -39,7 +39,7 @@ export default function ResetPasswordForm({ onReset, isResetting }: ResetPasswor
   return (
     <div className="m-4 relative">
       <form onSubmit={handleSubmit} className="mb-6 space-y-4 relative">
-        <h2 className="text-2xl font-bold mb-4 text-primary">Reset Password</h2>
+        <h2 className="text-2xl font-bold mb-4 text-primary">Set Password</h2>
         {/* <IoCloseOutline
           className="text-4xl absolute top-0 right-0 cursor-pointer text-gray-600 hover:text-red-500"
           onClick={onClose}
@@ -78,7 +78,7 @@ export default function ResetPasswordForm({ onReset, isResetting }: ResetPasswor
                 newPassword !== confirmPassword
               }
             >
-              {isResetting ? 'Resetting...' : 'Reset Password'}
+              {isResetting ? 'Setting...' : 'Set Password'}
             </button>
           </>
         )}

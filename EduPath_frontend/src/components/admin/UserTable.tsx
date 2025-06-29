@@ -104,7 +104,6 @@ const paginatedUsers = useMemo(() => {
                   className="btn-primary text-white w-[47%] px-2 py-1 rounded mr-[6%]"
                   onClick={() => {  
                     onEdit(user)
-                    console.log("Editing user:", user)  
                   }}
                   disabled={user.id === userId}
                 >

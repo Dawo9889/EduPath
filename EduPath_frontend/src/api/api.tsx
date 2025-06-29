@@ -75,7 +75,6 @@ export const whoami = async () => {
             },
         });
 
-        console.log('Whoami response:', response.data);
         return response.data;
     } catch (error) {
         if (axios.isAxiosError(error)) {

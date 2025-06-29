@@ -34,7 +34,6 @@ function ManageUsers() {
 
       try {
         const fetchedUsers = await fetchUsers();
-        console.log('Fetched users:', fetchedUsers);
         const normalizedUsers: User[] = fetchedUsers.map((u: any) => ({
         id: u.userId,
         firstname: u.firstName,

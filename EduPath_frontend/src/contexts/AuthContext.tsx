@@ -89,12 +89,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     if (token && savedUser) {
       try {
         const userData = JSON.parse(savedUser);
-        console.log("userData loaded from sessionStorage:", userData);
         setIsAuthenticated(true);
         setUsername(userData.email);
         setUserRole(userData.role);
         setUserId(userData.id);
-        console.log(userData.role);
       } catch (err) {
         console.error('Invalid user data in sessionStorage:', err);
         logout();
