@@ -5,27 +5,30 @@ services:
       - "5000:8080"
     depends_on:
       - db
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
     volumes:
-      - ./EduPath_backend/Edupath_backend.API/appsettings.json:/app/appsettings.json
+      - ./EduPath_backend/EduPath_backend.API/appsettings.json:/app/appsettings.json
 
   db:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
-      SA_PASSWORD: "Your_password123"
+      SA_PASSWORD: "Your_Password123"
       ACCEPT_EULA: "Y"
+    volumes:
+      - database-data:/var/opt/mssql/
     ports:
       - "1433:1433"
 
   frontend:
-    build: 
+    build:
       dockerfile: Docker/Dockerfile
       context: ./EduPath_frontend
       args:
         - VITE_API_URL=http://localhost:5000/api
-  
+
     ports:
       - "3000:80"
     depends_on:
       - api
+
+volumes:
+  database-data:
